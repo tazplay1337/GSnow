@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    /* widget controller */
+    var c = this;
+		console.log("TEST");
+		console.log("Name:", $scope.data);
+		c.data.recordName=0;
+	
+    spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
+			console.log("Data:",name.data);
+			console.log("Name:",name);
+			c.data.recordName = c.data.recordName + 1;
+	 }); 
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>#background {
+  width: 100%;
+  height: 500px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-box-shadow: 3px 3px 8px #6495ED;
+  -moz-box-shadow: 3px 3px 8px #6495ED;
+  box-shadow: 3px 3px 8px #6495ED;
+  background-image: -moz-linear-gradient(-45deg, #0000FF, #87CEEB 78%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #0000FF), color-stop(0.78, #87CEEB));
+  padding: 10px;
+  color: #888888;
+  opacity: 0.92;
+}
+
+#name {
+  float: left;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 40px;
+  -webkit-box-shadow: 0px 0px 8px #6495ED;
+  -moz-box-shadow: 0px 0px 8px #6495ED;
+  box-shadow: 0px 0px 8px #6495ED;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 5px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}
+
+#level {
+  float: right;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 40px;
+  -webkit-box-shadow: 0px 0px 8px #6495ED;
+  -moz-box-shadow: 0px 0px 8px #6495ED;
+  box-shadow: 0px 0px 8px #6495ED;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 5px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}
+
+#image {
+  clear: both;
+	margin: 1cm 0.5cm 0px 0.5cm;
+}
+
+.img {
+  height: 200px;
+  width: 200px;
+  background-size: cover;
+  justify-content: center;
+}
+
+#reward {
+	margin: 0.2cm 0.5cm 0px 0.5cm;
+}
+
+#levelup {
+  float: left;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 8px #6495ED;
+  -moz-box-shadow: 0px 0px 8px #6495ED;
+  box-shadow: 0px 0px 8px #6495ED;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 2px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}
+
+#treasure {
+  float: right;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 8px #6495ED;
+  -moz-box-shadow: 0px 0px 8px #6495ED;
+  box-shadow: 0px 0px 8px #6495ED;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 2px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}
+
+#short_description {
+  clear: both;
+  height: auto;
+	margin: 1cm 0.5cm 0px 0.5cm;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-box-shadow: 2px 2px 8px #6495ED;
+  -moz-box-shadow: 2px 2px 8px #6495ED;
+  box-shadow: 2px 2px 8px #6495ED;
+  text-shadow: 1px 1px 10px #000000;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 5px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}
+
+#punishment {
+  clear: both;
+  height: auto;
+	margin: 0.2cm 0.5cm 0px 0.5cm;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-box-shadow: 2px 2px 8px #6495ED;
+  -moz-box-shadow: 2px 2px 8px #6495ED;
+  box-shadow: 2px 2px 8px #6495ED;
+  text-shadow: 1px 1px 10px #000000;
+  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border: 0px solid #000000;
+  background-color: #FFFFFF;
+  padding: 5px;
+  opacity: 0.9;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: #191970;
+  text-align: center;
+  outline: 0px solid #000000;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>u_showmonster</id>
+        <internal>false</internal>
+        <link/>
+        <name>ShowMonster</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var grMonster = new GlideRecord('x_166119_gsnow_monster');
+	grMonster.get('u_name', "Script Includer");
+		
+	var imageID ='';
+	var grImage = new GlideRecord('sys_attachment');
+	grImage.addQuery('file_name','u_image');
+	grImage.addQuery('table_sys_id',grMonster.sys_id.getDisplayValue());
+	grImage.query();
+	
+	while(grImage.next()){
+		imageID = grImage.sys_id.getDisplayValue();
+	}
+	
+  data.monster = {
+		"name": grMonster.u_name.getDisplayValue(),
+		"image": imageID,
+		"level": grMonster.u_level.getDisplayValue(),
+		"reward_treasure": grMonster.u_reward_treasure.getDisplayValue(),
+		"reward_level": grMonster.u_reward_level.getDisplayValue(),
+		"short_description": grMonster.u_short_description.getDisplayValue()
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-07 17:39:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
+        <sys_mod_count>105</sys_mod_count>
+        <sys_name>ShowMonster</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-11 09:24:06</sys_updated_on>
+        <template><![CDATA[<br/>
+<main id="background">
+    <div id="namelevel">
+        <div id="name">
+            {{data.monster.name}}
+        </div>
+        <div id="level">
+            lvl {{data.monster.level}}
+        </div>
+    </div>
+  
+    <div id="image">
+       <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
+    </div>
+  
+  <div id="reward">
+        <div id="levelup">
+            Level Up {{data.monster.reward_level}}
+        </div>
+        <div id="treasure">
+            Treasure {{data.monster.reward_treasure}}
+        </div>
+  </div>
+  
+  <div id="short_description">
+		<p>
+        {{data.monster.short_description}} 
+    </p>
+  </div>
+  
+    <div id="punishment">
+		<p>
+        This award-winning card game, designed by Steve Jackson, captures the essence 
+        of the dungeon experience... with none of that stupid roleplaying stuff. 
+    </p>
+  </div>
+</main>
+]]></template>
+    </sp_widget>
+</record_update>

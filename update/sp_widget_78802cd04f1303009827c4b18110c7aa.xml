@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script/>
+        <controller_as>c</controller_as>
+        <css>.card{
+  background: white;
+  width: 250px;
+}
+
+/*
+.img {
+  height: 200px;
+  width: 100%;
+  background-repeat: no-repeat;
+}
+*/
+.card-body{
+  margin: auto;
+  justify-content:center; 
+}
+
+*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_waiting_show_dungeon</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Waiting Show Dungeon</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// Get gameID from URL
+	data.gameID = $sp.getParameter("gameID");
+
+	// Get selected Game
+	var grGame = new GlideRecord('x_166119_gsnow_game');
+	grGame.get('number', data.gameID);
+	
+	// Get Dungeon
+	var grDungeon = new GlideRecord('x_166119_gsnow_dungeon');
+	grDungeon.get('u_topic', grGame.u_dungeon.u_topic);
+	
+//	gs.addInfoMessage("Dungeon: " + grDungeon.sys_id);
+	
+	var imageID ='';
+	var grImage = new GlideRecord('sys_attachment');
+	grImage.addQuery('file_name','u_image');
+	grImage.addQuery('table_sys_id', grDungeon.sys_id.getDisplayValue());
+	grImage.query();
+	
+	while(grImage.next()){
+		imageID = grImage.sys_id.getDisplayValue();
+	}
+	
+	data.dungeon = {
+		"topic": grDungeon.u_topic.getDisplayValue(),
+		"image": imageID,
+		"short_description": grDungeon.u_short_description.getDisplayValue()
+	}
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-23 12:38:25</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>78802cd04f1303009827c4b18110c7aa</sys_id>
+        <sys_mod_count>141</sys_mod_count>
+        <sys_name>GS Waiting Show Dungeon</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_78802cd04f1303009827c4b18110c7aa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-26 11:10:30</sys_updated_on>
+        <template><![CDATA[<div class="card">
+  <img class="card-img-top" src="http://mapanything.com/application/files/9314/9969/8393/sn-cert-01.png" alt="Card image cap">
+  <div class="card-body">
+    <div>
+      <h2>{{data.dungeon.topic}}</h2>
+    </div>
+    <div>
+      <p>{{data.dungeon.short_description}}</p>
+    </div>
+  </div>
+</div>
+
+
+<!--
+<div class="card bg-light" style="max-width: 300px;">
+  <div>
+    <div class="card-img-top" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.dungeon.image}}" ng-if="data.dungeon.image"></div>
+  </div>
+  <div card-body>
+    <h2 class="card-title">
+      {{data.dungeon.topic}}
+    </h2>
+    <p  class="card-text">
+      {{data.dungeon.short_description}}
+    </p>
+  </div>
+</div>
+-->]]></template>
+    </sp_widget>
+</record_update>

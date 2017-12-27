@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    /* widget controller */
+	var c = this;
+	
+	$scope.selectGames = function(games) {		
+		for(var i=0; i < c.data.games.length; i++){
+			if(c.data.games[i].name == games.name){
+				c.data.games[i].selected = true;
+				c.data.maxPlayers = c.data.games[i].maxPlayers;
+				c.data.actualPlayer = c.data.games[i].actualPlayer;
+				c.data.dungeon = c.data.games[i].dungeon;
+				c.data.victoryLevel = c.data.games[i].victoryLevel;
+				c.data.createdBy = c.data.games[i].createdBy;
+				c.data.GameID = c.data.games[i].ID;
+			}
+			else{
+				c.data.games[i].selected = false;
+			}
+		}	
+	}
+	
+		$scope.joinGame = function(){
+			c.server.update().then(function(){
+			var gameID = c.data.GameID;
+			location.href = "/gs/?id=gs_waiting_page" + "&gameID=" + gameID;
+			});  
+		}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-body{
+  flex-direction: row;
+  justify-content: space-around;
+  width:100%;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-grow:1;
+}
+
+.choise{
+  display: flex;
+}
+
+.settings{
+	display: flex;
+}
+
+.setting{
+	display: block;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 30px;
+  min-width: 100px;
+  white-space: normal;
+  padding: 2px;
+  margin: 2px
+}
+
+.btn-default {
+  background: darken($btn-default-bg, 5%);
+  color: lighten($text-color, 0%);
+}
+
+.btn-info {
+  background: lighten($info, 20%);
+}
+
+.jumbotron{
+  background: lighten($primary, 10%);
+}
+
+.jumbotron p {
+  color: black;
+}
+
+.boxTitle{
+  display:flex;
+  font-size: 1.05em;
+   padding: 6px;
+}
+
+input::placeholder {
+	opacity:  0.3;
+  font-style:italic;
+}
+
+span.error-message {
+	font-size: .9em;
+	color:red;
+	visibility:hidden;	
+}
+
+.create{
+  margin: 40px 30px 0 0;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_form_join_game</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Form Join Game</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// KnowErrors: Es können sich zuviele Leute anmelden --> Race
+		data.games = [];
+	
+		data.maxPlayers = "";
+		data.actualPlayer = "";
+		data.dungeon = "";
+		data.victoryLevel = "";
+		data.createdBy = "";
+		data.selected = "";
+		data.GameID = "";
+	
+		if(input){
+			data.GameID = input.GameID;
+			
+			var grGame2 = new GlideRecord('x_166119_gsnow_game');
+			grGame2.addQuery('number', data.GameID);
+			grGame2.query();
+			if(grGame2.next()){
+				grGame2.u_actual_player = grGame2.u_actual_player + 1;		
+				if(grGame2.u_actual_player >= grGame2.u_total_number_player){
+					grGame2.u_open = false;
+				}
+				grGame2.update();
+			}
+
+			var grPlayer = new GlideRecord('x_166119_gsnow_player');
+			grPlayer.initialize();
+			grPlayer.u_game = grGame2.sys_id;
+			grPlayer.u_user = gs.getUserID();
+			grPlayer.u_number = grGame2.u_actual_player;
+			grPlayer.insert();
+		}
+		else{	
+			var grGame = new GlideRecord('x_166119_gsnow_game');
+			grGame.addQuery('u_open', 'true');
+			grGame.query();
+
+			var counter = 0;
+			while(grGame.next()){
+				counter = counter + 1;
+				var game = {
+					name: grGame.u_name.getDisplayValue(),
+					ID: grGame.number.getDisplayValue(),
+					maxPlayers: grGame.u_total_number_player.getDisplayValue(),
+					actualPlayer: grGame.u_actual_player.getDisplayValue(),	
+					dungeon: grGame.u_dungeon.getDisplayValue(),
+					victoryLevel: grGame.	u_victory_level.getDisplayValue(),
+					createdBy: grGame.sys_created_by.getDisplayValue(),
+					selected: false	
+				};
+				data.games.push(game);
+			}
+		
+			if(counter == 1){
+				 data.games[0].selected = true;
+				 data.settings[0].game = data.games[0].name;
+			}
+		}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-26 13:27:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3a8848914f5303009827c4b18110c7c8</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>GS Form Join Game</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_3a8848914f5303009827c4b18110c7c8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-26 19:08:12</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
+  <form>
+    <div class="jumbotron jumbotron-fluid">
+      <legend><h1>Join Game</h1></legend>
+      <p class="lead">To successfully join a game, you have to select a open game and click on join.</p>
+    </div>
+    <div class="panel-body">
+      <div>
+        <h3>Open Games</h3>
+        <div class="choise">
+          <div ng-repeat="games in c.data.games">
+            <div class="btn btn-default" ng-class="{'btn-info': games.selected}" ng-click="selectGames(games)">
+              <div class="boxTitle">
+                {{::games.name}}
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <h3>Settings Selected Game</h3>
+      <div class="settings">   
+        <div class="setting">
+          <h5>Created By</h5>
+          <div class="btn btn-default">
+            <div class="boxTitle">
+              {{data.createdBy}}
+            </div>
+          </div>
+        </div>
+        <div class="setting">
+          <h5>Dungeon</h5>
+          <div class="btn btn-default">
+            <div class="boxTitle">
+              {{data.dungeon}}
+            </div>
+          </div>
+        </div>
+        <div class="setting">
+          <h5>Victory Level</h5>
+          <div class="btn btn-default">
+            <div class="boxTitle">
+              {{data.victoryLevel}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="settings">   
+        <div class="setting">
+          <h5>Max Players</h5>
+          <div class="btn btn-default">
+            <div class="boxTitle">
+              {{data.maxPlayers}}
+            </div>
+          </div>
+        </div>
+        <div class="setting">
+          <h5>Actual Player</h5>
+          <div class="btn btn-default">
+            <div class="boxTitle">
+              {{data.actualPlayer}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="create">
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="joinGame()">Join</button>
+      </div>
+    </div>
+  </form>
+</div>]]></template>
+    </sp_widget>
+</record_update>

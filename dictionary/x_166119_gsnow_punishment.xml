@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Punishment" max_length="40" name="x_166119_gsnow_punishment" type="collection">
+        <element label="Amount" max_length="40" name="u_amount" type="integer"/>
+        <element label="Description" max_length="1000" name="u_description" type="string"/>
+        <element label="Name" max_length="40" name="u_name" type="string"/>
+        <element choice="1" label="Typ" max_length="40" name="u_typ" type="choice">
+            <choice>
+                <element label="Attack" value="20"/>
+                <element label="Level" value="10"/>
+            </choice>
+        </element>
+    </element>
+</database>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    /* widget controller */
+    var c = this;
+		console.log("TEST");
+		console.log("Name:", $scope.data);
+		c.data.recordName=0;
+	
+    spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
+			console.log("Data:",name.data);
+			console.log("Name:",name);
+			c.data.recordName = c.data.recordName + 1;
+	 }); 
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>table.monsterTable {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  border: 2px solid #269E3E;
+  background-color: #D4EED1;
+  width: 100%;
+  text-align: center;
+}
+table.monsterTable td, table.mosterTable th {
+  padding: 3px 2px;
+}
+table.monsterTable tbody td {
+  font-size: 13px;
+}
+table.monsterTable thead {
+  background: #64D359;
+  background: -moz-linear-gradient(top, #8bde82 0%, #73d769 66%, #64D359 100%);
+  background: -webkit-linear-gradient(top, #8bde82 0%, #73d769 66%, #64D359 100%);
+  background: linear-gradient(to bottom, #8bde82 0%, #73d769 66%, #64D359 100%);
+  border-bottom: 0px solid #444444;
+}
+table.monsterTable thead th {
+  font-size: 19px;
+  font-weight: bold;
+  color: #F0F0F0;
+  text-align: center;
+  border-left: 2px solid #24943A;
+}
+table.monsterTable thead th:first-child {
+  border-left: none;
+}
+
+table.monsterTable tfoot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #F0F0F0;
+  background: #64D359;
+  background: -moz-linear-gradient(top, #8bde82 0%, #73d769 66%, #64D359 100%);
+  background: -webkit-linear-gradient(top, #8bde82 0%, #73d769 66%, #64D359 100%);
+  background: linear-gradient(to bottom, #8bde82 0%, #73d769 66%, #64D359 100%);
+  border-top: 1px solid #24943A;
+}
+table.monsterTable tfoot td {
+  font-size: 13px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>u-showrecord</id>
+        <internal>false</internal>
+        <link/>
+        <name>ShowRecord</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+	
+	var gr = new GlideRecord('x_166119_gsnow_monster');
+	gr.get('u_name', "Script Includer");
+	
+  data.monster = {
+		"name": gr.u_name.getDisplayValue(),
+		"description": gr.u_description.getDisplayValue(),
+		"image": gr.u_image,
+		"image2": gr.u_image.getDisplayValue,
+		"level": gr.u_level.getDisplayValue(),
+		"reward_treasure": gr.u_reward_treasure.getDisplayValue(),
+		"reward_level": gr.u_reward_level.getDisplayValue()
+	}
+		gs.addInfoMessage("image: " +  data.monster.image);
+		gs.addInfoMessage("image2: " +  data.monster.image2);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-04 10:37:37</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>69ae02ce4f3203009827c4b18110c79d</sys_id>
+        <sys_mod_count>103</sys_mod_count>
+        <sys_name>ShowRecord</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_69ae02ce4f3203009827c4b18110c79d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-07 17:25:35</sys_updated_on>
+        <template><![CDATA[<br />
+<table class="monsterTable">
+<thead>
+<tr>
+<th colspan="2">Level {{data.monster.level}}</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td>Level Up {{data.monster.reward_level}}</td>
+<td>Treasure {{data.monster.reward_treasure}}</td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td colspan="2">{{data.monster.name}}</td>
+</tr>
+<tr>
+<td colspan="2">{{data.monster.image}}</td>
+</tr>
+<tr>
+<td colspan="2">{{data.monster.description}}</td>
+</tr>
+<tr>
+<td colspan="2">Punishment</td>
+</tr>
+</tbody>
+</table>]]></template>
+    </sp_widget>
+</record_update>

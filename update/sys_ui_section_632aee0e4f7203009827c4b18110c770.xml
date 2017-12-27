@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="632aee0e4f7203009827c4b18110c770" sys_domain="global" table="x_166119_gsnow_player" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_user</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-12 13:32:03</sys_created_on>
+            <sys_id>474300b44f8303009827c4b18110c7f3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-12 13:32:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_avatar</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-12 13:32:03</sys_created_on>
+            <sys_id>034380b44f8303009827c4b18110c750</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-12 13:32:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-12 13:32:03</sys_created_on>
+            <sys_id>834380b44f8303009827c4b18110c750</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-12 13:32:03</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_game</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-12 13:32:03</sys_created_on>
+            <sys_id>074380b44f8303009827c4b18110c750</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-12 13:32:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_166119_gsnow_player</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-04 12:37:54</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>632aee0e4f7203009827c4b18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_166119_gsnow_player</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+            <sys_update_name>sys_ui_section_632aee0e4f7203009827c4b18110c770</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-04 12:37:54</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

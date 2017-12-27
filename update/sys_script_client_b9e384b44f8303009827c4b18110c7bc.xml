@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>u_attack</field>
+        <global>true</global>
+        <messages/>
+        <name>Preselect and Set Game</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+	var choices = g_form.getElement('x_166119_gsnow_game');
+	
+	var filterGame = new GlideAjax('GameUtils');
+	filterGame.addParam('sysparm_name','filterGames');
+	filterGame.addParam('sysparm_currentID', 0);
+	filterGame.getXML(getAnswer);
+}
+
+function getAnswer(response){
+	var result = response.responseXML.getElementsByTagName("result");
+	var games = result[0].getAttribute("games").toString();
+	
+	if(games && games.search(",") < 0){
+		g_form.setValue('u_game', games);
+		g_form.setReadOnly('u_game', true);
+		
+	}else{
+		g_form.setReadOnly('u_game', false);
+	}
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-12 13:46:10</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b9e384b44f8303009827c4b18110c7bc</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Preselect and Set Game</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sys_script_client_b9e384b44f8303009827c4b18110c7bc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-12 14:44:49</sys_updated_on>
+        <table>x_166119_gsnow_player</table>
+        <type>onLoad</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

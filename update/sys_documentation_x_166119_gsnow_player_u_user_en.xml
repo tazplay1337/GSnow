@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="u_user" label="User" language="en" table="x_166119_gsnow_player">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>u_user</element>
+            <help/>
+            <hint/>
+            <label>User</label>
+            <language>en</language>
+            <name>x_166119_gsnow_player</name>
+            <plural>Users</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-03 18:32:23</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>eab1f6b54f3203009827c4b18110c7e4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>User</sys_name>
+            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+            <sys_update_name>sys_documentation_x_166119_gsnow_player_u_user_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-03 18:32:23</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

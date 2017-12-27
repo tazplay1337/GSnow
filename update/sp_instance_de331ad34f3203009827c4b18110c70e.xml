@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>0</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">d6331ad34f3203009827c4b18110c70d</sp_column>
+        <sp_widget display_value="Current Status">1e699082d7001200a9addd173e24d4e3</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-08 08:09:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>de331ad34f3203009827c4b18110c70e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Current Status</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_instance_de331ad34f3203009827c4b18110c70e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-08 08:09:59</sys_updated_on>
+        <title>Current Status</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"standalone": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"show_outage_details": {
+		"value": "",
+		"displayValue": ""
+	}
+}]]></widget_parameters>
+    </sp_instance>
+</record_update>

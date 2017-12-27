@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    /* widget controller */
+	var c = this;
+	
+	$scope.selectDungeon = function(dungeons) {		
+		for(var i=0; i < c.data.dungeons.length; i++){
+			if(c.data.dungeons[i].topic == dungeons.topic){
+				c.data.dungeons[i].selected = true;
+				c.data.settings[0].topic = dungeons.topic;
+			}
+			else{
+				c.data.dungeons[i].selected = false;
+			}
+		}	
+	}
+
+	$scope.selectPlayer = function(player) {		
+		for(var i=0; i < c.data.players.length; i++){
+			if(c.data.players[i].player == player.player){
+				c.data.players[i].selected = true;
+				c.data.settings[0].players = player.player;
+			}
+			else{
+				c.data.players[i].selected = false;
+			}
+		}	
+	}
+	
+		$scope.selectPoint = function(point) {		
+		for(var i=0; i < c.data.points.length; i++){
+			if(c.data.points[i].point == point.point){
+				c.data.points[i].selected = true;
+				c.data.settings[0].points = point.point;
+			}
+			else{
+				c.data.points[i].selected = false;
+			}
+		}	
+	}
+		
+		$scope.createGame = function(){
+			c.data.settings[0].name = $scope.name;	
+			c.server.update().then(function(){
+			var gameID = c.data.settings[0].gameID;
+			location.href = "/gs/?id=gs_waiting_page" + "&gameID=" + gameID;
+    });  
+		}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-body{
+  flex-direction: row;
+  justify-content: space-around;
+  width:100%;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-grow:1;
+}
+
+.choise{
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 30px;
+  min-width: 100px;
+  white-space: normal;
+  padding: 2px;
+  margin: 2px
+}
+
+.btn-default {
+  background: darken($btn-default-bg, 5%);
+  color: lighten($text-color, 0%);
+}
+
+.btn-info {
+  background: lighten($info, 20%);
+}
+
+.jumbotron{
+  background: lighten($primary, 10%);
+}
+
+.jumbotron p {
+  color: black;
+}
+
+.boxTitle{
+  display:flex;
+  font-size: 1.05em;
+   padding: 6px;
+}
+
+input::placeholder {
+	opacity:  0.3;
+  font-style:italic;
+}
+
+span.error-message {
+	font-size: .9em;
+	color:red;
+	visibility:hidden;	
+}
+
+.create{
+  margin: 40px 30px 0 0;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>u_gsformcreategame</id>
+        <internal>false</internal>
+        <link/>
+        <name>GSFormCreateGame</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+		
+		var players = [2, 3, 4];
+		var points = [10, 15, 20, 25, 30];
+		data.dungeons = [];
+		data.players = [];
+		data.points = [];
+		data.settings = [];
+	
+		var setting = {
+				name: "",
+				topic: "",
+				players: 0,
+				points: 0,	
+				gameID: "55555"
+			};
+		data.settings.push(setting);
+	
+		if(input){
+			data.settings[0].name = input.settings[0].name;
+			data.settings[0].topic = input.settings[0].topic;
+			data.settings[0].players = input.settings[0].players;
+			data.settings[0].points = input.settings[0].points;
+			
+			var grDun = new GlideRecord('x_166119_gsnow_dungeon');
+			grDun.get('u_topic', data.settings[0].topic);
+			
+			var grGame = new GlideRecord('x_166119_gsnow_game');
+			grGame.initialize();
+			grGame.u_name = input.settings[0].name;
+			grGame.u_total_number_player = input.settings[0].players;
+			grGame.u_victory_level = input.settings[0].points;
+			grGame.u_actual_player = 1;
+			grGame.u_dungeon = grDun.sys_id;
+			grGame.u_start_time = new GlideDateTime().getDisplayValue();
+			grGame.insert();
+			data.settings[0].gameID = grGame.number.getDisplayValue();
+			
+			var grPlayer = new GlideRecord('x_166119_gsnow_player');
+			grPlayer.initialize();
+			grPlayer.u_game = grGame.sys_id;
+			grPlayer.u_user = gs.getUserID();
+			grPlayer.u_number = 1;
+			grPlayer.insert();
+		}
+		else{	
+			var grDungeon = new GlideRecord('x_166119_gsnow_dungeon');
+			grDungeon.query();
+
+			var counter = 0;
+			while(grDungeon.next()){
+				counter = counter + 1;
+				var dungeon = {
+					topic: grDungeon.u_topic.getDisplayValue(),
+					short_description: grDungeon.u_short_description,
+					selected: false	
+				};
+				data.dungeons.push(dungeon);
+			}
+
+			if(counter == 1){
+				 data.dungeons[0].selected = true;
+				 data.settings[0].topic = data.dungeons[0].topic;
+			}
+
+			for(var i=0; i < points.length; i++){
+				var point = {
+					point: points[i],
+					selected: false	
+				};
+				data.points.push(point);
+			}
+
+			for(var j=0; j < players.length; j++){
+				var player = {
+					player: players[j],
+					selected: false	
+				};
+				data.players.push(player);
+			}
+		}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-18 10:24:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>fde156ea4f0303009827c4b18110c7a2</sys_id>
+        <sys_mod_count>267</sys_mod_count>
+        <sys_name>GSFormCreateGame</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_fde156ea4f0303009827c4b18110c7a2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-26 13:25:54</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
+  <form>
+    <div class="jumbotron jumbotron-fluid">
+      <legend><h1>Create Game</h1></legend>
+      <p class="lead">To successfully create a game, you must choose a name for the game. Furthermore, choose the theme of the monster. Last number of players and score to win.</p>
+    </div>
+    <div class="panel-body">
+      <div>
+        <h3>Name</h3>
+        <input type="text" name="name" placeholder="choose a name" class="btn btn-default" ng-model="name">
+      </div>
+      <div>
+        <h3>Dungeon</h3>
+        <div class="choise">
+          <div ng-repeat="dungeons in c.data.dungeons">
+            <div class="btn btn-default" ng-class="{'btn-info': dungeons.selected}" ng-click="selectDungeon(dungeons)">
+              <div class="boxTitle">
+                {{::dungeons.topic}}
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Total Player</h3>
+        <div class="choise">
+          <div ng-repeat="players in c.data.players">
+            <div class="btn btn-default" ng-class="{'btn-info': players.selected}" ng-click="selectPlayer(players)">
+              <div class="boxTitle">
+                {{::players.player}}
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Points to Win</h3>
+        <div class="choise">
+          <div ng-repeat="points in c.data.points">
+            <div class="btn btn-default"ng-class="{'btn-info': points.selected}" ng-click="selectPoint(points)">
+              <div class="boxTitle">
+                {{::points.point}}
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div class="create">
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="createGame()">Create</button>
+      </div>
+    </div>
+  </form>
+</div>]]></template>
+    </sp_widget>
+</record_update>

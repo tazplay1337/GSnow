@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="" label="Equipment Card" language="en" table="x_166119_gsnow_equipment">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element/>
+            <help/>
+            <hint/>
+            <label>Equipment Card</label>
+            <language>en</language>
+            <name>x_166119_gsnow_equipment</name>
+            <plural>Equipment Cards</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 16:08:01</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>288dbb014f7203009827c4b18110c728</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>Equipment Card</sys_name>
+            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+            <sys_update_name>sys_documentation_x_166119_gsnow_equipment__en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 16:11:43</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

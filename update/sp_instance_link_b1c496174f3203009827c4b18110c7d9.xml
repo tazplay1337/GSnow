@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_instance_link">
+    <sp_instance_link action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>info</color>
+        <css/>
+        <glyph>linux</glyph>
+        <id/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <order>0</order>
+        <roles/>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description>Here you can create a new match. Select the settings.</short_description>
+        <size>md</size>
+        <sp_column display_value="1">79c496174f3203009827c4b18110c7d7</sp_column>
+        <sp_page display_value="gs_create_game">fc4e4f9c4f8303009827c4b18110c79f</sp_page>
+        <sp_widget display_value="Icon Link">3caa67afcb13020000f8d856634c9c2e</sp_widget>
+        <sys_class_name>sp_instance_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-08 08:16:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b1c496174f3203009827c4b18110c7d9</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Create New Game</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_instance_link_b1c496174f3203009827c4b18110c7d9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-11 15:15:56</sys_updated_on>
+        <title>Create New Game</title>
+        <type>url</type>
+        <url>?id=gs_create_game&amp;sl_table=x_166119_gsnow_game&amp;sys_id=-1</url>
+        <widget_parameters><![CDATA[{
+	"template": {
+		"value": "Color Box",
+		"displayValue": "Color Box"
+	},
+	"link_template": {
+		"value": "Circle Icon",
+		"displayValue": "Circle Icon"
+	}
+}]]></widget_parameters>
+    </sp_instance_link>
+</record_update>

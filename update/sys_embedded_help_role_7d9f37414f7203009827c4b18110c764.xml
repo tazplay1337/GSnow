@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="x_166119_gsnow.deck_user" name="x_166119_gsnow.deck_user">759f37414f7203009827c4b18110c763</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-01 16:17:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7d9f37414f7203009827c4b18110c764</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>759f37414f7203009827c4b18110c763</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sys_embedded_help_role_7d9f37414f7203009827c4b18110c764</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-01 16:17:08</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>

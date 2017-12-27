@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Gsnow M2m Decks Players" max_length="40" name="x_166119_gsnow_m2m_decks_players" type="collection">
+        <element label="Deck" max_length="32" name="deck" reference="x_166119_gsnow_deck" type="reference"/>
+        <element label="Player" max_length="32" name="player" reference="x_166119_gsnow_player" type="reference"/>
+        <index name="index">
+            <element name="deck"/>
+        </index>
+        <index name="index2">
+            <element name="player"/>
+        </index>
+    </element>
+</database>

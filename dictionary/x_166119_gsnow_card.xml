@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Card" max_length="40" name="x_166119_gsnow_card" type="collection">
+        <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
+        <element choice="1" label="Card Type" max_length="40" name="u_card_type" type="choice">
+            <choice>
+                <element label="Equipment" value="20"/>
+                <element label="Item" value="30"/>
+                <element label="Monster" value="10"/>
+                <element label="Spell" value="40"/>
+                <element label="Trap" value="50"/>
+            </choice>
+        </element>
+        <element choice="1" label="Deck type" max_length="40" name="u_deck_type" type="choice">
+            <choice>
+                <element label="Door" value="20"/>
+                <element label="Treasure" value="10"/>
+            </choice>
+        </element>
+        <element label="Image" max_length="40" name="u_image" type="user_image"/>
+        <element label="Name" max_length="40" name="u_name" type="string"/>
+    </element>
+</database>

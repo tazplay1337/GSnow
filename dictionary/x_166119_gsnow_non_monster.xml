@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_166119_gsnow_card" label="Non Monster Card" max_length="40" name="x_166119_gsnow_non_monster" type="collection">
+        <element label="Effect" max_length="20" name="u_effect" type="decimal"/>
+    </element>
+</database>

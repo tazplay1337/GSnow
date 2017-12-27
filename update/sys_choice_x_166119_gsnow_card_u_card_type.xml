@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_card_type" table="x_166119_gsnow_card" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_card_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Monster</label>
+            <language>en</language>
+            <name>x_166119_gsnow_card</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:44:24</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>0b083f0d4f3203009827c4b18110c760</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:44:24</sys_updated_on>
+            <value>10</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_card_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Equipment</label>
+            <language>en</language>
+            <name>x_166119_gsnow_card</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:45:31</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>78287f0d4f3203009827c4b18110c72b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:45:31</sys_updated_on>
+            <value>20</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_card_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Item</label>
+            <language>en</language>
+            <name>x_166119_gsnow_card</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:45:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ad683f0d4f3203009827c4b18110c7b2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:45:53</sys_updated_on>
+            <value>30</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_card_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Spell</label>
+            <language>en</language>
+            <name>x_166119_gsnow_card</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:46:35</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b678b3094f3203009827c4b18110c7c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:46:35</sys_updated_on>
+            <value>40</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_card_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Trap</label>
+            <language>en</language>
+            <name>x_166119_gsnow_card</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:46:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>60a87f0d4f3203009827c4b18110c72f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:46:59</sys_updated_on>
+            <value>50</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_card_type</element>
+            <name>x_166119_gsnow_card</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2017-12-01 15:44:24</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>aa183f0d4f3203009827c4b18110c7b0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_card_type</sys_name>
+            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+            <sys_update_name>sys_choice_x_166119_gsnow_card_u_card_type</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2017-12-01 15:44:24</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

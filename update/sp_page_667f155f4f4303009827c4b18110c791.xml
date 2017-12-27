@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <css/>
+        <draft>false</draft>
+        <id>gs_waiting_page</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-20 15:02:35</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>667f155f4f4303009827c4b18110c791</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gs_waiting_page</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_page_667f155f4f4303009827c4b18110c791</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-20 15:02:35</sys_updated_on>
+        <title>Waiting Page</title>
+    </sp_page>
+</record_update>

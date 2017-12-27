@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    /* widget controller */
+    var c = this;
+		console.log("TEST");
+		console.log("Name:", $scope.data);
+		c.data.recordName=0;
+	
+    spUtil.recordWatch($scope, "x_166119_gsnow_game", "u_name=Game1", function(name, data) {
+			console.log("Data:",name.data);
+			console.log("Name:",name);
+			c.data.recordName = c.data.recordName + 1;
+	 }); 
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>h3 { 
+	color: #5e9ca0;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+table.comicGreen {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  border: 1px solid #3CC7BF;
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.comicGreen td, table.comicGreen th {
+  width: 25px;
+  border: 0px solid #557872;
+  padding: 3px 2px;
+}
+table.comicGreen tbody td {
+  font-size: 16px;
+  color: #5E9CA0;
+}
+table.comicGreen tr:nth-child(even) {
+  background: #C8FFBF;
+}
+table.comicGreen tfoot td {
+  font-size: 21px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>u_showplayer</id>
+        <internal>false</internal>
+        <link/>
+        <name>ShowPlayer</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+	
+	var gr = new GlideRecord('x_166119_gsnow_game');
+	gr.get('number', "GAME0001001");
+	
+  data.game = {
+		"name": gr.u_name.getDisplayValue(),
+		"number": gr.number.getDisplayValue(),
+		"dungeon": gr.u_dungeon.getDisplayValue(),
+		"victoryLevel": gr.u_victory_level.getDisplayValue(),
+		"startTime": gr.u_start_time.getDisplayValue(),
+		"playerTurn": gr.u_turn.getDisplayValue(),
+		"phase": gr.u_phase.getDisplayValue(),
+		"round": gr.u_round.getDisplayValue()		
+	}
+//	gs.info("TETTSTSTST" + data.viclevel);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-04 16:46:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3a23e7ca4ff203009827c4b18110c70b</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>ShowPlayer</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_3a23e7ca4ff203009827c4b18110c70b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-04 16:52:19</sys_updated_on>
+        <template><![CDATA[<table class="comicGreen">
+<tbody>
+<tr>
+<td>Peter Pan</td>
+<td>is waiting</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Level</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Attack</td>
+<td>12</td>
+<td>Cards</td>
+<td>3</td>
+</tr>
+<tr>
+<td>W:</td>
+<td>2</td>
+<td>A:</td>
+<td>5</td>
+</tr>
+<tr>
+<td>H:</td>
+<td>1</td>
+<td>S:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>C:</td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>]]></template>
+    </sp_widget>
+</record_update>

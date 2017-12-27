@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_m2m">
+    <sys_m2m action="INSERT_OR_UPDATE">
+        <from_table>x_166119_gsnow_player</from_table>
+        <m2m_from_field>player</m2m_from_field>
+        <m2m_from_label>Decks</m2m_from_label>
+        <m2m_table>x_166119_gsnow_m2m_decks_players</m2m_table>
+        <m2m_to_field>deck</m2m_to_field>
+        <m2m_to_label>Players</m2m_to_label>
+        <sys_class_name>sys_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-11 14:53:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ef7bc39c4f8303009827c4b18110c7b3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_166119_gsnow_m2m_decks_players</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sys_m2m_ef7bc39c4f8303009827c4b18110c7b3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-11 14:53:21</sys_updated_on>
+        <to_table>x_166119_gsnow_deck</to_table>
+    </sys_m2m>
+</record_update>

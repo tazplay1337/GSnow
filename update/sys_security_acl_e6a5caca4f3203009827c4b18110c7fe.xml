@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition/>
+        <description>Default access control on x_166119_gsnow_personal_equipment</description>
+        <name>x_166119_gsnow_personal_equipment</name>
+        <operation display_value="write">write</operation>
+        <script/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-04 09:58:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e6a5caca4f3203009827c4b18110c7fe</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_166119_gsnow_personal_equipment</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sys_security_acl_e6a5caca4f3203009827c4b18110c7fe</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-04 09:58:21</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

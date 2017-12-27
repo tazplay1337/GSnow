@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Hand" max_length="40" name="x_166119_gsnow_hand" type="collection">
+        <element label="Player" max_length="32" name="u_player" reference="x_166119_gsnow_player" type="reference"/>
+        <index name="index">
+            <element name="u_player"/>
+        </index>
+    </element>
+</database>
