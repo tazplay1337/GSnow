@@ -148,7 +148,7 @@ span.error-message {
 		}
 		else{	
 			var grGame = new GlideRecord('x_166119_gsnow_game');
-			grGame.addQuery('u_open', 'true');
+			grGame.addQuery('u_state', '10');
 			grGame.query();
 
 			var counter = 0;
@@ -169,7 +169,6 @@ span.error-message {
 		
 			if(counter == 1){
 				 data.games[0].selected = true;
-				 data.settings[0].game = data.games[0].name;
 			}
 		}
 })();]]></script>
@@ -179,7 +178,7 @@ span.error-message {
         <sys_created_on>2017-12-26 13:27:38</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>3a8848914f5303009827c4b18110c7c8</sys_id>
-        <sys_mod_count>38</sys_mod_count>
+        <sys_mod_count>41</sys_mod_count>
         <sys_name>GS Form Join Game</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -187,7 +186,7 @@ span.error-message {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_3a8848914f5303009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-26 19:08:12</sys_updated_on>
+        <sys_updated_on>2017-12-30 18:38:28</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <form>
     <div class="jumbotron jumbotron-fluid">

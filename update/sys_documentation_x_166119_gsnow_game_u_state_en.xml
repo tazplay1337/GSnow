@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="u_open" label="Open" language="en" table="x_166119_gsnow_game">
+    <sys_documentation element="u_state" label="State" language="en" table="x_166119_gsnow_game">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>u_open</element>
+            <element>u_state</element>
             <help/>
             <hint/>
-            <label>Open</label>
+            <label>State</label>
             <language>en</language>
             <name>x_166119_gsnow_game</name>
-            <plural>Opens</plural>
+            <plural>States</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-26 13:38:07</sys_created_on>
+            <sys_created_on>2017-12-27 19:37:36</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>14fa04154f5303009827c4b18110c7db</sys_id>
+            <sys_id>3bc6e2214f5f03009827c4b18110c707</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Open</sys_name>
+            <sys_name>State</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-            <sys_update_name>sys_documentation_x_166119_gsnow_game_u_open_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_166119_gsnow_game_u_state_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-26 13:38:07</sys_updated_on>
+            <sys_updated_on>2017-12-27 19:37:36</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

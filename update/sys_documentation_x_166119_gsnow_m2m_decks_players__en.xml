@@ -11,9 +11,9 @@
             <plural>Gsnow M2m Decks Players</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-11 14:53:21</sys_created_on>
+            <sys_created_on>2017-12-29 12:13:49</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>1c5c4b9c4f8303009827c4b18110c7d1</sys_id>
+            <sys_id>7e64dfc24f1b03009827c4b18110c7bd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Gsnow M2m Decks Players</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -22,7 +22,7 @@
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
             <sys_update_name>sys_documentation_x_166119_gsnow_m2m_decks_players__en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-11 14:53:21</sys_updated_on>
+            <sys_updated_on>2017-12-29 12:13:49</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Gsnow M2m Cards Games" max_length="40" name="x_166119_gsnow_m2m_cards_games" type="collection">
+        <element label="Card" max_length="32" name="card" reference="x_166119_gsnow_card" type="reference"/>
+        <element label="Game" max_length="32" name="game" reference="x_166119_gsnow_game" type="reference"/>
+        <element default="true" label="Deck" max_length="40" name="u_deck" type="boolean"/>
+        <element choice="3" default="10" label="State" max_length="40" name="u_state" type="choice">
+            <choice>
+                <element label="Deck" value="10"/>
+                <element label="Deposit Stack" value="70"/>
+                <element label="Drawn" value="20"/>
+                <element label="Execute" value="50"/>
+                <element label="Field" value="40"/>
+                <element label="Finished" value="60"/>
+                <element label="Hand" value="30"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="game"/>
+        </index>
+        <index name="index2">
+            <element name="card"/>
+        </index>
+    </element>
+</database>

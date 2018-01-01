@@ -17,7 +17,11 @@
                 <element label="Treasure" value="10"/>
             </choice>
         </element>
+        <element label="Dungeon" max_length="32" name="u_dungeon" reference="x_166119_gsnow_dungeon" type="reference"/>
         <element label="Image" max_length="40" name="u_image" type="user_image"/>
         <element label="Name" max_length="40" name="u_name" type="string"/>
+        <index name="index">
+            <element name="u_dungeon"/>
+        </index>
     </element>
 </database>

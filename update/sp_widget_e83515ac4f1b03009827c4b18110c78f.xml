@@ -4,11 +4,37 @@
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
     var c = this;
 		c.data.allReady = false;
-	
-    spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=${c.data.gameID}", function(name, data) {
+
+	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
+		if("u_actual_player" == name.data.changes){
+			location.reload();
+		}
+		else if("40" == name.data.record.u_state.value){
+			console.log("Open new page");
+		}
+		else{
 			server.update();
-	 });
+		}
+  });
 	
+		$scope.playerReady = function(player) {
+			for(var i=0; i < c.data.players.length; i++){
+				if(!c.data.players[i].ready && c.data.players[i].name == player.name){
+					c.data.players[i].ready = true;
+					c.data.readyPlayer =  parseInt(c.data.readyPlayer) + 1;
+					c.data.readyClick = i+1;
+					c.server.update();
+				}
+			}
+		}
+	
+		$scope.startGame = function(){
+			c.data.state = 30;
+			c.server.update();
+		}
+}
+
+/*
 		$scope.playerReady = function(player) {
 		for(var i=0; i < c.data.players.length; i++){
 			if(!c.data.players[i].ready && c.data.players[i].name == player.name){
@@ -19,7 +45,7 @@
 				c.data.players[i].ready = false;
 				c.data.readyPlayer -= 1;
 			}
-		}	
+		}
 		if(c.data.readyPlayer >= c.data.maxPlayer){
 			c.data.allReady = true;
 		}
@@ -27,9 +53,8 @@
 			c.data.allReady = false;
 		}
 	}
-}
-
-//{{c.data.allReady}}]]></client_script>
+	
+	*/]]></client_script>
         <controller_as>c</controller_as>
         <css>.body {
 }
@@ -58,7 +83,8 @@
 	data.gameID = "";
 	data.players = [];
 	data.maxPlayer = 0;
-	data.readyPlayer = 0;
+//	data.readyClick = 0;
+	data.state = 0;
 	
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
@@ -66,9 +92,10 @@
 	// Get selected Game
 	var grGame = new GlideRecord('x_166119_gsnow_game');
 	grGame.get('number', data.gameID);
-	data.maxPlayer = grGame.u_total_number_player.getDisplayValue();
+	data.readyPlayer = grGame.u_ready_player.getDisplayValue();
 
 	// Get all Players
+	data.maxPlayer = grGame.u_total_number_player.getDisplayValue();
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.addQuery('u_game', grGame.sys_id);
 	grPlayer.query();
@@ -77,40 +104,38 @@
 		var player = {
 			name: grPlayer.u_user.getDisplayValue(),
 			ready: false,
+			admin: false,
 			selected: false	
 		};
-		
+
 		if(grPlayer.u_user == gs.getUserID()){
 			player.selected = true;
 		}
+		if("1" == grPlayer.u_number.getDisplayValue()){
+			player.admin = true;
+		}		
+		if(input && input.readyClick == grPlayer.u_number.getDisplayValue()){
+			player.ready = true;			
+		}
 		data.players.push(player);
 	}
+
+	if(input){		
+		if(input.readyPlayer != data.readyPlayer){
+			gs.addInfoMessage("input.readyPlayer" + input.readyPlayer);
+			data.readyPlayer = input.readyPlayer;
+			grGame.u_ready_player = data.readyPlayer;
+			grGame.update();
+		}	
+		
+		if(input.state){
+			gs.addInfoMessage("input.state");
+			data.state = input.state;
+			grGame.u_state = data.state;
+			grGame.update();
+		}
+	} 
 })();
-
-
-/*
-	// Get Dungeon
-	var grDungeon = new GlideRecord('x_166119_gsnow_dungeon');
-	grDungeon.get('u_topic', grGame.u_dungeon.u_topic);
-	
-//	gs.addInfoMessage("Dungeon: " + grDungeon.sys_id);
-	
-	var imageID ='';
-	var grImage = new GlideRecord('sys_attachment');
-	grImage.addQuery('file_name','u_image');
-	grImage.addQuery('table_sys_id', grDungeon.sys_id.getDisplayValue());
-	grImage.query();
-	
-	while(grImage.next()){
-		imageID = grImage.sys_id.getDisplayValue();
-	}
-	
-	data.dungeon = {
-		"topic": grDungeon.u_topic.getDisplayValue(),
-		"image": imageID,
-		"short_description": grDungeon.u_short_description.getDisplayValue()
-	}	
-*/
 ]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -118,7 +143,7 @@
         <sys_created_on>2017-12-24 11:07:06</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e83515ac4f1b03009827c4b18110c78f</sys_id>
-        <sys_mod_count>138</sys_mod_count>
+        <sys_mod_count>220</sys_mod_count>
         <sys_name>GS Waiting Players</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -126,7 +151,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e83515ac4f1b03009827c4b18110c78f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-26 23:03:54</sys_updated_on>
+        <sys_updated_on>2017-12-31 16:10:56</sys_updated_on>
         <template><![CDATA[<div class="container">
   <div class="row">
     <div class="col-xs-8">
@@ -146,14 +171,15 @@
               <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
               </div>
               <div class="col-xs-4">
-                <h4 class="product-name"><strong>{{::players.name}}</strong></h4><h4><small>Description</small></h4>
+                <h4 class="product-name"><strong>{{::players.name}}</strong></h4><h4><small>Description </small></h4>
               </div>
-              <div class="col-xs-6" ng-show={{::players.selected}}>
+              <div class="col-xs-6" ng-show={{::players.selected}}> 
+                <!--<div class="col-xs-6"> -->
                 <div class="col-xs-6 text-right">
                   <h6><strong>Click if Ready</strong></h6>
                 </div>
                 <div class="col-xs-4">
-                  <input type="button" class="form-control input-sm" ng-class="{'btn-info': player.ready}" ng-click="playerReady(players)">
+                  <input type="button" class="form-control input-sm" ng-class="{'btn-info': player.ready}" ng-disabled="(players.ready == true)" ng-click="playerReady(players)">
                 </div>
               </div>
             </div>
@@ -164,8 +190,8 @@
               <div class="col-xs-9">
                 <h4 class="text-right">Ready <strong>({{c.data.readyPlayer}} / {{c.data.maxPlayer}})</strong></h4>
               </div>
-              <div class="col-xs-3">
-                <button type="button" class="btn btn-success btn-block" ng-disabled="(c.data.allReady == false)" ng-click="startGame()">
+              <div class="col-xs-3" ng-repeat="players in c.data.players">
+                <button type="button" class="btn btn-success btn-block" ng-show={{::players.admin}} ng-disabled="(c.data.allReady == false)" ng-click="startGame()">
                   Start Game
                 </button>
               </div>

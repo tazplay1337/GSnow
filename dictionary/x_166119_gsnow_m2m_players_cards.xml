@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Gsnow M2m Players Cards" max_length="40" name="x_166119_gsnow_m2m_players_cards" type="collection">
+        <element label="Card" max_length="32" name="card" reference="x_166119_gsnow_card" type="reference"/>
+        <element label="Player" max_length="32" name="player" reference="x_166119_gsnow_player" type="reference"/>
+        <element label="Game" max_length="32" name="u_game" reference="x_166119_gsnow_game" type="reference"/>
+        <element choice="3" default="20" label="Playing Field" max_length="40" name="u_playing_field" type="choice">
+            <choice>
+                <element label="Affected Me Field" value="40"/>
+                <element label="Deposit Stack" value="60"/>
+                <element label="Drawn" value="10"/>
+                <element label="Execute" value="50"/>
+                <element label="Hand" value="20"/>
+                <element label="Personal Equipment" value="30"/>
+            </choice>
+        </element>
+        <element choice="1" label="Position" max_length="40" name="u_position" type="choice">
+            <choice>
+                <element label="Armor" value="20"/>
+                <element label="Bonus" value="10"/>
+                <element label="Cape" value="40"/>
+                <element label="Footwear" value="30"/>
+                <element label="Weapon" value="50"/>
+            </choice>
+        </element>
+        <element default="0" label="Remain Lifetime" max_length="40" name="u_remain_lifetime" type="integer"/>
+        <index name="index">
+            <element name="card"/>
+        </index>
+        <index name="index2">
+            <element name="u_game"/>
+        </index>
+        <index name="index3">
+            <element name="player"/>
+        </index>
+    </element>
+</database>

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="u_dungeon" label="Dungeon" language="en" table="x_166119_gsnow_monster">
+    <sys_documentation element="u_number_treasure_cards" label="Number Treasure Cards" language="en" table="x_166119_gsnow_game">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>u_dungeon</element>
+            <element>u_number_treasure_cards</element>
             <help/>
             <hint/>
-            <label>Dungeon</label>
+            <label>Number Treasure Cards</label>
             <language>en</language>
-            <name>x_166119_gsnow_monster</name>
-            <plural>Dungeons</plural>
+            <name>x_166119_gsnow_game</name>
+            <plural>Number Treasure Cards</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-01 17:00:14</sys_created_on>
+            <sys_created_on>2017-12-29 16:05:39</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>d97908d54f7203009827c4b18110c7a5</sys_id>
+            <sys_id>6e79085e4f5b03009827c4b18110c789</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Dungeon</sys_name>
+            <sys_name>Number Treasure Cards</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-            <sys_update_name>sys_documentation_x_166119_gsnow_monster_u_dungeon_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_166119_gsnow_game_u_number_treasure_cards_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-01 17:00:14</sys_updated_on>
+            <sys_updated_on>2017-12-29 16:05:39</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

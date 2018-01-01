@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element label="Deck" max_length="40" name="x_166119_gsnow_deck" type="collection">
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="Card" max_length="32" name="u_card" reference="x_166119_gsnow_card" type="reference"/>
+        <element default="0" label="Card Number" max_length="40" name="u_card_number" type="integer"/>
         <element label="Game" max_length="32" name="u_game" reference="x_166119_gsnow_game" type="reference"/>
-        <element choice="1" label="State" max_length="40" name="u_state" type="choice">
+        <element choice="3" default="10" label="State" max_length="40" name="u_state" type="choice">
             <choice>
                 <element label="Deck" value="10"/>
                 <element label="Deposit Stack" value="70"/>

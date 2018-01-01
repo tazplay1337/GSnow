@@ -2,7 +2,6 @@
 <database>
     <element extends="x_166119_gsnow_card" label="Monster Card" max_length="40" name="x_166119_gsnow_monster" type="collection">
         <element label="Answer" max_length="100" name="u_answer" type="string"/>
-        <element label="Dungeon" max_length="32" name="u_dungeon" reference="x_166119_gsnow_dungeon" type="reference"/>
         <element label="Exercise" max_length="32" name="u_exercise" reference="x_166119_gsnow_exercise" type="reference"/>
         <element label="Input" max_length="100" name="u_input" type="string"/>
         <element label="Level" max_length="20" name="u_level" type="decimal"/>
@@ -23,9 +22,6 @@
             <element name="u_exercise"/>
         </index>
         <index name="index2">
-            <element name="u_dungeon"/>
-        </index>
-        <index name="index3">
             <element name="u_punishment"/>
         </index>
     </element>

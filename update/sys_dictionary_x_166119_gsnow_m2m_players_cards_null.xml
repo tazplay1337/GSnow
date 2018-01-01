@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="u_open" table="x_166119_gsnow_game">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="" table="x_166119_gsnow_m2m_players_cards">
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
         <attributes/>
         <audit>false</audit>
-        <calculation><![CDATA[(function calculatedFieldValue(current) {
-
-	// Add your code here
-	return '';  // return the calculated value
-
-})(current);]]></calculation>
-        <choice/>
+        <calculation/>
+        <choice>0</choice>
         <choice_field/>
         <choice_table/>
-        <column_label>Open</column_label>
+        <column_label/>
         <comments/>
         <create_roles/>
-        <default_value>true</default_value>
+        <default_value/>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
@@ -28,13 +23,13 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>u_open</element>
+        <element/>
         <element_reference>false</element_reference>
         <foreign_database/>
-        <internal_type display_value="">boolean</internal_type>
+        <internal_type display_value="Collection">collection</internal_type>
         <mandatory>false</mandatory>
         <max_length>40</max_length>
-        <name>x_166119_gsnow_game</name>
+        <name>x_166119_gsnow_m2m_players_cards</name>
         <next_element/>
         <primary>false</primary>
         <read_only>false</read_only>
@@ -51,18 +46,18 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-12-26 13:38:07</sys_created_on>
+        <sys_created_on>2017-12-28 23:39:20</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
-        <sys_id>8fba04d14f5303009827c4b18110c763</sys_id>
+        <sys_id>e2b760064fd303009827c4b18110c702</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>Open</sys_name>
+        <sys_name>x_166119_gsnow_m2m_players_cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-        <sys_update_name>sys_dictionary_x_166119_gsnow_game_u_open</sys_update_name>
+        <sys_update_name>sys_dictionary_x_166119_gsnow_m2m_players_cards_null</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-26 13:38:07</sys_updated_on>
+        <sys_updated_on>2017-12-28 23:39:20</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

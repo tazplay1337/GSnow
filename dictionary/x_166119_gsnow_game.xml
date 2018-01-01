@@ -5,13 +5,24 @@
         <element default="0" label="Actual Player" max_length="40" name="u_actual_player" type="integer"/>
         <element label="Dungeon" mandatory="true" max_length="32" name="u_dungeon" reference="x_166119_gsnow_dungeon" type="reference"/>
         <element label="Name" mandatory="true" max_length="40" name="u_name" type="string"/>
-        <element default="true" label="Open" max_length="40" name="u_open" type="boolean"/>
+        <element label="Number Door Cards" max_length="40" name="u_number_door_cards" type="integer"/>
+        <element label="Number Treasure Cards" max_length="40" name="u_number_treasure_cards" type="integer"/>
         <element default="0" label="Phase" max_length="40" name="u_phase" type="integer"/>
+        <element default="0" label="Ready Player" max_length="40" name="u_ready_player" type="integer"/>
         <element default="0" label="Round" max_length="40" name="u_round" type="integer"/>
         <element label="Start Time" max_length="40" name="u_start_time" type="glide_date_time"/>
+        <element choice="3" default="10" label="State" max_length="40" name="u_state" type="choice">
+            <choice>
+                <element label="Close" value="20"/>
+                <element label="Initial" value="30"/>
+                <element label="Open" value="10"/>
+                <element label="Play" value="50"/>
+                <element label="Ready" value="40"/>
+            </choice>
+        </element>
         <element label="Timer" max_length="40" name="u_timer" type="glide_time"/>
         <element label="Total Number Player" mandatory="true" max_length="40" name="u_total_number_player" type="integer"/>
-        <element default="0" label="Turn" max_length="40" name="u_turn" type="integer"/>
+        <element default="1" label="Turn" max_length="40" name="u_turn" type="integer"/>
         <element label="Victory Level" mandatory="true" max_length="40" name="u_victory_level" type="integer"/>
         <index name="index">
             <element name="u_dungeon"/>
