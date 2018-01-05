@@ -3,18 +3,63 @@
     <sys_ui_list parent="" relationship="" sys_domain="global" table="x_166119_gsnow_player" version="2" view="sys_ref_list">
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>u_number</element>
-            <list_id display_value="x_166119_gsnow_player" element="NULL" name="x_166119_gsnow_player" parent="NULL" relationship="NULL" sys_domain="global" view="d8c21433a8033200a21c40382c84b880">e048496e4f9343009827c4b18110c796</list_id>
+            <element>u_user</element>
+            <list_id display_value="x_166119_gsnow_player" element="NULL" name="x_166119_gsnow_player" parent="NULL" relationship="NULL" sys_domain="global" view="d8c21433a8033200a21c40382c84b880">fcd634f34f5303009827c4b18110c798</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-30 15:18:25</sys_created_on>
-            <sys_id>6848496e4f9343009827c4b18110c796</sys_id>
+            <sys_created_on>2018-01-03 11:14:39</sys_created_on>
+            <sys_id>f8d634f34f5303009827c4b18110c799</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-30 15:18:25</sys_updated_on>
+            <sys_updated_on>2018-01-03 11:14:39</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_number</element>
+            <list_id display_value="x_166119_gsnow_player" element="NULL" name="x_166119_gsnow_player" parent="NULL" relationship="NULL" sys_domain="global" view="d8c21433a8033200a21c40382c84b880">fcd634f34f5303009827c4b18110c798</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-03 11:14:39</sys_created_on>
+            <sys_id>b0d634f34f5303009827c4b18110c79a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-03 11:14:39</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sys_created_on</element>
+            <list_id display_value="x_166119_gsnow_player" element="NULL" name="x_166119_gsnow_player" parent="NULL" relationship="NULL" sys_domain="global" view="d8c21433a8033200a21c40382c84b880">fcd634f34f5303009827c4b18110c798</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-03 11:14:39</sys_created_on>
+            <sys_id>34d634f34f5303009827c4b18110c79a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-03 11:14:39</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sys_updated_on</element>
+            <list_id display_value="x_166119_gsnow_player" element="NULL" name="x_166119_gsnow_player" parent="NULL" relationship="NULL" sys_domain="global" view="d8c21433a8033200a21c40382c84b880">fcd634f34f5303009827c4b18110c798</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-03 11:14:39</sys_created_on>
+            <sys_id>b4d634f34f5303009827c4b18110c79a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-03 11:14:39</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -28,11 +73,11 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-30 15:18:25</sys_created_on>
+            <sys_created_on>2018-01-03 11:14:39</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>e048496e4f9343009827c4b18110c796</sys_id>
+            <sys_id>fcd634f34f5303009827c4b18110c798</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_166119_gsnow_player</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -41,7 +86,7 @@
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
             <sys_update_name>sys_ui_list_x_166119_gsnow_player_sys_ref_list</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-30 15:18:25</sys_updated_on>
+            <sys_updated_on>2018-01-03 11:14:39</sys_updated_on>
             <sys_user/>
             <view display_value="Reference List" name="sys_ref_list">d8c21433a8033200a21c40382c84b880</view>
             <view_name/>

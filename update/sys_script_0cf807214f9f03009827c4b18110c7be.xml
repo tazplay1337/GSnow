@@ -56,6 +56,7 @@
 		grDeck.initialize();
 		grDeck.game = current.sys_id;
 		grDeck.card = grCard.sys_id;
+		grDeck.u_card_number = Math.floor((Math.random() * 9000) + 1).toFixed(0);
 		grDeck.insert();
 	}
 	
@@ -73,6 +74,7 @@
 	grDeck2.addQuery('game', current.sys_id);
 	grDeck2.addQuery('u_deck', 'true');
 	grDeck2.addQuery('card.u_deck_type', '10');
+	grDeck2.orderBy('u_card_number');
 	grDeck2.chooseWindow(start, end);
 	grDeck2.query();
 
@@ -114,7 +116,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>0cf807214f9f03009827c4b18110c7be</sys_id>
-        <sys_mod_count>35</sys_mod_count>
+        <sys_mod_count>36</sys_mod_count>
         <sys_name>Initialize  Game</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -123,7 +125,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_0cf807214f9f03009827c4b18110c7be</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-30 18:34:24</sys_updated_on>
+        <sys_updated_on>2018-01-01 18:25:21</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

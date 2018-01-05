@@ -4,15 +4,6 @@
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
     /* widget controller */
     var c = this;
-		console.log("TEST");
-		console.log("Name:", $scope.data);
-		c.data.recordName=0;
-	
-    spUtil.recordWatch($scope, "x_166119_gsnow_game", "u_name=Game1", function(name, data) {
-			console.log("Data:",name.data);
-			console.log("Name:",name);
-			c.data.recordName = c.data.recordName + 1;
-	 }); 
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>h3 { 
@@ -60,8 +51,11 @@ table.comicGreen tfoot td {
     /* populate the 'data' object */
     /* e.g., data.table = $sp.getValue('table'); */
 	
+	// Get gameID from URL
+	data.gameID = $sp.getParameter("gameID");
+	
 	var gr = new GlideRecord('x_166119_gsnow_game');
-	gr.get('number', "GAME0001001");
+	gr.get('number', data.gameID);
 	
   data.game = {
 		"name": gr.u_name.getDisplayValue(),
@@ -81,7 +75,7 @@ table.comicGreen tfoot td {
         <sys_created_on>2017-12-04 16:46:53</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>3a23e7ca4ff203009827c4b18110c70b</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>ShowPlayer</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -89,7 +83,7 @@ table.comicGreen tfoot td {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_3a23e7ca4ff203009827c4b18110c70b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-04 16:52:19</sys_updated_on>
+        <sys_updated_on>2018-01-01 20:40:02</sys_updated_on>
         <template><![CDATA[<table class="comicGreen">
 <tbody>
 <tr>

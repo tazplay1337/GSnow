@@ -15,7 +15,15 @@
 	 }); 
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css>#background {
+        <css>.h5, .h6{
+	color: #191970;
+}
+
+#namelevel{
+  margin: 0.2cm 0.5cm 0px 0.5cm;
+}
+
+#background {
   width: 100%;
   height: 500px;
   -webkit-border-radius: 24px;
@@ -24,55 +32,48 @@
   -webkit-box-shadow: 3px 3px 8px #6495ED;
   -moz-box-shadow: 3px 3px 8px #6495ED;
   box-shadow: 3px 3px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #0000FF, #87CEEB 78%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #0000FF), color-stop(0.78, #87CEEB));
+  background-color: #428bca;
   padding: 10px;
   color: #888888;
-  opacity: 0.92;
 }
 
 #name {
   float: left;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 40px;
-  -webkit-box-shadow: 0px 0px 8px #6495ED;
-  -moz-box-shadow: 0px 0px 8px #6495ED;
-  box-shadow: 0px 0px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 4px;
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 5px;
   opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
+/*  font-family: Verdana, Geneva, sans-serif;
   font-weight: bold;
   font-size: 10pt;
   color: #191970;
   text-align: center;
   outline: 0px solid #000000;
+ */
 }
 
 #level {
   float: right;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 40px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 4px;
   -webkit-box-shadow: 0px 0px 8px #6495ED;
   -moz-box-shadow: 0px 0px 8px #6495ED;
   box-shadow: 0px 0px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 5px;
   opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
+/*  font-family: Verdana, Geneva, sans-serif;
   font-weight: bold;
   font-size: 10pt;
   color: #191970;
   text-align: center;
   outline: 0px solid #000000;
+*/
 }
 
 #image {
@@ -99,38 +100,31 @@
   -webkit-box-shadow: 0px 0px 8px #6495ED;
   -moz-box-shadow: 0px 0px 8px #6495ED;
   box-shadow: 0px 0px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 2px;
   opacity: 0.9;
+/*
   font-family: Verdana, Geneva, sans-serif;
   font-size: 9pt;
   color: #191970;
   text-align: center;
   outline: 0px solid #000000;
+ */
 }
 
 #treasure {
   float: right;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
   border-radius: 4px;
   -webkit-box-shadow: 0px 0px 8px #6495ED;
   -moz-box-shadow: 0px 0px 8px #6495ED;
   box-shadow: 0px 0px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 2px;
   opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 9pt;
-  color: #191970;
-  text-align: center;
-  outline: 0px solid #000000;
 }
 
 #short_description {
@@ -139,19 +133,13 @@
 	margin: 1cm 0.5cm 0px 0.5cm;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
-  border-radius: 7px;
-  -webkit-box-shadow: 2px 2px 8px #6495ED;
-  -moz-box-shadow: 2px 2px 8px #6495ED;
-  box-shadow: 2px 2px 8px #6495ED;
-  text-shadow: 1px 1px 10px #000000;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border-radius: 4px;
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 5px;
   opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 8pt;
+//  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
   color: #191970;
   text-align: center;
   outline: 0px solid #000000;
@@ -163,19 +151,13 @@
 	margin: 0.2cm 0.5cm 0px 0.5cm;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
-  border-radius: 7px;
-  -webkit-box-shadow: 2px 2px 8px #6495ED;
-  -moz-box-shadow: 2px 2px 8px #6495ED;
-  box-shadow: 2px 2px 8px #6495ED;
-  text-shadow: 1px 1px 10px #000000;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
+  border-radius: 4px;
   border: 0px solid #000000;
   background-color: #FFFFFF;
   padding: 5px;
   opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 8pt;
+//  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
   color: #191970;
   text-align: center;
   outline: 0px solid #000000;
@@ -222,7 +204,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>105</sys_mod_count>
+        <sys_mod_count>143</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -230,41 +212,36 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-11 09:24:06</sys_updated_on>
-        <template><![CDATA[<br/>
-<main id="background">
-    <div id="namelevel">
-        <div id="name">
-            {{data.monster.name}}
-        </div>
-        <div id="level">
-            lvl {{data.monster.level}}
-        </div>
+        <sys_updated_on>2018-01-03 16:30:17</sys_updated_on>
+        <template><![CDATA[<main id="background">
+  <div id="namelevel">
+    <div id="name" class="h5" >
+      {{data.monster.name}}
     </div>
-  
-    <div id="image">
-       <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
+    <div id="level" class="h5">
+      lvl {{data.monster.level}}
     </div>
-  
-  <div id="reward">
-        <div id="levelup">
-            Level Up {{data.monster.reward_level}}
-        </div>
-        <div id="treasure">
-            Treasure {{data.monster.reward_treasure}}
-        </div>
   </div>
-  
+  <div id="image">
+    <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
+  </div>
+  <div id="reward">
+    <div id="levelup" class="h6">
+      Level Up {{data.monster.reward_level}}
+    </div>
+    <div id="treasure" class="h6">
+      Treasure {{data.monster.reward_treasure}}
+    </div>
+  </div>
   <div id="short_description">
-		<p>
-        {{data.monster.short_description}} 
+    <p>
+      {{data.monster.short_description}} 
     </p>
   </div>
-  
-    <div id="punishment">
-		<p>
-        This award-winning card game, designed by Steve Jackson, captures the essence 
-        of the dungeon experience... with none of that stupid roleplaying stuff. 
+  <div id="punishment">
+    <p>
+      This award-winning card game, designed by Steve Jackson, captures the essence 
+      of the dungeon experience... with none of that stupid roleplaying stuff. 
     </p>
   </div>
 </main>

@@ -24,16 +24,12 @@
   -webkit-box-shadow: 3px 3px 8px #6495ED;
   -moz-box-shadow: 3px 3px 8px #6495ED;
   box-shadow: 3px 3px 8px #6495ED;
-  background-image: -moz-linear-gradient(-45deg, #0000FF, #87CEEB 78%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #0000FF), color-stop(0.78, #87CEEB));
+  background-color: #428bca;
   padding: 10px;
-  color: #888888;
-  opacity: 0.92;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 10t;
 }
 
 .form-group {
+  background: #fff;
   height: auto;
 	margin: 1cm 0.5cm 0px 0.5cm;
   -webkit-border-radius: 7px;
@@ -42,17 +38,17 @@
   -webkit-box-shadow: 2px 2px 8px #6495ED;
   -moz-box-shadow: 2px 2px 8px #6495ED;
   box-shadow: 2px 2px 8px #6495ED;
-//  text-shadow: 1px 1px 5px #000000;
-  background-image: -moz-linear-gradient(-45deg, #48D1CC, #87CEEB 60%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #48D1CC), color-stop(0.6, #87CEEB));
   border: 0px solid #000000;
-  background-color: #FFFFFF;
   padding: 5px;
   opacity: 0.9;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10pt;
   color: #191970;
   outline: 0px solid #000000;
+}
+
+.h3{
+  color: #fff;
 }
 
 #checkbox {
@@ -109,7 +105,7 @@
         <sys_created_on>2017-12-10 15:17:44</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>1f48ca484f0303009827c4b18110c77e</sys_id>
-        <sys_mod_count>84</sys_mod_count>
+        <sys_mod_count>107</sys_mod_count>
         <sys_name>ShowExercice</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -117,8 +113,42 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_1f48ca484f0303009827c4b18110c77e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-11 14:08:41</sys_updated_on>
-        <template><![CDATA[<br/>
+        <sys_updated_on>2018-01-03 16:23:21</sys_updated_on>
+        <template><![CDATA[<form class="form-horizontal">
+  <fieldset>
+    <legend class="h3" align="center">{{data.monster.type}}</legend>
+
+    <!-- Multiple Checkboxes -->
+    <div class="form-group">
+      <label for="checkbox">{{data.monster.question}}</label>
+        <div id="checkbox">
+          <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">{{data.monster.answera}}<br>
+          <input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">{{data.monster.answerb}}<br>
+          <input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">{{data.monster.answerc}}<br>
+          <input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">{{data.monster.answerd}}<br>
+          <input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">{{data.monster.answere}}<br>
+        </div>
+        <br/>
+        <div id="button">
+          <button id="singlebutton" name="singlebutton" class="btn btn-success">Attack</button>
+        </div>
+    </div>
+  </fieldset>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--
 <div id="background">
 <div id="timer">
@@ -140,28 +170,6 @@
 </form>
 </div>
 </div>
--->
-
-<form class="form-horizontal">
-  <fieldset>
-    <legend>{{data.monster.type}}</legend>
-
-    <!-- Multiple Checkboxes -->
-    <div class="form-group">
-      <label for="checkbox">{{data.monster.question}}</label>
-        <div id="checkbox">
-          <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">{{data.monster.answera}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">{{data.monster.answerb}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">{{data.monster.answerc}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">{{data.monster.answerd}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">{{data.monster.answere}}<br>
-        </div>
-        <br/>
-        <div id="button">
-          <button id="singlebutton" name="singlebutton" class="btn btn-success">Attack</button>
-        </div>
-    </div>
-  </fieldset>
-</form>]]></template>
+-->]]></template>
     </sp_widget>
 </record_update>

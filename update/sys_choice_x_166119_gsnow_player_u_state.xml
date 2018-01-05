@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_state" table="x_166119_gsnow_player" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_state</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Default</label>
+            <language>en</language>
+            <name>x_166119_gsnow_player</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-02 15:14:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>3af3a86b4fd343009827c4b18110c745</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-02 15:14:13</sys_updated_on>
+            <value>10</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_state</element>
+            <name>x_166119_gsnow_player</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-02 15:14:13</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>5414e4a74fd343009827c4b18110c742</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_state</sys_name>
+            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+            <sys_update_name>sys_choice_x_166119_gsnow_player_u_state</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-02 15:14:13</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

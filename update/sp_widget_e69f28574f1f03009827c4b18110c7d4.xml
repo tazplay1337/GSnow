@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+	/* widget controller */
+	var c = this;
+	
+	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
+		server.update();
+	});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-heading{
+  display:flex;
+  justify-content: center; 
+  flex-direction: row;
+  align-items: center;
+}
+
+.panel-body{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width:100%;
+  align-items: stretch;
+  flex-wrap: wrap;
+  flex-grow:1;
+}
+
+.boxParent{
+  height: 32px;
+  flex-grow:1;
+}
+
+.boxTitle{
+  display:flex;
+  font-size: 1.05em;
+}
+
+.description{
+  display:flex;
+  font-size: 0.7em;
+  text-align: center;
+  word-wrap: break-word !important;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 30px;
+  white-space: normal;
+  padding:0px;
+  margin: 2px
+}
+
+.btn-default {
+  background: darken($btn-default-bg, 5%);
+  color: lighten($text-color, 0%);
+}
+
+.btn-default::active {
+  background: darken($btn-default-bg, 5%);
+  color: lighten($text-color, 0%);
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_show_game_settings</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Show Game Settings</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// Get gameID from URL
+	data.gameID = $sp.getParameter("gameID");
+	data.gameName = "";
+	
+	var gr = new GlideRecord('x_166119_gsnow_game');
+	gr.get('number', data.gameID);
+	data.gameName = gr.u_name.getDisplayValue();
+	
+	data.settings = [];
+	var names = ["Dungeon", "Victory Level", "Start Time", "Round", "Player Turn", "Phase"];
+	var values = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+	
+	values[0] = gr.u_dungeon.getDisplayValue();
+	values[1] = gr.u_victory_level.getDisplayValue();
+	values[2] = gr.u_start_time.getDisplayValue();
+	values[3] = gr.u_round.getDisplayValue();
+	values[4] = gr.u_turn.getDisplayValue();
+	values[5] = gr.u_phase.getDisplayValue();
+	
+	for (var i = 0; i < names.length; i++) {
+		var setting = {
+			name: names[i],
+			value: values[i]
+		};
+		data.settings.push(setting);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-01 21:26:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e69f28574f1f03009827c4b18110c7d4</sys_id>
+        <sys_mod_count>37</sys_mod_count>
+        <sys_name>GS Show Game Settings</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_e69f28574f1f03009827c4b18110c7d4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-03 15:32:49</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
+  <div class="panel-heading">
+    <div class="boxTitle">
+      {{c.data.gameName}}
+    </div>
+  </div>
+  <div class="panel-body">
+    <div ng-repeat="settings in c.data.settings" class="boxParent">
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          {{::settings.name}}
+        </div>
+        <div class="description">
+          {{::settings.value}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

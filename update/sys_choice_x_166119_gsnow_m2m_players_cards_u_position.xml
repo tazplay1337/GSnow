@@ -6,7 +6,7 @@
             <element>u_position</element>
             <hint/>
             <inactive>false</inactive>
-            <label>Bonus</label>
+            <label>Addition</label>
             <language>en</language>
             <name>x_166119_gsnow_m2m_players_cards</name>
             <sequence/>
@@ -15,9 +15,9 @@
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>582a13c64f1b03009827c4b18110c754</sys_id>
-            <sys_mod_count>2</sys_mod_count>
+            <sys_mod_count>3</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-29 12:40:03</sys_updated_on>
+            <sys_updated_on>2018-01-02 13:00:14</sys_updated_on>
             <value>10</value>
         </sys_choice>
         <sys_choice action="INSERT_OR_UPDATE">

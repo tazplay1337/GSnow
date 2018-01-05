@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+	var c = this;
+	console.log("Test1234");
+	
+	spUtil.recordWatch($scope, "x_166119_gsnow_player", "sys_id=bd42ac934f1f03009827c4b18110c7b8", function(name, data) {
+		console.log("Recordwatcher");
+		this.server.update();
+	});
+}	]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel {
+  margin: 0.5cm 0 1cm 0;
+}
+
+body{
+font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;font-size:13px;color:#3d464d;font-weight:normal
+}
+.list-group-item{
+    border: 0;
+    padding-left: 0;
+    border-top: 1px solid;
+    border-color: rgba(37,40,43,0.1);
+}
+.list-group .list-group-item:first-child{
+    border:0;
+}
+.list-group .list-group-item a{
+    color: #2895F1;
+    cursor: pointer;
+    text-decoration: none;
+}
+.list-group.list-group-header{
+    padding:0;
+    margin:0;
+  	font-size:15px
+}
+.list-group.list-group-body .glyphicon {
+ font-size: 25px; vertical-align: middle;
+}
+.list-group-panel{
+    border: 1px solid #ccdbeb;
+    border-radius: 0;
+}
+/*
+
+.panel {
+  margin: 0.5cm 0 0 0;
+}
+
+.tab-content{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+	width: 100%;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+}
+
+.tab-pane{ 
+  height: 110px;
+}
+
+.btn {
+  min-height: 30px;
+  white-space: normal;
+  padding: 3px 8px;
+  margin: 5px
+}
+
+.btn-default {
+  background: darken($btn-default-bg, 5%);
+  color: lighten($text-color, 0%);
+}
+
+.boxTitle{
+  font-size: 1.05em;
+}
+
+.description{
+  font-size: 0.9em;
+  text-align: center;
+  word-wrap: break-word !important;
+}
+
+*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_show_player_stats</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Show Player Stats</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// Get gameID from URL
+	data.gameID = $sp.getParameter("gameID");
+	data.name1 = "";
+	data.name2 = "";
+	
+	var gr = new GlideRecord('x_166119_gsnow_player');
+	gr.addQuery('u_game.number', data.gameID);
+	gr.query();
+
+	data.settings = [];
+	var names = ["Name", "State", "Level", "Attack", "Weapon", "Armor", "Shoewear", "Cape", "Headwear", "Other", "Effect"];
+	var values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var cnt = 0;
+	
+	while(gr.next()){
+		cnt += 1;
+		if(cnt < 2){
+			data.asd = gr.sys_id;
+		}
+		else{
+			data.name2 = gr.sys_id;
+		}
+		var setting = {
+			user: gr.u_user.getDisplayValue(),
+			id: "player" + cnt,
+			href: "#player" + cnt,
+			tab: "player-tab" + cnt,
+			state: gr.u_state.getDisplayValue(),
+			level: gr.u_level.getDisplayValue(),
+			attack: gr.u_attack.getDisplayValue(),
+			weapon: gr.u_weapon.getDisplayValue(),
+			armor: gr.u_armor.getDisplayValue(),
+			shoewear: gr.u_shoewear.getDisplayValue(),
+			cape: gr.u_cape.getDisplayValue()
+		};
+		data.settings.push(setting);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-01 20:45:31</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
+        <sys_mod_count>175</sys_mod_count>
+        <sys_name>GS Show Player Stats</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-03 16:42:32</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" ng-repeat="settings in c.data.settings">
+      <a class="nav-link active" id={{::settings.tab}} data-toggle="tab" href={{::settings.href}} role="tab" aria-controls="home" aria-selected="true">{{::settings.user}}</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div ng-repeat="settings in c.data.settings" class="tab-pane" id={{::settings.id}} role="tabpanel" aria-labelledby={{::settings.tab}}>
+      <div class="row">
+        <div class="col-xs-12" style="">
+          <div class="panel panel-default list-group-panel">
+            <div class="panel-body">
+              <ul class="list-group list-group-header">
+                <li class="list-group-item list-group-body">
+                  <div class="row">
+                    <div class="col-xs-2 text-center">Level</div>
+                    <div class="col-xs-2 text-center">Attack</div>
+                    <div class="col-xs-2 text-center">State</div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-group list-group-body" style="">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-xs-2 text-center" style=" "> <a>{{::settings.level}}</a></div>
+                    <div class="col-xs-2 text-center" style="">{{::settings.attack}}</div>
+                    <div class="col-xs-2 text-center" style=""></div>
+                  </div>
+                </li>
+              </ul>
+               <ul class="list-group list-group-header">
+                <li class="list-group-item list-group-body">
+                  <div class="row">
+                    <div class="col-xs-2 text-center">Weapon</div>
+                    <div class="col-xs-2 text-center">Armor</div>
+                    <div class="col-xs-2 text-center">Shoe</div>
+                    <div class="col-xs-2 text-center">Cape</div>
+                    <div class="col-xs-2 text-center">Effects</div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-group list-group-body" style="">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-xs-2 text-center">{{::settings.weapon}}</div>
+                    <div class="col-xs-2 text-center">{{::settings.armor}}</div>
+                    <div class="col-xs-2 text-center">{{::settings.shoewear}}</div>
+                    <div class="col-xs-2 text-center">{{::settings.cape}}</div>
+                    <div class="col-xs-2 text-center"></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--
+ <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Level
+        </div>
+        <div class="description">
+          {{::settings.level}}
+        </div>
+      </div>
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Attack
+        </div>
+        <div class="description">
+          {{::settings.attack}}
+        </div>
+      </div>
+      <br>
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Weapon
+        </div>
+        <div class="description">
+          {{::settings.weapon}}
+        </div>
+      </div>
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Armor
+        </div>
+        <div class="description">
+          {{::settings.armor}}
+        </div>
+      </div>
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Shoewear
+        </div>
+        <div class="description">
+          {{::settings.armor}}
+        </div>
+      </div>
+      <div class="btn btn-default" ng-disabled="true">
+        <div class="boxTitle">
+          Cape
+        </div>
+        <div class="description">
+          {{::settings.cape}}
+        </div>
+      </div>
+
+-->]]></template>
+    </sp_widget>
+</record_update>

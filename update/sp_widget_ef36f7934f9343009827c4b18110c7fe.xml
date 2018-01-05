@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
+    var c = this;
+	
+		$('#myTab a').on('click', function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		})
+}	]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel {
+  margin: 0.5cm 0 1cm 0;
+  min-height: 8cm;
+}
+
+body{
+font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;font-size:13px;color:#3d464d;font-weight:normal
+}
+.list-group-item{
+    border: 0;
+    padding-left: 0;
+    border-top: 1px solid;
+    border-color: rgba(37,40,43,0.1);
+}
+.list-group .list-group-item:first-child{
+    border:0;
+}
+.list-group .list-group-item a{
+    color: #2895F1;
+    cursor: pointer;
+    text-decoration: none;
+}
+.list-group.list-group-header{
+    padding:0;
+    margin:0;
+  	font-size:15px
+}
+.list-group.list-group-body .glyphicon {
+ font-size: 25px; vertical-align: middle;
+}
+.list-group-panel{
+    border: 1px solid #ccdbeb;
+    border-radius: 0;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 30px;
+  white-space: normal;
+  padding:0px;
+  margin: 2px
+}
+
+.btn-primary {
+}
+
+.btn-scroll {
+  width: 35px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_list_cards</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS List Cards</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// Get gameID from URL
+	data.gameID = $sp.getParameter("gameID");
+	
+	var grCards = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+	grCards.addQuery('u_game.number', data.gameID);
+	grCards.addQuery('player.u_user', gs.getUserID());
+	grCards.query();
+	
+	data.hands = [];
+	data.equipments = [];
+	data.effects = [];
+	
+	while(grCards.next()){
+		if(grCards.u_playing_field == '20'){
+			var postmp = "";
+			if(grCards.card.u_position){
+				postmp = grCards.card.u_position.getDisplayValue();
+			}
+			var hand = {
+			name: grCards.card.u_name.getDisplayValue(),
+			pos: postmp,
+			type: grCards.card.u_card_type.getDisplayValue(),
+			effect: grCards.card.u_effect.getDisplayValue(),
+			use: false
+		};
+		data.hands.push(hand);
+		}
+		else if(grCards.u_playing_field == '30'){
+			var equipment = {
+			name: grCards.card.u_name.getDisplayValue(),
+			pos: grCards.card.u_position.getDisplayValue(),
+			effect: grCards.card.u_effect.getDisplayValue()
+		};
+		data.equipments.push(equipment);
+		}
+		else if(grCards.u_playing_field == '40'){
+			var effect = {
+			name: grCards.card.u_name.getDisplayValue(),
+			type: grCards.card.u_card_type.getDisplayValue(),
+			life: grCards.card.u_lifetime.getDisplayValue(),
+			effect: grCards.card.u_effect.getDisplayValue()
+		};
+		data.effects.push(effect);
+		}
+	}
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-02 11:54:01</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
+        <sys_mod_count>126</sys_mod_count>
+        <sys_name>GS List Cards</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-03 16:42:32</sys_updated_on>
+        <template><![CDATA[<!-- Nav tabs -->
+<div class="panel panel-primary">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="hand-tab" data-toggle="tab" href="#hand" role="tab" aria-controls="home" aria-selected="true">My Hand Cards ({{c.data.hands.length}})</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="equipment-tab" data-toggle="tab" href="#equipment" role="tab" aria-controls="profile" aria-selected="false">Personal Equipment ({{c.data.equipments.length}})</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="effects-tab" data-toggle="tab" href="#effects" role="tab" aria-controls="messages" aria-selected="false">Effects On Me ({{c.data.effects.length}})</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="hand" role="tabpanel" aria-labelledby="hand-tab">
+
+      <div class="row">
+        <div class="col-xs-12" style="">
+          <div class="panel panel-default list-group-panel">
+            <div class="panel-body">
+
+              <ul class="list-group list-group-header">
+                <li class="list-group-item list-group-body">
+                  <div class="row">
+                    <div class="col-xs-3 text-left">Name</div>
+                    <div class="col-xs-3">Card Type</div>
+                    <div class="col-xs-2">Position</div>
+                    <div class="col-xs-2">Effect</div>
+                    <div class="col-xs-2">Use</div>
+                  </div>
+                </li>
+              </ul>
+
+              <ul class="list-group list-group-body" style="">
+                <li class="list-group-item" ng-repeat="hand in c.data.hands">
+                  <div class="row">
+                    <div class="col-xs-3 text-left" style=" "> <a>{{::hand.name}} </a></div>
+                    <div class="col-xs-3" style="">{{::hand.type}}</div>
+                    <div class="col-xs-2" style="">{{::hand.pos}}</div>
+                    <div class="col-xs-2" style="">{{::hand.effect}}</div>
+                    <div class="col-xs-2" style="">
+                      <div class="btn btn-primary btn-scroll" ng-click="scroll(-1)">
+                        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="equipment" role="tabpanel" aria-labelledby="equipment-tab">
+      <div class="row">
+        <div class="col-xs-12" style="">
+          <div class="panel panel-default list-group-panel">
+            <div class="panel-body">
+              <ul class="list-group list-group-header">
+                <li class="list-group-item list-group-body">
+                  <div class="row">
+                    <div class="col-xs-3 text-left">Name</div>
+                    <div class="col-xs-2">Position</div>
+                    <div class="col-xs-2">Effect</div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-group list-group-body" style="">
+                <li class="list-group-item" ng-repeat="equipment in c.data.equipments">
+                  <div class="row">
+                    <div class="col-xs-3 text-left" style=" "> <a>{{::equipment.name}} </a></div>
+                    <div class="col-xs-2" style="">{{::equipment.pos}}</div>
+                    <div class="col-xs-2" style="">{{::equipment.effect}}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="effects" role="tabpanel" aria-labelledby="messages-tab">
+      <div class="row">
+        <div class="col-xs-12" style="">
+          <div class="panel panel-default list-group-panel">
+            <div class="panel-body">
+              <ul class="list-group list-group-header">
+                <li class="list-group-item list-group-body">
+                  <div class="row">
+                    <div class="col-xs-3 text-left">Name</div>
+                    <div class="col-xs-3">Card Type</div>
+                    <div class="col-xs-2">Life</div>
+                    <div class="col-xs-2">Effect</div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-group list-group-body" style="">
+                <li class="list-group-item" ng-repeat="effect in c.data.effects">
+                  <div class="row">
+                    <div class="col-xs-3 text-left" style=" "> <a>{{::effect.name}} </a></div>
+                    <div class="col-xs-3" style="">{{::effect.type}}</div>
+                    <div class="col-xs-2" style="">{{::effect.life}}</div>
+                    <div class="col-xs-2" style="">{{::effect.effect}}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>
