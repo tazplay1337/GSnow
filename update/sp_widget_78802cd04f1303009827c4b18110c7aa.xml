@@ -71,7 +71,7 @@
         <sys_created_on>2017-12-23 12:38:25</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>78802cd04f1303009827c4b18110c7aa</sys_id>
-        <sys_mod_count>141</sys_mod_count>
+        <sys_mod_count>144</sys_mod_count>
         <sys_name>GS Waiting Show Dungeon</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -79,7 +79,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_78802cd04f1303009827c4b18110c7aa</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-26 11:10:30</sys_updated_on>
+        <sys_updated_on>2018-01-05 13:38:09</sys_updated_on>
         <template><![CDATA[<div class="card">
   <img class="card-img-top" src="http://mapanything.com/application/files/9314/9969/8393/sn-cert-01.png" alt="Card image cap">
   <div class="card-body">

@@ -3,74 +3,53 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
 	var c = this;
+	
+	$scope.disabled = false;
 
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
-		console.log("recordWatch: ");
-		
 		if("u_actual_player" == name.data.changes){
 			location.reload();
 		}
-/*		else if("40" == name.data.record.u_state.value){
-			console.log("Open new page");
-			var gameID = c.data.gameID;
-			location.href = "/gs/?id=gs_arena" + "&gameID=" + gameID;
-		} */
-		else{
-			server.update();
+		else if ("u_ready_player" == name.data.changes){
+			c.data.clickReady = false;
+			c.server.update().then(function(){
+				c.data.showready = $scope.data.showready;
+				c.data.readyPlayer = $scope.data.readyPlayer;
+				c.data.maxPlayer = $scope.data.maxPlayer;
+				c.data.allReady = $scope.data.allReady;
+			});  
 		}
-  });
-	
-	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID + "^u_state=40", function(name, data) {
-			console.log("Open new page");
-			var gameID = c.data.gameID;
-			location.href = "/gs/?id=gs_arena" + "&gameID=" + gameID;
-  });
-	
-		$scope.playerReady = function(player) {
-			for(var i=0; i < c.data.players.length; i++){
-				if(c.data.players[i].name == player.name){
-						c.data.readyClick = true;
-						c.data.readyClickNum = i+1;
-						c.server.update();
-				}
-			}
-		}
-	
-		$scope.startGame = function(){
-			c.data.state = 30;
-			c.server.update();
-		}
-}
+	});
 
-/*
-		$scope.playerReady = function(player) {
-		for(var i=0; i < c.data.players.length; i++){
-			if(!c.data.players[i].ready && c.data.players[i].name == player.name){
-				c.data.players[i].ready = true;
-				c.data.readyPlayer += 1;
-			}
-			else if(c.data.players[i].ready && c.data.players[i].name == player.name){
-				c.data.players[i].ready = false;
-				c.data.readyPlayer -= 1;
-			}
+	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID + "^u_state=40", function(name, data) {
+		var gameID = c.data.gameID;
+		location.href = "/gs/?id=gs_arena" + "&gameID=" + gameID;
+	});
+
+	$scope.playerReady = function(player) {
+		c.data.players[c.data.me - 1].ready = true;
+		c.data.clickReady = true;
+		c.server.update();
+	} 
+	
+	$scope.ready = function() {
+		return c.data.players[c.data.me - 1].ready;
+	} 
+
+	$scope.startGame = function(){
+		c.data.state = 30;
+		c.server.update();
+	}
+
+	$scope.allReady = function(){
+		if(c.data.allReady == "false"){
+			return false;	
 		}
-		if(c.data.readyPlayer >= c.data.maxPlayer){
-			c.data.allReady = true;
-		}
-		else {
-			c.data.allReady = false;
+		else{
+			return true;
 		}
 	}
-	for(var i=0; i < c.data.players.length; i++){
-				if(!c.data.players[i].ready && c.data.players[i].name == player.name){
-					c.data.players[i].ready = true;
-					c.data.readyPlayer =  parseInt(c.data.readyPlayer) + 1;
-					c.data.readyClick = true;
-					c.server.update();
-				}
-			}
-	
-	*/]]></client_script>
+}]]></client_script>
         <controller_as>c</controller_as>
         <css>.body {
 }
@@ -95,16 +74,27 @@
 	// Known Error: Cancel Game: Lösche M2M Einbtrag Player-Game
 	// Niemand darf auf den ready button des anderen klicken
 	// Laufleiste mit Servicenow Weißheiten
-/*###########################################################################*/	
-	data.gameID = "";
-	data.players = [];
-	data.maxPlayer = 0;
-	data.readyPlayer = 0;
-	data.readyClick = false;
-	data.readyClickNum = 0;
-	data.state = 0;
-	data.showready = false;
-	data.allReady= false;
+	/*###########################################################################*/	
+	if(input){
+		data.gameID = input.gameID;
+		data.maxPlayer = input.maxPlayer;
+		data.readyPlayer = input.readyPlayer;
+		data.state = input.state;
+		data.showready = input.showready;
+		data.admin = input.admin;
+		data.clickReady = input.clickReady;
+		data.me = input.me;
+	}
+	else{
+		data.gameID = "";
+		data.maxPlayer = 0;
+		data.readyPlayer = 0;
+		data.state = 0;
+		data.showready = false;
+		data.admin = "false";
+		data.clickReady = false;
+		data.me = "";
+	}
 	
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
@@ -112,55 +102,61 @@
 	// Get selected Game
 	var grGame = new GlideRecord('x_166119_gsnow_game');
 	grGame.get('number', data.gameID);
-	
+
 	// Get all Players infos
-	data.maxPlayer = grGame.u_total_number_player.getDisplayValue();
-	data.readyPlayer = grGame.u_ready_player.getDisplayValue();
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.addQuery('u_game', grGame.sys_id);
 	grPlayer.query();
 	
-	if(data.maxPlayer == grGame.u_actual_player){
-		data.showready = true;
-	}
-	
+	data.players = [];
 	while(grPlayer.next()){
 		var player = {
 			name: grPlayer.u_user.getDisplayValue(),
 			ready: false,
-			admin: false,
 			selected: false	
 		};
-
 		if(grPlayer.u_user == gs.getUserID()){
 			player.selected = true;
-		}
-		if("1" == grPlayer.u_number.getDisplayValue()){
-			player.admin = true;
-		}		
-		if(input && input.readyClickNum == grPlayer.u_number.getDisplayValue()){
-			player.ready = true;			
+			data.me = grPlayer.u_number.getDisplayValue();
+			if("1" == grPlayer.u_number.getDisplayValue()){
+				data.admin = true;
+			}
 		}
 		data.players.push(player);
 	}
+	
+	
+	if(input){
+		for(var i=0; i < data.players.length; i++){
+			data.players[i].ready = input.players[i].ready;
+		}
 
-	if(input){		
-		if(input.readyClick){
+		if(input.clickReady){
 			grGame.u_ready_player += 1;
 			grGame.update();
-			data.readyPlayer = grGame.u_ready_player.getDisplayValue();
-			if(data.maxPlayer == grGame.u_ready_player){
-				data.allReady = true;
-			}
-		}	
-		
+		}
 		if(input.state){
-			gs.addInfoMessage("input.state");
 			data.state = input.state;
 			grGame.u_state = data.state;
 			grGame.update();
 		}
-	} 
+		data.showready = input.showready;
+		data.maxPlayer = input.maxPlayer;
+		data.readyPlayer = grGame.u_ready_player.getDisplayValue();
+	}
+	else{
+		data.maxPlayer = grGame.u_total_number_player.getDisplayValue();
+		data.readyPlayer = grGame.u_ready_player.getDisplayValue();
+		if(data.maxPlayer == grGame.u_actual_player){
+			data.showready = true;
+		}
+	}
+	if(data.maxPlayer <= data.readyPlayer){
+		data.allReady = "false";
+	}
+	else{
+		data.allReady = "true";
+	}
 })();
 ]]></script>
         <servicenow>false</servicenow>
@@ -169,7 +165,7 @@
         <sys_created_on>2017-12-24 11:07:06</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e83515ac4f1b03009827c4b18110c78f</sys_id>
-        <sys_mod_count>252</sys_mod_count>
+        <sys_mod_count>399</sys_mod_count>
         <sys_name>GS Waiting Players</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -177,7 +173,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e83515ac4f1b03009827c4b18110c78f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-01 19:04:51</sys_updated_on>
+        <sys_updated_on>2018-01-06 21:05:55</sys_updated_on>
         <template><![CDATA[<div class="container">
   <div class="row">
     <div class="col-xs-8">
@@ -200,12 +196,11 @@
                 <h4 class="product-name"><strong>{{::players.name}}</strong></h4><h4><small>Description </small></h4>
               </div>
               <div class="col-xs-6" ng-show={{::players.selected}}&&c.data.showready> 
-                <!--<div class="col-xs-6"> -->
                 <div class="col-xs-6 text-right">
                   <h6><strong>Click if Ready</strong></h6>
                 </div>
                 <div class="col-xs-4">
-                  <input type="button" class="form-control input-sm" ng-class="{'btn-info': player.ready}" ng-disabled="(players.ready == true)" ng-click="playerReady(players)">
+                  <input type="button" class="form-control input-sm" ng-class="{'btn-info': player.ready}" ng-disabled="ready()" ng-click="playerReady(players)">
                 </div>
               </div>
             </div>
@@ -216,8 +211,8 @@
               <div class="col-xs-9">
                 <h4 class="text-right">Ready <strong>({{c.data.readyPlayer}} / {{c.data.maxPlayer}})</strong></h4>
               </div>
-              <div class="col-xs-3" ng-repeat="players in c.data.players">
-                <button type="button" class="btn btn-success btn-block" ng-show={{::players.admin}} ng-disabled="(c.data.allReady == false)" ng-click="startGame()">
+              <div class="col-xs-3">
+                <button type="button" class="btn btn-success btn-block" ng-show="{{c.data.admin}}" ng-disabled="allReady()" ng-click="startGame()">
                   Start Game
                 </button>
               </div>

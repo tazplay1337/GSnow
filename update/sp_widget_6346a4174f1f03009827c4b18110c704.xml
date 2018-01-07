@@ -4,11 +4,23 @@
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
 	var c = this;
 	console.log("Test1234");
-	
-	spUtil.recordWatch($scope, "x_166119_gsnow_player", "sys_id=bd42ac934f1f03009827c4b18110c7b8", function(name, data) {
-		console.log("Recordwatcher");
-		this.server.update();
+
+	spUtil.recordWatch($scope, "x_166119_gsnow_player", "u_game.number=" + c.data.gameID, function(name, data) {
+		c.server.update().then(function(){
+			console.log("Recordwatcher" + c.data.settings[0].user);
+		});  
 	});
+
+/*	
+	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
+		c.server.update().then(function(){
+			for (var i = 0; i < c.data.numbersettings; i++) {
+				c.data.settings[0].name = $scope.data.settings[i].name;
+				c.data.settings[0].value = $scope.data.settings[i].value;
+			}
+		});  
+	});
+*/
 }	]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel {
@@ -144,7 +156,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-01 20:45:31</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
-        <sys_mod_count>175</sys_mod_count>
+        <sys_mod_count>177</sys_mod_count>
         <sys_name>GS Show Player Stats</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -152,7 +164,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-03 16:42:32</sys_updated_on>
+        <sys_updated_on>2018-01-05 12:34:41</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" ng-repeat="settings in c.data.settings">
