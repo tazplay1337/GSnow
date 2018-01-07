@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
-    /* widget controller */
-    var c = this;
-		console.log("TEST");
-		console.log("Name:", $scope.data);
-		c.data.recordName=0;
-	
-    spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
-			console.log("Data:",name.data);
-			console.log("Name:",name);
-			c.data.recordName = c.data.recordName + 1;
-	 }); 
+        <client_script><![CDATA[function($scope,$rootScope,$timeout) {
+	/* widget controller */
+	var c = this;
+	$scope.showWidget = "";
+
+	//Listening for "showHideWidget" event
+	$rootScope.$on('showHideWidget', function(event,data) {
+		c.data.monsterName = data;
+		c.server.update().then(function(){
+			$scope.showWidget = 'true';
+		});
+
+	});
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>.h5, .h6{
@@ -176,26 +177,32 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	var grMonster = new GlideRecord('x_166119_gsnow_monster');
-	grMonster.get('u_name', "Script Includer");
-		
-	var imageID ='';
-	var grImage = new GlideRecord('sys_attachment');
-	grImage.addQuery('file_name','u_image');
-	grImage.addQuery('table_sys_id',grMonster.sys_id.getDisplayValue());
-	grImage.query();
-	
-	while(grImage.next()){
-		imageID = grImage.sys_id.getDisplayValue();
-	}
-	
-  data.monster = {
-		"name": grMonster.u_name.getDisplayValue(),
-		"image": imageID,
-		"level": grMonster.u_level.getDisplayValue(),
-		"reward_treasure": grMonster.u_reward_treasure.getDisplayValue(),
-		"reward_level": grMonster.u_reward_level.getDisplayValue(),
-		"short_description": grMonster.u_short_description.getDisplayValue()
+	data.monsterName = ""
+
+	if(input){
+		data.monsterName = input.monsterName;
+		gs.addInfoMessage("NAME: " + data.monsterName);
+		var grMonster = new GlideRecord('x_166119_gsnow_monster');
+		grMonster.get('u_name', data.monsterName);
+
+		var imageID ='';
+		var grImage = new GlideRecord('sys_attachment');
+		grImage.addQuery('file_name','u_image');
+		grImage.addQuery('table_sys_id',grMonster.sys_id.getDisplayValue());
+		grImage.query();
+
+		while(grImage.next()){
+			imageID = grImage.sys_id.getDisplayValue();
+		}
+
+		data.monster = {
+			"name": grMonster.u_name.getDisplayValue(),
+			"image": imageID,
+			"level": grMonster.u_level.getDisplayValue(),
+			"reward_treasure": grMonster.u_reward_treasure.getDisplayValue(),
+			"reward_level": grMonster.u_reward_level.getDisplayValue(),
+			"short_description": grMonster.u_short_description.getDisplayValue()
+		}
 	}
 })();]]></script>
         <servicenow>false</servicenow>
@@ -204,7 +211,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>143</sys_mod_count>
+        <sys_mod_count>155</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -212,37 +219,39 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-03 16:30:17</sys_updated_on>
+        <sys_updated_on>2018-01-07 20:51:21</sys_updated_on>
         <template><![CDATA[<main id="background">
-  <div id="namelevel">
-    <div id="name" class="h5" >
-      {{data.monster.name}}
+  <div ng-if="showWidget == 'true'">
+    <div id="namelevel">
+      <div id="name" class="h5" >
+        {{data.monster.name}}
+      </div>
+      <div id="level" class="h5">
+        lvl {{data.monster.level}}
+      </div>
     </div>
-    <div id="level" class="h5">
-      lvl {{data.monster.level}}
+    <div id="image">
+      <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
     </div>
-  </div>
-  <div id="image">
-    <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
-  </div>
-  <div id="reward">
-    <div id="levelup" class="h6">
-      Level Up {{data.monster.reward_level}}
+    <div id="reward">
+      <div id="levelup" class="h6">
+        Level Up {{data.monster.reward_level}}
+      </div>
+      <div id="treasure" class="h6">
+        Treasure {{data.monster.reward_treasure}}
+      </div>
     </div>
-    <div id="treasure" class="h6">
-      Treasure {{data.monster.reward_treasure}}
+    <div id="short_description">
+      <p>
+        {{data.monster.short_description}} 
+      </p>
     </div>
-  </div>
-  <div id="short_description">
-    <p>
-      {{data.monster.short_description}} 
-    </p>
-  </div>
-  <div id="punishment">
-    <p>
-      This award-winning card game, designed by Steve Jackson, captures the essence 
-      of the dungeon experience... with none of that stupid roleplaying stuff. 
-    </p>
+    <div id="punishment">
+      <p>
+        This award-winning card game, designed by Steve Jackson, captures the essence 
+        of the dungeon experience... with none of that stupid roleplaying stuff. 
+      </p>
+    </div>
   </div>
 </main>
 ]]></template>

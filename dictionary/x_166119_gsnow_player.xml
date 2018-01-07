@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element label="Player" max_length="40" name="x_166119_gsnow_player" type="collection">
+        <element default="0" label="Addition" max_length="40" name="u_addition" type="integer"/>
         <element default="0" label="Armor" max_length="40" name="u_armor" type="integer"/>
         <element default="0" label="Attack" max_length="40" name="u_attack" type="integer"/>
         <element label="Avatar" max_length="40" name="u_avatar" type="user_image"/>
         <element default="0" label="Cape" max_length="40" name="u_cape" type="integer"/>
+        <element default="0" label="Effects" max_length="40" name="u_effects" type="integer"/>
         <element label="Game" max_length="32" name="u_game" reference="x_166119_gsnow_game" type="reference"/>
         <element default="0" label="Headwear" max_length="40" name="u_headwear" type="integer"/>
         <element default="1" label="Level" max_length="40" name="u_level" type="integer"/>

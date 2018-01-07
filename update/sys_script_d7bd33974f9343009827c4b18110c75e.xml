@@ -16,12 +16,13 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_166119_gsnow_m2m_players_cards">u_playing_fieldCHANGESTO30^EQ<item endquery="false" field="u_playing_field" goto="false" newquery="false" operator="CHANGESTO" or="false" value="30"/>
+        <filter_condition table="x_166119_gsnow_m2m_players_cards">u_playing_fieldCHANGESTO30^ORu_playing_fieldCHANGESTO40^EQ<item endquery="false" field="u_playing_field" goto="false" newquery="false" operator="CHANGESTO" or="false" value="30"/>
+            <item endquery="false" field="u_playing_field" goto="false" newquery="false" operator="CHANGESTO" or="true" value="40"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Update Personal Equipment</name>
+        <name>Update My Cards</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -31,42 +32,65 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-
-	var gr = new GlideRecord('x_166119_gsnow_m2m_players_cards');
-	gr.addQuery('player', current.player);
-	gr.addQuery('u_game', current.u_game);
-	gr.addQuery('u_position', current.card.u_position);
-	gr.query();
-	
-	if(gr.next()){
-		gr.u_playing_field = '60';
-		gr.u_position = '0';
-		gr.update();
-	}
-		
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.get('sys_id', current.player);
-	
-	if(current.card.u_position == '10'){
-		grPlayer.u_weapon = current.card.u_effect;
-		current.u_position = '10';
+
+	if(current.card.u_card_type.getDisplayValue() == 'Equipment'){
+		var gr = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+		gr.addQuery('player', current.player);
+		gr.addQuery('u_game', current.u_game);
+		gr.addQuery('u_position', current.card.u_position);
+		gr.query();
+		
+		var attackAddition = 0;
+		
+		if(current.card.u_position.getDisplayValue() != 'Addition'){
+			if(gr.next()){
+				gr.u_playing_field = '60';
+				gr.u_position = '0';
+				gr.update();
+			}
+		}
+		else{
+			while(gr.next()){
+				attackAddition = attackAddition + gr.card.u_effect;		
+			}
+		}
+
+		if(current.card.u_position == '10'){
+			grPlayer.u_addition = attackAddition + current.card.u_effect;
+			current.u_position = '10';
+		}
+		else if (current.card.u_position == '20'){
+			grPlayer.u_armor = current.card.u_effect;
+			current.u_position = '20';
+		}
+		else if (current.card.u_position == '30'){
+			grPlayer.u_shoewear = current.card.u_effect;
+			current.u_position = '30';
+		}
+		else if (current.card.u_position == '40'){
+			grPlayer.u_cape = current.card.u_effect;
+			current.u_position = '40';
+		}
+		else if (current.card.u_position == '50'){
+			grPlayer.u_weapon = current.card.u_effect;
+			current.u_position = '50';
+		}
 	}
-	else if (current.card.u_position == '20'){
-		grPlayer.u_armor = current.card.u_effect;
-		current.u_position = '20';
-	}
-	else if (current.card.u_position == '30'){
-		grPlayer.u_shoewear = current.card.u_effect;
-		current.u_position = '30';
-	}
-	else if (current.card.u_position == '40'){
-		grPlayer.u_cape = current.card.u_effect;
-		current.u_position = '40';
-	}
-	else if (current.card.u_position == '50'){
-		grPlayer.u_weapon = current.card.u_effect;
-		current.u_position = '50';
-	}
+	else{
+		var grEffects = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+		grEffects.addQuery('player', current.player);
+		grEffects.addQuery('u_game', current.u_game);
+		grEffects.addQuery('u_playing_field', '40');
+		grEffects.query();
+
+		var attack = 0;
+		if(grEffects.next()) {
+			attack = grEffects.card.u_effect;
+		}
+		grPlayer.u_effects = attack + current.card.u_effect;
+	}	
 	grPlayer.update();
 
 })(current, previous);]]></script>
@@ -77,8 +101,8 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d7bd33974f9343009827c4b18110c75e</sys_id>
-        <sys_mod_count>35</sys_mod_count>
-        <sys_name>Update Personal Equipment</sys_name>
+        <sys_mod_count>49</sys_mod_count>
+        <sys_name>Update My Cards</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -86,7 +110,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_d7bd33974f9343009827c4b18110c75e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-02 14:50:03</sys_updated_on>
+        <sys_updated_on>2018-01-07 17:34:00</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

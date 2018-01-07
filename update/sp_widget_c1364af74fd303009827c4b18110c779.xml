@@ -2,20 +2,86 @@
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
-    /* widget controller */
-    var c = this;
-		console.log("TEST");
-		console.log("Name:", $scope.data);
-		c.data.recordName=0;
+	/* widget controller */
+	var c = this;
+	c.data.recordName=0;
+
+
+	$scope.drawCard = function() {
+		c.data.phase += 1; 
+		c.server.update().then(function(){
+				c.data.monster = $scope.data.monster;
+				$scope.selectPill(c.data.monster);		
+		});
+	}
 	
-    spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
-			console.log("Data:",name.data);
-			console.log("Name:",name);
-			c.data.recordName = c.data.recordName + 1;
-	 }); 
-}]]></client_script>
+	$scope.show = function(number) {
+		if(c.data.phase == number){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	//broadcast the selection when ever cliked on each pill
+
+	$scope.selectPill = function(selection){
+		c.selectedPill = selection;
+		$rootScope.$broadcast('showHideWidget', selection);
+	};
+
+}	
+
+/*
+spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
+		c.data.recordName = c.data.recordName + 1;
+	});
+*/]]></client_script>
         <controller_as>c</controller_as>
-        <css>.container{
+        <css>.pill-background {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+  -webkit-box-shadow: 3px 3px 8px #6495ED;
+  -moz-box-shadow: 3px 3px 8px #6495ED;
+  box-shadow: 3px 3px 8px #6495ED;
+  background-color: #428bca;
+  .each-pill {
+    &amp;.active {
+      color: #c70000;
+    }
+    height:100px;
+    width:150px;
+    background:#ddd;
+    padding:25px;
+    text-align:center;
+    border-radius:4px;
+    cursor:pointer;
+    p{
+      margin-top:5px;
+    }
+  }
+}
+
+.color-red {
+  color: #c70000;
+}
+
+.remove-margin {
+  margin-bottom: 0px;
+}
+
+.h3{
+  color: #fff;
+}
+
+/*
+.container{
   Display: block;
   width: 100%;
   height: 500px;
@@ -27,11 +93,6 @@
   box-shadow: 3px 3px 8px #6495ED;
   background-color: #428bca;
   padding: 10px;
-  
-}
-
-.h3{
-  color: #fff;
 }
 
 button {
@@ -87,28 +148,28 @@ button.btn-default:after {
 }
 
 
-
+*/
 
 
 
 /*
 .form-group {
-  background: #fff;
-  height: auto;
-	margin: 1cm 0.5cm 0px 0.5cm;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
-  -webkit-box-shadow: 2px 2px 8px #6495ED;
-  -moz-box-shadow: 2px 2px 8px #6495ED;
-  box-shadow: 2px 2px 8px #6495ED;
-  border: 0px solid #000000;
-  padding: 5px;
-  opacity: 0.9;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 10pt;
-  color: #191970;
-  outline: 0px solid #000000;
+background: #fff;
+height: auto;
+margin: 1cm 0.5cm 0px 0.5cm;
+-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+border-radius: 7px;
+-webkit-box-shadow: 2px 2px 8px #6495ED;
+-moz-box-shadow: 2px 2px 8px #6495ED;
+box-shadow: 2px 2px 8px #6495ED;
+border: 0px solid #000000;
+padding: 5px;
+opacity: 0.9;
+font-family: Verdana, Geneva, sans-serif;
+font-size: 10pt;
+color: #191970;
+outline: 0px solid #000000;
 }
 */</css>
         <data_table>sp_instance</data_table>
@@ -125,9 +186,18 @@ button.btn-default:after {
         <public>false</public>
         <roles/>
         <script><![CDATA[(function(){
-	data.header = "error";
-	data.phase = 0;
+
+	data.header = "";
 	data.turn = false;
+	data.monster = ""
+	
+	if(input){
+		data.phase = input.phase;	
+	}
+	else{
+		data.phase = 0;
+	}
+
 
 	// Get current Game
 	data.gameID = $sp.getParameter("gameID");
@@ -148,28 +218,21 @@ button.btn-default:after {
 		data.header = "Draw a Doorcard";
 	}
 	else if(data.phase == 1){
-		var grMonster = new GlideRecord('x_166119_gsnow_monster');
-		grMonster.get('u_name', "Script Includer");
-
-		var imageID ='';
-		var grImage = new GlideRecord('sys_attachment');
-		grImage.addQuery('file_name','photo');
-		grImage.addQuery('table_sys_id',grMonster.sys_id.getDisplayValue());
-		grImage.query();
-		while(grImage.next()){
-			imageID = grImage.sys_id.getDisplayValue();
-		}
-
-		data.monster = {
-			"image": imageID,
-			"type": grMonster.u_type.getDisplayValue(),
-			"question": grMonster.u_exercise.	u_question.getDisplayValue(),
-			"answera": grMonster.u_exercise.	u_answer_a.getDisplayValue(),
-			"answerb": grMonster.u_exercise.	u_answer_b.getDisplayValue(),
-			"answerc": grMonster.u_exercise.	u_answer_c.getDisplayValue(),
-			"answerd": grMonster.u_exercise.	u_answer_d.getDisplayValue(),
-			"answere": grMonster.u_exercise.	u_answer_e.getDisplayValue()
-		}
+		data.header = "FIGHT";
+		
+		var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+		grDeck2.addQuery('game', grGame.sys_id);
+		grDeck2.addQuery('u_deck', 'true');
+		grDeck2.addQuery('card.u_deck_type', '20');
+		grDeck2.orderBy('u_card_number');
+		grDeck2.chooseWindow(0, 1);
+		grDeck2.query();
+		
+		if(grDeck2.next()){
+			grDeck2.u_deck = false;
+			grDeck2.update();
+			data.monster = grDeck2.card.u_name.getDisplayValue();
+		}	
 	}
 	else{
 		data.header = "Wait Until Its Your Turn";
@@ -181,7 +244,7 @@ button.btn-default:after {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>50</sys_mod_count>
+        <sys_mod_count>98</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -189,19 +252,48 @@ button.btn-default:after {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-03 19:15:52</sys_updated_on>
-        <template><![CDATA[<div class="container">
-  <div class="h3" align="center">{{data.header}}</div>
-  <div class="row">
-    <div align="center" ng-if=c.data.turn>
-      <button type="button" class="btn btn-default ribbon">Draw</button>
+        <sys_updated_on>2018-01-07 21:02:30</sys_updated_on>
+        <template><![CDATA[<div> 
+  <div class=" pill-background row">
+    <div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
+      <i class="fa fa-eye fa-2x"></i>
+      <p class="remove-margin">{{data.header}}</p>
     </div>
+  
+     <div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(1)" ng-click="selectPill('requests')">
+      <i class="fa fa-eye fa-3x"></i>
+      <p class="remove-margin">{{data.header}}</p>
+    </div>
+     <div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(1)" ng-click="selectPill('requests')">
+      <i class="fa fa-eye fa-3x"></i>
+      <p class="remove-margin">{{data.header}}</p>
+    </div>
+ <!--
+<div class="each-pill" ng-class="{'active':c.selectedPill == 'create'}" ng-click="selectPill('create')">
+<i class="fa fa-2x fa-wrench " aria-hidden="true"></i>
+<p class="remove-margin">Create Request</p>
+</div>
+
+<div class="each-pill" ng-class="{'active':c.selectedPill == 'contact'}" ng-click="selectPill('contact')">
+<i class="fa fa-2x fa-phone "  aria-hidden="true"></i>
+<p class="remove-margin">Contact</p>
+</div>
+-->
   </div>
 </div>
 
 
 
-
+<!--
+<div class="container">
+<div class="h3">{{data.header}}</div>
+<div>
+<div ng-if="show(0)">
+<button type="button" class="btn btn-default ribbon" ng-click="drawCard()">Draw</button>
+</div>
+</div>
+</div>
+-->
 
 
 
@@ -219,23 +311,23 @@ button.btn-default:after {
 
 <!--
 <form class="form-horizontal">
-  <fieldset ng-if=c.data.turn>
-    <legend class="h3" align="center">{{data.header}}</legend>
-    <div class="form-group">
-      <label for="checkbox">{{data.monster.question}}</label>
-        <div id="checkbox">
-          <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">{{data.monster.answera}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">{{data.monster.answerb}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">{{data.monster.answerc}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">{{data.monster.answerd}}<br>
-          <input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">{{data.monster.answere}}<br>
-        </div>
-        <br/>
-        <div id="button">
-          <button id="singlebutton" name="singlebutton" class="btn btn-success">Attack</button>
-        </div>
-    </div>
-  </fieldset>
+<fieldset ng-if=c.data.turn>
+<legend class="h3" align="center">{{data.header}}</legend>
+<div class="form-group">
+<label for="checkbox">{{data.monster.question}}</label>
+<div id="checkbox">
+<input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">{{data.monster.answera}}<br>
+<input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">{{data.monster.answerb}}<br>
+<input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">{{data.monster.answerc}}<br>
+<input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">{{data.monster.answerd}}<br>
+<input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">{{data.monster.answere}}<br>
+</div>
+<br/>
+<div id="button">
+<button id="singlebutton" name="singlebutton" class="btn btn-success">Attack</button>
+</div>
+</div>
+</fieldset>
 </form>
 -->
 
