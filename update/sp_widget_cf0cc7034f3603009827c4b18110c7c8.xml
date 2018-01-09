@@ -219,7 +219,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>188</sys_mod_count>
+        <sys_mod_count>189</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -227,8 +227,8 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-09 18:31:34</sys_updated_on>
-        <template><![CDATA[<main id="background">
+        <sys_updated_on>2018-01-09 22:38:29</sys_updated_on>
+        <template><![CDATA[<main id="background" ng-if="data.showMonster == 'true' || data.immediateCard == 'true'">
   <div ng-if="data.showMonster == 'true'">
     <div id="namelevel">
       <div id="name" class="h5" >

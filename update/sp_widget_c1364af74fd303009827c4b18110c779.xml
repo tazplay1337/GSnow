@@ -22,20 +22,50 @@
 	});
 
 	$scope.drawCard = function() {
+		console.log("drawCard: ");
 		c.data.mainInfo.phase += 1;
 		c.server.update().then(function(){
 			if($scope.data.monsterCard.name != ""){
 				$rootScope.monsterCard = $scope.data.monsterCard;
+				console.log("drawCard monsterCard: " + $scope.data.monsterCard.name);
 			}
 			else if($scope.data.immediateCard.name != ""){
 				$rootScope.immediateCard = $scope.data.immediateCard;
+				console.log("drawCard immediateCard: " + $scope.data.immediateCard.name);
 			}
 			$rootScope.$broadcast('DRAW_CARD');
-			$rootScope.$broadcast('INFO_UPDATE', $scope.data.mainInfo);	
+//			$rootScope.$broadcast('INFO_UPDATE', $scope.data.mainInfo);	
 		});
 	}
+	
+	$scope.fight = function(number) {
+		alert("Attack");
+		// Phase 3 gegen Monster kämpfen
+	}
+	
+	$scope.runAway = function(number) {
+		alert("runAway");
+		// Phase 5 Zug beenden "Überspringe Kämpfen und Schatzkarten ziehen"
+	}
+	
+	$scope.forward = function(number) {
+		alert("forward");
+		// Fallen Karte annehmen und zug is beendet
+	}
+	
+	$scope.attack = function(number) {
+		alert("Attack");
+		// Gebe deine Antwort ab falls Lösung...
+		// richtig dann gehe in phase 4 und bekomme deine belohnung
+		// falsch dann gehe in phase 5 und bekomme die bestrafung
+	}
+	
+	$scope.next = function(number) {
+		alert("Attack");
+		// beende deinen zug und der nächste spieler ist dran
+	}
 
-	$scope.show = function(number) {
+	$scope.showPhase = function(number) {
 		if(c.data.mainInfo.phase == number && c.data.turn){
 			return true;
 		}
@@ -43,6 +73,16 @@
 			return false;
 		}
 	}
+	
+	$scope.showIfMonster = function(number) {
+		if(c.data.monsterCard.name != ""){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	$scope.myTurn = function() {
 		if(c.data.turn){
 			return true;
@@ -102,9 +142,120 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
   margin-bottom: 0px;
 }
 
-.h3{
-  color: #fff;
-}</css>
+.main {
+    margin-bottom: 20px;
+  	height: 500px;
+}
+.questionsBox {
+    background: #fff;
+    display: block;
+    border: solid 1px #e3e3e3;
+    padding: 10px 20px 0px;
+    box-shadow: inset 0 0 30px rgba(000,000,000,0.1), inset 0 0 4px rgba(255,255,255,1);
+    border-radius: 3px;
+    margin: 0 10px;
+  	height: 100%;
+  	max-height: 100%
+}
+.questions {
+    background: #007fbe;
+    color: #FFF;
+    font-size: 22px;
+    padding: 8px 30px;
+  	text-align:center;
+    margin: 0 -30px 10px;
+    position: relative;
+  	 p { font-size: 10pt;}
+}
+.questions:after {
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.questions:after {
+    left: auto;
+    right: 0;
+    background-position: -10px 0;
+}
+.questions:before, .questions:after {
+    background: black;
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 9px;
+    height: 7px;
+    content: '.';
+    left: 0;
+    text-align: left;
+    font-size: 0;
+}
+.answerList {
+    margin-bottom: 15px;
+}
+
+
+ol, ul {
+    list-style: none;
+}
+.answerList li:first-child {
+    border-top-width: 0;
+}
+
+.answerList li {
+    padding: 3px 0;
+}
+.answerList label {
+    display: block;
+    padding: 6px;
+    border-radius: 6px;
+    border: solid 1px #dde7e8;
+    font-weight: 400;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 1px;
+    line-height: normal;
+}
+.questionsRow {
+    background: #dee3e6;
+    margin: 0 -20px;
+    padding: 10px 20px;
+    border-radius: 0 0 3px 3px;
+}
+.button, .greyButton{
+    background-color: #f2f2f2;
+    color: #888888;
+    display: inline-block;
+    border: solid 3px #cccccc;
+    text-shadow: 0 1px 0 #ffffff;
+    line-height: 27px;
+    min-width: 160px;
+    text-align: center;
+    padding: 5px 20px;
+    text-decoration: none;
+    border-radius: 0px;
+    text-transform: capitalize;
+}
+.questionsRow span {
+    float: right;
+    display: inline-block;
+    line-height: 30px;
+    border: solid 1px #aeb9c0;
+    padding: 0 10px;
+    background: #FFF;
+    color: #007fbe;
+}
+
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -120,13 +271,15 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
         <roles/>
         <script><![CDATA[(function(){
 	data.turn = false;
-	data.mytext = "";
+	data.mytext = "Wait Until Its Your Turn";
 	data.mainInfo = {
 		"playeronturn": "",
 		"phase": 0,
+		"doorcards": 0,
+		"treasure_cards": 0,
 		"text": "",
 		"display": "",
-		"displayToMe": "asdd"
+		"displayToMe": "It's your turn!"
 	}
 
 	data.immediateCard = {
@@ -151,6 +304,7 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
 	data.gameID = $sp.getParameter("gameID");
 	var grGame = new GlideRecord('x_166119_gsnow_game');
 	grGame.get('number', data.gameID);
+	data.mainInfo.doorcards = grGame.u_number_door_cards.getDisplayValue();
 
 	// Get my settings for this round
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
@@ -186,7 +340,6 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
 	}
 	
 	// Set Default
-	data.mytext = "Wait Until Its Your Turn";
 	data.mainInfo.display = "Player " + grGame.u_turn.getDisplayValue() + " is on the move and is now drawing a doorcard.";
 	
 	// Phase ZERO
@@ -205,6 +358,9 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
 		grDeck2.orderBy('u_card_number');
 		grDeck2.chooseWindow(0, 1);
 		grDeck2.query();
+		
+		grGame.u_number_door_cards -= 1;
+		grGame.update();
 
 		if(grDeck2.next()){
 			grDeck2.u_deck = false;
@@ -271,7 +427,7 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>283</sys_mod_count>
+        <sys_mod_count>369</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -279,27 +435,68 @@ spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", f
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-09 19:44:47</sys_updated_on>
-        <template><![CDATA[<div class="panel panel-primary">
-  <div class="panel-heading">
-    <div>
+        <sys_updated_on>2018-01-09 22:40:00</sys_updated_on>
+        <template><![CDATA[<div class="main">
+  <div class="questionsBox">
+
+    <div class="questions">
       <h3>{{c.data.mytext}}</h3>
       <p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
     </div>
-  </div>
-  <div class="panel-body">
-    <div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
-      <i class="fa fa-eye fa-2x"></i>
-      <p class="remove-margin">{{data.mytext}}</p>
+    
+    <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
+        <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Doorcards Left</span>
     </div>
-    <div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(1)" ng-click="">
-      <p class="remove-margin">{{data.mytext}}</p>
+    
+    <div class="questionsRow" ng-if="showPhase(1)" ng-click="">
+        <a class="button" ng-if="showIfMonster()" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster()" ng-click="runAway()">Run Away</a><a class="button" ng-if="!showIfMonster()" ng-click="forward()">Forward</a> 
+    </div>
+
+    
+    <div ng-if="show(2)">
+      <div>
+        <ul class="answerList">
+          <li>
+            <label> <input type="radio"> It specifies static for a backdrop, if you don't want the modal to be closed when the user clicks outside of the modal.</label>
+          </li>
+          <li>
+            <label> <input type="radio"> It closes the modal when escape key is pressed; set to false to disable.</label>
+          </li>
+          <li>
+            <label> <input type="radio"> It shows the modal when initialized.</label>
+          </li>
+          <li>
+            <label>
+              <input type="radio"> Using the jQuery .load method, injects content into the modal body. If an href with a valid URL is added, it will load that content.</label>
+          </li>
+        </ul>
+      </div>
+      <div class="questionsRow" ng-click="">
+        <a class="button" ng-click="attack()">Attack!</a>
+      </div>
     </div>
   </div>
 </div>
 
 
+<!--
+<div class="panel panel-primary">
+<div class="panel-heading">
+<div>
+<h3>{{c.data.mytext}}</h3>
+<p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
+<p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
+</div>
+</div>
+<div class="panel-body">
+<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
+<i class="fa fa-eye fa-2x"></i>
+<p class="remove-margin">{{data.mytext}}</p>
+</div>
+</div>
+</div>
+-->
 
 
 
