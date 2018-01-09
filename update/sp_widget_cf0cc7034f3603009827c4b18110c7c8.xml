@@ -4,15 +4,49 @@
         <client_script><![CDATA[function($scope,$rootScope,$timeout) {
 	/* widget controller */
 	var c = this;
-	$scope.showWidget = "";
+	c.data.showMonster = 'false';
+	c.data.immediateCard = 'false';
+	
+	$rootScope.immediateCard = {
+		"name": "",
+		"cardtype": "",
+		"image": "",
+		"short_description": "",
+		"effect": "",
+		"lifetime": ""
+	}
+	$rootScope.monsterCard = {
+		"name": "",
+		"image": "",
+		"level": "",
+		"cardtype": "",
+		"reward_treasure": "",
+		"reward_level": "",
+		"short_description": ""
+	}
 
-	//Listening for "showHideWidget" event
-	$rootScope.$on('showHideWidget', function(event,data) {
-		c.data.monsterName = data;
+	$rootScope.$on('DRAW_CARD', function(event,data) {
+		if($rootScope.monsterCard.name != ""){
+			console.log("name monster: " + $rootScope.monsterCard.name);
+			$scope.data.showMonster = 'true';
+			$scope.data.name = $rootScope.monsterCard.name;
+			$scope.data.level = $rootScope.monsterCard.level;
+			$scope.data.reward_level = $rootScope.monsterCard.reward_level;
+			$scope.data.reward_treasure = $rootScope.monsterCard.reward_treasure;
+			$scope.data.short_description = $rootScope.monsterCard.short_description;
+			$scope.data.image = $rootScope.monsterCard.image;
+		}
+		else if($rootScope.immediateCard.name != ""){
+			console.log("name imcard: " + $rootScope.immediateCard.name);
+			$scope.data.immediateCard = 'true';
+			$scope.data.name = $rootScope.immediateCard.name;
+			$scope.data.effect = $rootScope.immediateCard.effect;
+			$scope.data.lifetime = $rootScope.immediateCard.lifetime;
+			$scope.data.short_description = $rootScope.immediateCard.short_description;
+	//		$scope.data.image = $rootScope.immediateCard.image;
+		}
 		c.server.update().then(function(){
-			$scope.showWidget = 'true';
 		});
-
 	});
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -27,6 +61,7 @@
 #background {
   width: 100%;
   height: 500px;
+  background: contain;
   -webkit-border-radius: 24px;
   -moz-border-radius: 24px;
   border-radius: 24px;
@@ -177,33 +212,6 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-	data.monsterName = ""
-
-	if(input){
-		data.monsterName = input.monsterName;
-		gs.addInfoMessage("NAME: " + data.monsterName);
-		var grMonster = new GlideRecord('x_166119_gsnow_monster');
-		grMonster.get('u_name', data.monsterName);
-
-		var imageID ='';
-		var grImage = new GlideRecord('sys_attachment');
-		grImage.addQuery('file_name','u_image');
-		grImage.addQuery('table_sys_id',grMonster.sys_id.getDisplayValue());
-		grImage.query();
-
-		while(grImage.next()){
-			imageID = grImage.sys_id.getDisplayValue();
-		}
-
-		data.monster = {
-			"name": grMonster.u_name.getDisplayValue(),
-			"image": imageID,
-			"level": grMonster.u_level.getDisplayValue(),
-			"reward_treasure": grMonster.u_reward_treasure.getDisplayValue(),
-			"reward_level": grMonster.u_reward_level.getDisplayValue(),
-			"short_description": grMonster.u_short_description.getDisplayValue()
-		}
-	}
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -211,7 +219,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>155</sys_mod_count>
+        <sys_mod_count>188</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -219,37 +227,60 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-07 20:51:21</sys_updated_on>
+        <sys_updated_on>2018-01-09 18:31:34</sys_updated_on>
         <template><![CDATA[<main id="background">
-  <div ng-if="showWidget == 'true'">
+  <div ng-if="data.showMonster == 'true'">
     <div id="namelevel">
       <div id="name" class="h5" >
-        {{data.monster.name}}
+        {{data.name}}
       </div>
       <div id="level" class="h5">
-        lvl {{data.monster.level}}
+        lvl {{data.level}}
       </div>
     </div>
     <div id="image">
-      <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
+      <div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.image}})" ng-if="data.image"></div>
     </div>
     <div id="reward">
       <div id="levelup" class="h6">
-        Level Up {{data.monster.reward_level}}
+        Level Up {{data.reward_level}}
       </div>
       <div id="treasure" class="h6">
-        Treasure {{data.monster.reward_treasure}}
+        Treasure {{data.reward_treasure}}
       </div>
     </div>
     <div id="short_description">
       <p>
-        {{data.monster.short_description}} 
+        {{data.short_description}} 
       </p>
     </div>
     <div id="punishment">
       <p>
         This award-winning card game, designed by Steve Jackson, captures the essence 
         of the dungeon experience... with none of that stupid roleplaying stuff. 
+      </p>
+    </div>
+  </div>
+  <div ng-if="data.immediateCard == 'true'">
+    <div id="namelevel">
+      <div id="name" class="h5" >
+        {{data.name}}
+      </div>
+    </div>
+    <div id="image">
+      <div class="img" style="background-image:url(https://www.wikihow.com/images/thumb/c/cf/Cast-a-Spell-Step-11-Version-2.jpg/aid1057820-v4-728px-Cast-a-Spell-Step-11-Version-2.jpg)"></div>
+    </div>
+    <div id="reward">
+      <div id="levelup" class="h6">
+       	Effect  {{data.effect}}
+      </div>
+      <div id="treasure" class="h6">
+        Lifetime  {{data.lifetime}}
+      </div>
+    </div>
+    <div id="short_description">
+      <p>
+        {{data.short_description}} Du bist in eine Falle getappt verliere {{data.effect}} im Angriff für {{data.lifetime}} Runden.
       </p>
     </div>
   </div>

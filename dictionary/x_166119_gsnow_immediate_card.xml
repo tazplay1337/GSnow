@@ -2,5 +2,6 @@
 <database>
     <element extends="x_166119_gsnow_non_monster" label="Immediate Card" max_length="40" name="x_166119_gsnow_immediate_card" type="collection">
         <element default="1" label="Lifetime" max_length="40" name="u_lifetime" type="integer"/>
+        <element label="Short Description" max_length="200" name="u_short_description" type="string"/>
     </element>
 </database>

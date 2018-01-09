@@ -103,21 +103,21 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-30 15:17:50</sys_created_on>
+            <sys_created_on>2018-01-08 22:59:37</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>0c284d2e4f9343009827c4b18110c7e4</sys_id>
+            <sys_id>cc2801654f2303009827c4b18110c769</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>x_166119_gsnow_m2m_players_cards</sys_name>
-            <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+            <sys_name/>
+            <sys_package/>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-            <sys_update_name>sys_ui_list_x_166119_gsnow_m2m_players_cards_null</sys_update_name>
+            <sys_update_name/>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-30 15:17:50</sys_updated_on>
-            <sys_user/>
+            <sys_updated_on>2018-01-08 22:59:37</sys_updated_on>
+            <sys_user display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</sys_user>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>
         </sys_ui_list>

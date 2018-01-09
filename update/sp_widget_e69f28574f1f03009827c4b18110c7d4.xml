@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
-	/* widget controller */
+        <client_script><![CDATA[function($rootScope, $scope, spUtil){
 	var c = this;
+	
+	$rootScope.main = {
+		"playeronturn": "name",
+		"phase": 99,
+		"text": "text",
+		"display": "default"
+	}
+
+	/*	
+	$rootScope.$on('DRAW_CARD', function(event,data) {		
+		$scope.data.maintxt = "Player " + data.playeronturn + " is on the move and is now " + data.text;
+		$scope.data.phase = data.phase;
+		
+//		c.server.update().then(function(){
+//			$rootScope.main.display = $scope.data.maintxt;
+//			$rootScope.main.phase = $scope.data.phase;
+//			console.log("GS ScoopOn: " + $rootScope.main.display);
+//			console.log("GS ScoopOn: SERVER UPDATE AFTER");
+//		});
+	});
+
+	$rootScope.$on('INFO_UPDATE', function(event,data) {
+		data.newinfos = true;
+		$scope.data.maintxt = data.playeronturn + " is on the move and is now " + data.text;
+		console.log("Game Settings INFO UPDATE: " + $scope.data.maintxt);
+		$scope.data.phase = data.phase;
+		
+		c.server.update().then(function(){
+			data.newinfos = false;
+			console.log("Game Settings THEN: " + data.newinfos);
+		}); 
+	}); */
 	
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
 		c.server.update().then(function(){
@@ -35,6 +66,10 @@
 .boxParent{
   height: 32px;
   flex-grow:1;
+}
+.boxTitleHeader{
+  display:flex;
+  font-size: 1.2em;
 }
 
 .boxTitle{
@@ -86,12 +121,24 @@
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
 	data.gameName = "";
+//	data.newinfos = false;
+//	data.maintxt = "";
+	data.phase = 0;
 	
 	var gr = new GlideRecord('x_166119_gsnow_game');
 	gr.get('number', data.gameID);
 	data.gameName = gr.u_name.getDisplayValue();
 	
-	data.test = gr.u_round.getDisplayValue();
+	/*
+	if(input && input.newinfos){
+		data.maintxt = input.maintxt;
+		data.phase = input.phase;
+		gr.u_phase = input.phase;
+		gr.u_main_text = input.maintxt;
+		gr.update();
+		gs.addInfoMessage("GAME UPDATE " + input.phase);
+	} */
+	
 	
 	data.settings = [];
 	var names = ["Dungeon", "Victory Level", "Start Time", "Round", "Player Turn", "Phase"];
@@ -119,7 +166,7 @@
         <sys_created_on>2018-01-01 21:26:08</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e69f28574f1f03009827c4b18110c7d4</sys_id>
-        <sys_mod_count>49</sys_mod_count>
+        <sys_mod_count>95</sys_mod_count>
         <sys_name>GS Show Game Settings</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -127,11 +174,11 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e69f28574f1f03009827c4b18110c7d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-05 12:24:20</sys_updated_on>
+        <sys_updated_on>2018-01-09 18:45:03</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
-    <div class="boxTitle">
-      {{c.data.gameName}}
+    <div class="boxTitleHeader">
+        {{c.data.gameName}}
     </div>
   </div>
   <div class="panel-body">
