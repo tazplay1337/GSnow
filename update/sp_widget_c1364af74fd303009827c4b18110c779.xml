@@ -3,78 +3,124 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function($rootScope, $scope, spUtil) {
 	var c = this;
-/*
-	if($scope.data.turn && false){
-		$rootScope.$broadcast('INFO_UPDATE', $scope.data.mainInfo);		
-		console.log("GS Main Root: " + $scope.data.mainInfo.display);
-		console.log("GS Main Root: " + $scope.data.mainInfo.playeronturn);
-	} */
+	c.data.victory = "";
+	c.data.recordWatch = false;
+	c.data.alert = {
+		"style": "",
+		"heading": "",
+		"btnText": "",
+		"textLine1": "",
+		"textLine2": ""
+	}
 
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
 		if (!c.data.turn) {
+			c.data.recordWatch = true;
 			c.server.update().then(function(){
 				c.data.mytext = $scope.data.mytext
 				c.data.mainInfo.display = $scope.data.mainInfo.display;
-				console.log("Main recordWatch text: " + c.data.mytext);
-				console.log("Main recordWatch display: " + c.data.mainInfo.display);
+				c.data.recordWatch = false;
 			});
 		}
 	});
 
+	$rootScope.$on('EXERCISE_INFO', function(event,data) {
+		c.data.mainInfo.displayToMe = data;
+	});
+
+	$rootScope.$on('EXERCISE_FINISHED', function(event,data) {
+		c.data.victory = data;
+		c.data.mainInfo.phase += 1;
+
+		if(c.data.victory){
+			c.data.alert.style = "alert-success";
+			c.data.alert.heading = "Well done!";
+			c.data.alert.btnText = "Take the reward";
+			c.data.alert.textLine1 = "Du hast das Monster besiegt. Du steigst " + $rootScope.monsterCard.reward_level + " auf. Zustätzlich ziehe " + $rootScope.monsterCard.reward_treasure + " Schatzkarten!";
+		}
+		else{
+			c.data.alert.style = "alert-danger";
+			c.data.alert.heading = "Ohje the Monster win!";
+			c.data.alert.btnText = "Bestrafung";
+			c.data.alert.textLine1 = "WAUuuuW das Monster hat klar verloren. Jetzt wirst du bestraft!";
+		}
+	});
+
 	$scope.drawCard = function() {
-		console.log("drawCard: ");
+		c.data.recordWatch = false;
 		c.data.mainInfo.phase += 1;
 		c.server.update().then(function(){
 			if($scope.data.monsterCard.name != ""){
 				$rootScope.monsterCard = $scope.data.monsterCard;
-				console.log("drawCard monsterCard: " + $scope.data.monsterCard.name);
 			}
 			else if($scope.data.immediateCard.name != ""){
 				$rootScope.immediateCard = $scope.data.immediateCard;
-				console.log("drawCard immediateCard: " + $scope.data.immediateCard.name);
 			}
 			$rootScope.$broadcast('DRAW_CARD');
-//			$rootScope.$broadcast('INFO_UPDATE', $scope.data.mainInfo);	
 		});
 	}
-	
+
 	$scope.fight = function(number) {
-		alert("Attack");
-		// Phase 3 gegen Monster kämpfen
+		c.data.mainInfo.phase += 1;
+		c.data.monsterCard.exercise = $scope.data.monsterCard.exercise;
+		c.data.monsterCard.exercisetype = $scope.data.monsterCard.exercisetype;
+		c.data.monsterCard.name = $scope.data.monsterCard.name;
+		c.server.update();
 	}
-	
+
 	$scope.runAway = function(number) {
 		alert("runAway");
 		// Phase 5 Zug beenden "Überspringe Kämpfen und Schatzkarten ziehen"
 	}
-	
+
 	$scope.forward = function(number) {
 		alert("forward");
 		// Fallen Karte annehmen und zug is beendet
 	}
-	
+
 	$scope.attack = function(number) {
-		alert("Attack");
-		// Gebe deine Antwort ab falls Lösung...
-		// richtig dann gehe in phase 4 und bekomme deine belohnung
-		// falsch dann gehe in phase 5 und bekomme die bestrafung
-	}
-	
-	$scope.next = function(number) {
-		alert("Attack");
-		// beende deinen zug und der nächste spieler ist dran
+		$rootScope.$broadcast('EXERCISE_ATTACK');
 	}
 
-	$scope.showPhase = function(number) {
-		if(c.data.mainInfo.phase == number && c.data.turn){
+	$scope.evaluationExercise = function(number) {
+		if(c.data.victory){
+			console.log("SHIT WTB");
+			c.data.mainInfo.phase = 4;
+			c.data.reward_level = $rootScope.monsterCard.reward_level;
+			c.data.reward_treasure = $rootScope.monsterCard.reward_treasure;
+			c.server.update().then(function(){
+				$rootScope.$broadcast('CARDS_CHANGE');
+			});  
+		}
+		else{
+
+		}
+		//		c.server.update().then(function(){
+
+		//		});
+	}
+
+	$scope.next = function(number) {
+		$rootScope.$broadcast('END_SHOW');
+		c.data.next = true;
+		c.data.mainInfo.phase = 0;
+		c.server.update().then(function(){
+			c.data.turn = false;
+			c.data.mainInfo.phase = 0;
+			c.data.next = false;
+		});  
+	}
+
+	$scope.showPhase = function(phase) {
+		if(c.data.mainInfo.phase == phase && c.data.turn){
 			return true;
 		}
 		else{
 			return false;
 		}
 	}
-	
-	$scope.showIfMonster = function(number) {
+
+	$scope.showIfMonster = function() {
 		if(c.data.monsterCard.name != ""){
 			return true;
 		}
@@ -82,7 +128,16 @@
 			return false;
 		}
 	}
-	
+
+	$scope.showExercise = function(phase, exercise) {
+		if(c.data.mainInfo.phase == phase && c.data.turn && exercise == c.data.monsterCard.exercisetype){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	$scope.myTurn = function() {
 		if(c.data.turn){
 			return true;
@@ -91,25 +146,7 @@
 			return false;
 		}
 	}
-}	
-
-
-
-
-
-/*
-	$scope.data.mainInfo = {
-		"name": $rootScope.main.name,
-		"phase":$rootScope.main.phase,
-		"text": $rootScope.main.text
-}
-*/
-
-/*
-spUtil.recordWatch($scope, "x_166119_gsnow_monster", "u_name=Script Includer", function(name, data) {
-		c.data.recordName = c.data.recordName + 1;
-	});
-*/]]></client_script>
+}	]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel-heading{
   width: 100%;
@@ -281,7 +318,6 @@ input[type=checkbox], input[type=radio] {
 		"display": "",
 		"displayToMe": "It's your turn!"
 	}
-
 	data.immediateCard = {
 		"name": "",
 		"cardtype": "",
@@ -297,7 +333,9 @@ input[type=checkbox], input[type=radio] {
 		"cardtype": "",
 		"reward_treasure": "",
 		"reward_level": "",
-		"short_description": ""
+		"short_description": "",
+		"exercise": "",
+		"exercisetype": ""
 	}
 
 	// Get current Game
@@ -312,13 +350,30 @@ input[type=checkbox], input[type=radio] {
 	grPlayer.addQuery('u_user', gs.getUserID());
 	grPlayer.query();
 
+	// Check if next turn
+	if(input && input.next){
+		gs.addInfoMessage("Next Turn: " + input.next);
+		var turn = grGame.u_turn;
+		turn += 1;
+		turn = turn % (grGame.u_total_number_player + 1); // 1 is Offset
+		if(turn < 1){
+			turn = 1;
+		}
+		grGame.u_turn = turn;
+		grGame.u_phase = 0;
+		grGame.update();
+		data.turn = false;
+		data.mainInfo.playeronturn = "";
+		data.mainInfo.phase = 0;
+	}
+
 	if(grPlayer.next() && grGame.u_turn == grPlayer.u_number){
 		data.turn = true;
 		data.mainInfo.playeronturn = grPlayer.u_user.getDisplayValue();
 	}
-	
 	// Set Phase
-	if(input && data.turn){
+	if(input && data.turn && !input.recordWatch){
+		gs.addInfoMessage("TEST RECORD  " + input.recordWatch);
 		data.mainInfo.phase = input.mainInfo.phase;
 		grGame.u_phase = data.mainInfo.phase;
 		grGame.update();
@@ -338,10 +393,10 @@ input[type=checkbox], input[type=radio] {
 		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
 		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
 	}
-	
+
 	// Set Default
 	data.mainInfo.display = "Player " + grGame.u_turn.getDisplayValue() + " is on the move and is now drawing a doorcard.";
-	
+
 	// Phase ZERO
 	if(data.turn && data.mainInfo.phase == 0){
 		data.mainInfo.display = "Click to draw a doorcard if you are ready!";
@@ -349,8 +404,8 @@ input[type=checkbox], input[type=radio] {
 	} 
 	// Phase ONE
 	else if(data.turn && data.mainInfo.phase == 1){
-		gs.addInfoMessage("3: Phase 1 ");
-		
+		//		gs.addInfoMessage("3: Phase 1 ");
+
 		var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
 		grDeck2.addQuery('game', grGame.sys_id);
 		grDeck2.addQuery('u_deck', 'true');
@@ -358,7 +413,7 @@ input[type=checkbox], input[type=radio] {
 		grDeck2.orderBy('u_card_number');
 		grDeck2.chooseWindow(0, 1);
 		grDeck2.query();
-		
+
 		grGame.u_number_door_cards -= 1;
 		grGame.update();
 
@@ -368,7 +423,7 @@ input[type=checkbox], input[type=radio] {
 
 			if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
 				data.mytext= "FIGHT";
-				gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
+				//				gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
 				var imageID ='';
 				var grImage = new GlideRecord('sys_attachment');
 				grImage.addQuery('file_name','u_image');
@@ -386,9 +441,12 @@ input[type=checkbox], input[type=radio] {
 					"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
 					"reward_treasure": grDeck2.card.u_reward_treasure.getDisplayValue(),
 					"reward_level": grDeck2.card.u_reward_level.getDisplayValue(),
-					"short_description": grDeck2.card.u_short_description.getDisplayValue()
+					"short_description": grDeck2.card.u_short_description.getDisplayValue(),
+					"exercise": grDeck2.card.u_exercise.getDisplayValue(),
+					"exercisetype": grDeck2.card.u_exercise.u_type.getDisplayValue()
 				}
-				data.mainInfo.display = "fighting! vs " + data.monsterCard.name;
+				//				gs.addInfoMessage("SERVER: " + data.monsterCard.exercise);
+				data.mainInfo.display = data.mainInfo.playeronturn + " has drawn a monster card: " + data.monsterCard.name;
 				data.mainInfo.displayToMe = "You have to fight this monster!";
 			}
 			else{
@@ -409,15 +467,53 @@ input[type=checkbox], input[type=radio] {
 	}
 	// PHASE TWO
 	else if(data.turn && data.mainInfo.phase == 2){
-		gs.addInfoMessage("PHASE 2");
-		data.mainInfo.text = "WTF IS PHASE 2";
-		data.mainInfo.displayToMe = "WAAUW PHASE 2";
-		grGame.u_main_text = "WAAUW PHASE 2";
-		grGame.update();	
+		data.mytext= "WIN OR DIE! May the force be with you";
+		data.mainInfo.display = data.mainInfo.playeronturn + " is fighting vs " + input.monsterCard.name;
+		grGame.u_main_text = data.mainInfo.display;
+		grGame.update();
+		data.monsterCard.exercise = input.monsterCard.exercise;
+		data.monsterCard.exercisetype = input.monsterCard.exercisetype;
+		var options = [ {name: data.monsterCard.exercise}];
+		data.quiz = $sp.getWidget("gs_main_exercise_quiz", options[0]);
+	}
+	// PHASE FOUR
+	else if(data.turn && data.mainInfo.phase == 4){
+		if(input.victory){
+			grPlayer.u_level += parseInt(input.reward_level);
+			grPlayer.update();
+
+			var grDeck3 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+			grDeck3.addQuery('game', grGame.sys_id);
+			grDeck3.addQuery('u_deck', 'true');
+			grDeck3.addQuery('card.u_deck_type', '10');
+			grDeck3.orderBy('u_card_number');
+			grDeck3.chooseWindow(0, parseInt(input.reward_treasure));
+			grDeck3.query();
+
+			var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+
+			while(grDeck3.next()){
+				grHand.initialize();
+				grHand.u_game = grGame.sys_id;
+				grHand.card = grDeck3.card.sys_id;
+				grHand.player = grPlayer.sys_id;
+				grHand.insert();
+				grDeck3.u_deck = false;
+				grDeck3.update();			
+			}
+			data.mainInfo.display = data.mainInfo.playeronturn + " has won his fight. He is " + input.reward_level + " level up and has " + input.reward_treasure + " new hand cards!";
+			data.mainInfo.displayToMe = "Congratulate Boss! You are " + input.reward_level + " level up and have " + input.reward_treasure + " new hand cards!"; 
+		}
+		else if(data.turn && data.mainInfo.phase == 4){
+			gs.addInfoMessage("PHASE FOUR: you has lose");
+		}
+		data.mytext= "Finish your turn my little buddy!";
+		grGame.u_main_text = data.mainInfo.display;
+		grGame.update();
 	}
 	// PHASE WAIT
 	else if(!data.turn && data.mainInfo.phase > 0){
-		gs.addInfoMessage("4: Else  " + data.turn );
+		//		gs.addInfoMessage("4: Else  " + data.turn );
 		data.mainInfo.display = grGame.u_main_text.getDisplayValue();
 	}
 })();]]></script>
@@ -427,7 +523,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>369</sys_mod_count>
+        <sys_mod_count>486</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -435,208 +531,42 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-09 22:40:00</sys_updated_on>
+        <sys_updated_on>2018-01-14 22:39:17</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
-
     <div class="questions">
       <h3>{{c.data.mytext}}</h3>
       <p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
     </div>
-    
     <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
-        <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Doorcards Left</span>
+      <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Doorcards Left</span>
     </div>
-    
     <div class="questionsRow" ng-if="showPhase(1)" ng-click="">
-        <a class="button" ng-if="showIfMonster()" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster()" ng-click="runAway()">Run Away</a><a class="button" ng-if="!showIfMonster()" ng-click="forward()">Forward</a> 
-    </div>
-
-    
-    <div ng-if="show(2)">
+      <a class="button" ng-if="showIfMonster()" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster()" ng-click="runAway()">Run Away</a><a class="button" ng-if="!showIfMonster()" ng-click="forward()">Forward</a> 
+    </div> 
+    <div ng-if="showExercise(2, 'Quiz')">   
       <div>
-        <ul class="answerList">
-          <li>
-            <label> <input type="radio"> It specifies static for a backdrop, if you don't want the modal to be closed when the user clicks outside of the modal.</label>
-          </li>
-          <li>
-            <label> <input type="radio"> It closes the modal when escape key is pressed; set to false to disable.</label>
-          </li>
-          <li>
-            <label> <input type="radio"> It shows the modal when initialized.</label>
-          </li>
-          <li>
-            <label>
-              <input type="radio"> Using the jQuery .load method, injects content into the modal body. If an href with a valid URL is added, it will load that content.</label>
-          </li>
-        </ul>
-      </div>
+        <sp-widget widget="c.data.quiz"></sp-widget>
+      </div> 
       <div class="questionsRow" ng-click="">
         <a class="button" ng-click="attack()">Attack!</a>
+      </div>   
+    </div>
+    <div ng-if="showPhase(3)">
+      <div class="alert + {{c.data.alert.style}}" role="alert">
+        <h4 class="alert-heading">{{c.data.alert.heading}}</h4>
+        <p>{{c.data.alert.textLine1}}</p>
+        <p class="mb-0">{{c.data.alert.textLine2}}</p>
+      </div>
+      <div class="questionsRow" ng-click="">
+        <a class="button" ng-click="evaluationExercise()">{{c.data.alert.btnText}}</a>
       </div>
     </div>
+    <div class="questionsRow" ng-if="showPhase(4)" ng-click="">
+      <a class="button" ng-click="next()">Next Player</a>
+    </div>
   </div>
-</div>
-
-
-<!--
-<div class="panel panel-primary">
-<div class="panel-heading">
-<div>
-<h3>{{c.data.mytext}}</h3>
-<p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
-<p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
-</div>
-</div>
-<div class="panel-body">
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
-<i class="fa fa-eye fa-2x"></i>
-<p class="remove-margin">{{data.mytext}}</p>
-</div>
-</div>
-</div>
--->
-
-
-
-
-<!--
-<div class=" pill-background row">
-<div class="jumbotron jumbotron-fluid">
-<div class="container">
-<h1 class="display-4">Fluid jumbotron</h1>
-<p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-</div>
-<div> 
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
-<i class="fa fa-eye fa-2x"></i>
-<p class="remove-margin">{{data.mytext}}</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="panel panel-primary">
-<div class="page-header">
-<div>
-<h2>Fluid jumbotron</h2>
-<p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-</div>
-</div>
-<div class="panel-body">
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(0)" ng-click="drawCard()">
-<i class="fa fa-eye fa-2x"></i>
-<p class="remove-margin">{{data.mytext}}</p>
-</div>
-</div>
-</div>
-
-
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(1)" ng-click="">
-<i class="fa fa-eye fa-3x"></i>
-<p class="remove-margin">{{data.mytext}}</p>
-</div>
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'requests'}" ng-if="show(1)" ng-click="">
-<i class="fa fa-eye fa-3x"></i>
-<p class="remove-margin">{{data.mytext}}</p>
-</div>
-
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'create'}" ng-click="selectPill('create')">
-<i class="fa fa-2x fa-wrench " aria-hidden="true"></i>
-<p class="remove-margin">Create Request</p>
-</div>
-
-<div class="each-pill" ng-class="{'active':c.selectedPill == 'contact'}" ng-click="selectPill('contact')">
-<i class="fa fa-2x fa-phone "  aria-hidden="true"></i>
-<p class="remove-margin">Contact</p>
-</div>
-
-</div>
-</div>
--->
-
-
-<!--
-<div class="container">
-<div class="h3">{{data.header}}</div>
-<div>
-<div ng-if="show(0)">
-<button type="button" class="btn btn-default ribbon" ng-click="drawCard()">Draw</button>
-</div>
-</div>
-</div>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<form class="form-horizontal">
-<fieldset ng-if=c.data.turn>
-<legend class="h3" align="center">{{data.header}}</legend>
-<div class="form-group">
-<label for="checkbox">{{data.monster.question}}</label>
-<div id="checkbox">
-<input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">{{data.monster.answera}}<br>
-<input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">{{data.monster.answerb}}<br>
-<input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">{{data.monster.answerc}}<br>
-<input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">{{data.monster.answerd}}<br>
-<input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">{{data.monster.answere}}<br>
-</div>
-<br/>
-<div id="button">
-<button id="singlebutton" name="singlebutton" class="btn btn-success">Attack</button>
-</div>
-</div>
-</fieldset>
-</form>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<div id="background">
-<div id="timer">
-10:32
-</div>
-<div id="image">
-<div class="img" style="background-image:url({{window.location.origin}}/sys_attachment.do?sys_id={{data.monster.image}}" ng-if="data.monster.image"></div>
-</div>
-<div id="short_description">
-<p>{{data.monster.question}}</p>
-<form>
-<input type="checkbox" name="answera" value="a" >{{data.monster.answera}}<br>
-<input type="checkbox" name="answera" value="a">{{data.monster.answerb}}<br>
-<input type="checkbox" name="answera" value="a">{{data.monster.answerc}}<br>
-<input type="checkbox" name="answera" value="a">{{data.monster.answerd}}<br>
-<input type="checkbox" name="answera" value="a" ng-show="{{data.monster.answere}}">{{data.monster.answere}}<br>
-<br>
-<input type="submit" value="Answer">
-</form>
-</div>
-</div>
--->]]></template>
+</div>]]></template>
     </sp_widget>
 </record_update>

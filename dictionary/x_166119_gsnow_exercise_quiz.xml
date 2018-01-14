@@ -7,5 +7,10 @@
         <element label="Answer D" max_length="100" name="u_answer_d" type="string"/>
         <element label="Answer E" max_length="100" name="u_answer_e" type="string"/>
         <element label="Question" max_length="1000" name="u_question" type="string"/>
+        <element label="Value A" max_length="40" name="u_value_a" type="boolean"/>
+        <element label="Value B" max_length="40" name="u_value_b" type="boolean"/>
+        <element label="Value C" max_length="40" name="u_value_c" type="boolean"/>
+        <element label="Value D" max_length="40" name="u_value_d" type="boolean"/>
+        <element label="Value E" max_length="40" name="u_value_e" type="boolean"/>
     </element>
 </database>

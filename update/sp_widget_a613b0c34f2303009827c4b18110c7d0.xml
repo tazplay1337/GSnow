@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($rootScope, $scope) {
+	/* widget controller */
+	var c = this;
+
+	$rootScope.$broadcast('EXERCISE_INFO', "Answer this question: " + c.data.question);
+
+	$rootScope.$on('EXERCISE_ATTACK', function(event,data) {
+		var exercise = validateAnswers();
+		$rootScope.$broadcast('EXERCISE_FINISHED', exercise);
+	});
+
+	function validateAnswers(){
+		var value = true;
+		var ids = ['a', 'b', 'c', 'd', 'e'];
+
+		c.data.questions.forEach(function(question, index) {
+			var userValue = document.getElementById(ids[index]);	
+			var tmpValue = getBool(question.value);
+			// Test ob die Werte unterschiedlich sind
+			if(userValue.checked && !tmpValue || !userValue.checked && tmpValue){
+				value = false;
+			}	
+		});		
+		return value;
+	}
+
+	function getBool(value){
+		if(value == 'true'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_main_exercise_quiz</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Main Exercise Quiz</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var name = options.name;
+	data.question = "";
+	data.questions = [];
+
+	if(name){
+		var grExercise = new GlideRecord('x_166119_gsnow_exercise_quiz');
+		grExercise.get('u_name', name);
+
+		data.question = grExercise.u_question.getDisplayValue();
+
+		if(grExercise.u_answer_a){
+			var questionA = {
+				question: grExercise.u_answer_a.getDisplayValue(),
+				value: grExercise.u_value_a.getDisplayValue(),
+				index: 'a'
+			};
+			data.questions.push(questionA);
+		}
+		if(grExercise.u_answer_b){
+			var questionB = {
+				question: grExercise.u_answer_b.getDisplayValue(),
+				value: grExercise.u_value_b.getDisplayValue(),
+				index: 'b'
+			};
+			data.questions.push(questionB);
+		}
+		if(grExercise.u_answer_c){
+			var questionC = {
+				question: grExercise.u_answer_c.getDisplayValue(),
+				value: grExercise.u_value_c.getDisplayValue(),
+				index: 'c'
+			};
+			data.questions.push(questionC);
+		}
+		if(grExercise.u_answer_d){
+			var questionD = {
+				question: grExercise.u_answer_d.getDisplayValue(),
+				value: grExercise.u_value_d.getDisplayValue(),
+				index: 'd'
+			};
+			data.questions.push(questionD);
+		}
+		if(grExercise.u_answer_e){
+			var questionE = {
+				question: grExercise.u_answer_e.getDisplayValue(),
+				value: grExercise.u_value_e.getDisplayValue(),
+				index: 'e'
+			};
+			data.questions.push(questionE);
+		}
+	}
+	else{
+		gs.addInfoMessage("NAME FAIL: " + name);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-13 13:18:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a613b0c34f2303009827c4b18110c7d0</sys_id>
+        <sys_mod_count>139</sys_mod_count>
+        <sys_name>GS Main Exercise Quiz</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_a613b0c34f2303009827c4b18110c7d0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-14 16:06:26</sys_updated_on>
+        <template><![CDATA[<div>
+  <ul class="answerList">
+    <li ng-repeat="question in c.data.questions">
+      <label> 
+        <input type="checkbox" id={{question.index}}> {{question.question}}
+      </label>	
+    </li>
+  </ul>
+</div>]]></template>
+    </sp_widget>
+</record_update>

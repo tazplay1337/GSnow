@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_166119_gsnow_exercise" label="Exercise Find Error" max_length="40" name="x_166119_gsnow_exercise_find_error" type="collection">
+        <element label="test" max_length="100" name="u_test" type="string"/>
+    </element>
+</database>

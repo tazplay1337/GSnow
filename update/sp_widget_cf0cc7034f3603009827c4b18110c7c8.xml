@@ -6,7 +6,7 @@
 	var c = this;
 	c.data.showMonster = 'false';
 	c.data.immediateCard = 'false';
-	
+
 	$rootScope.immediateCard = {
 		"name": "",
 		"cardtype": "",
@@ -27,7 +27,6 @@
 
 	$rootScope.$on('DRAW_CARD', function(event,data) {
 		if($rootScope.monsterCard.name != ""){
-			console.log("name monster: " + $rootScope.monsterCard.name);
 			$scope.data.showMonster = 'true';
 			$scope.data.name = $rootScope.monsterCard.name;
 			$scope.data.level = $rootScope.monsterCard.level;
@@ -37,17 +36,19 @@
 			$scope.data.image = $rootScope.monsterCard.image;
 		}
 		else if($rootScope.immediateCard.name != ""){
-			console.log("name imcard: " + $rootScope.immediateCard.name);
 			$scope.data.immediateCard = 'true';
 			$scope.data.name = $rootScope.immediateCard.name;
 			$scope.data.effect = $rootScope.immediateCard.effect;
 			$scope.data.lifetime = $rootScope.immediateCard.lifetime;
 			$scope.data.short_description = $rootScope.immediateCard.short_description;
-	//		$scope.data.image = $rootScope.immediateCard.image;
+			//		$scope.data.image = $rootScope.immediateCard.image;
 		}
-		c.server.update().then(function(){
-		});
 	});
+
+	$rootScope.$on('END_SHOW', function(event,data) {
+		$scope.data.showMonster = 'false';
+		$scope.data.immediateCard = 'false';
+	});							 
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>.h5, .h6{
@@ -219,7 +220,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>189</sys_mod_count>
+        <sys_mod_count>191</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -227,7 +228,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-09 22:38:29</sys_updated_on>
+        <sys_updated_on>2018-01-14 22:06:58</sys_updated_on>
         <template><![CDATA[<main id="background" ng-if="data.showMonster == 'true' || data.immediateCard == 'true'">
   <div ng-if="data.showMonster == 'true'">
     <div id="namelevel">

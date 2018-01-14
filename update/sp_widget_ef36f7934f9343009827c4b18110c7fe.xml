@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
-        <client_script><![CDATA[function(spUtil, $scope, $timeout) {
-    var c = this;
+        <client_script><![CDATA[function($rootScope, $scope, spUtil) {
+	var c = this;
 
-		$scope.useCard = function(hand) {
-			c.data.usedCard = hand.sysid;		
-			c.server.update();
-		}
+	$scope.useCard = function(hand) {
+		c.data.usedCard = hand.sysid;		
+		c.server.update();
+	}
+	
+	$rootScope.$on('CARDS_CHANGE', function(event,data) {
+		console.log("YES BABY!");
+		c.server.update();
+	});
 }	]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel {
@@ -84,7 +89,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	data.effects = [];
 	data.usedCard = "";
 	
-	if(input){
+	if(input && input.usedCard){
 		data.usedCard = input.usedCard;
 		var grUsedCard = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 		grUsedCard.get('sys_id', data.usedCard);
@@ -104,7 +109,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	grCards.addQuery('player.u_user', gs.getUserID());
 	grCards.query();
 	
-	while(grCards.next()){
+	while(grCards.next()){		
 		if(grCards.u_playing_field == '20'){
 			var postmp = "";
 			if(grCards.card.u_position){
@@ -146,7 +151,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-02 11:54:01</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
-        <sys_mod_count>148</sys_mod_count>
+        <sys_mod_count>159</sys_mod_count>
         <sys_name>GS List Cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -154,7 +159,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-07 18:02:20</sys_updated_on>
+        <sys_updated_on>2018-01-14 20:19:12</sys_updated_on>
         <template><![CDATA[<!-- Nav tabs -->
 <div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
