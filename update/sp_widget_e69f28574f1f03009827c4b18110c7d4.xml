@@ -32,10 +32,11 @@
 	
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
 		c.server.update().then(function(){
+			/*
 			for (var i = 0; i < c.data.numbersettings; i++) {
 				c.data.settings[0].name = $scope.data.settings[i].name;
 				c.data.settings[0].value = $scope.data.settings[i].value;
-			}
+			}*/
 		});  
 	});
 }]]></client_script>
@@ -160,7 +161,7 @@
         <sys_created_on>2018-01-01 21:26:08</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e69f28574f1f03009827c4b18110c7d4</sys_id>
-        <sys_mod_count>97</sys_mod_count>
+        <sys_mod_count>98</sys_mod_count>
         <sys_name>GS Show Game Settings</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -168,7 +169,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e69f28574f1f03009827c4b18110c7d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-14 20:00:16</sys_updated_on>
+        <sys_updated_on>2018-01-15 10:54:14</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
     <div class="boxTitleHeader">

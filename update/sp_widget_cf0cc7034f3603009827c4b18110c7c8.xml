@@ -48,6 +48,23 @@
 	$rootScope.$on('END_SHOW', function(event,data) {
 		$scope.data.showMonster = 'false';
 		$scope.data.immediateCard = 'false';
+
+		// Reset Immediate Card
+		$rootScope.immediateCard.name = "";
+		$rootScope.immediateCard.cardtype = "";
+		$rootScope.immediateCard.image = "";
+		$rootScope.immediateCard.short_description = "";
+		$rootScope.immediateCard.effect = "";
+		$rootScope.immediateCard.lifetime = "";
+
+		// Reset Monster Card
+		$rootScope.monsterCard.name = "";
+		$rootScope.monsterCard.image = "";
+		$rootScope.monsterCard.level = "";
+		$rootScope.monsterCard.cardtype = "";
+		$rootScope.monsterCard.reward_treasure = "";
+		$rootScope.monsterCard.reward_level = "";
+		$rootScope.monsterCard.short_description = "";
 	});							 
 }]]></client_script>
         <controller_as>c</controller_as>
@@ -220,7 +237,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>191</sys_mod_count>
+        <sys_mod_count>195</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -228,7 +245,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-14 22:06:58</sys_updated_on>
+        <sys_updated_on>2018-01-15 15:52:09</sys_updated_on>
         <template><![CDATA[<main id="background" ng-if="data.showMonster == 'true' || data.immediateCard == 'true'">
   <div ng-if="data.showMonster == 'true'">
     <div id="namelevel">
@@ -251,9 +268,10 @@
       </div>
     </div>
     <div id="short_description">
-      <p>
+      <img src="url({{window.location.origin}}/sys_attachment.do?sys_id={{data.image}})" alt="Selfhtml" />
+<!--      <p>
         {{data.short_description}} 
-      </p>
+      </p>-->
     </div>
     <div id="punishment">
       <p>

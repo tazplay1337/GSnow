@@ -4,6 +4,10 @@
         <client_script><![CDATA[function($rootScope, $scope, spUtil) {
 	var c = this;
 	c.data.victory = "";
+	c.data.monster = {
+		"monster" : false,
+		"win" : false
+	}
 	c.data.recordWatch = false;
 	c.data.alert = {
 		"style": "",
@@ -15,11 +19,13 @@
 
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
 		if (!c.data.turn) {
+			console.log("recordBEFORE(): " + c.data.mainInfo.phase);
 			c.data.recordWatch = true;
 			c.server.update().then(function(){
-				c.data.mytext = $scope.data.mytext
+				c.data.mytext = $scope.data.mytext;
 				c.data.mainInfo.display = $scope.data.mainInfo.display;
 				c.data.recordWatch = false;
+				console.log("recordAFTER(): " + c.data.mainInfo.phase);
 			});
 		}
 	});
@@ -29,10 +35,12 @@
 	});
 
 	$rootScope.$on('EXERCISE_FINISHED', function(event,data) {
-		c.data.victory = data;
-		c.data.mainInfo.phase += 1;
+		c.data.monster.monster = true;
+		c.data.monster.win = data;
+		c.data.mainInfo.phase = 3;
+		console.log("EXERCISE_FINISHED(): " + c.data.mainInfo.phase);
 
-		if(c.data.victory){
+		if(c.data.monster.win){
 			c.data.alert.style = "alert-success";
 			c.data.alert.heading = "Well done!";
 			c.data.alert.btnText = "Take the reward";
@@ -48,23 +56,28 @@
 
 	$scope.drawCard = function() {
 		c.data.recordWatch = false;
-		c.data.mainInfo.phase += 1;
+		c.data.mainInfo.phase = 1;
+		console.log("drawCard: " + $rootScope.immediateCard.cardtype);
+		console.log("draw(): " + c.data.mainInfo.phase);
 		c.server.update().then(function(){
 			if($scope.data.monsterCard.name != ""){
 				$rootScope.monsterCard = $scope.data.monsterCard;
+				
 			}
 			else if($scope.data.immediateCard.name != ""){
 				$rootScope.immediateCard = $scope.data.immediateCard;
+				console.log("drawCard: " + $rootScope.immediateCard.cardtype);
 			}
 			$rootScope.$broadcast('DRAW_CARD');
 		});
 	}
 
 	$scope.fight = function(number) {
-		c.data.mainInfo.phase += 1;
+		c.data.mainInfo.phase = 2;
 		c.data.monsterCard.exercise = $scope.data.monsterCard.exercise;
 		c.data.monsterCard.exercisetype = $scope.data.monsterCard.exercisetype;
 		c.data.monsterCard.name = $scope.data.monsterCard.name;
+		console.log("fight(): " + c.data.mainInfo.phase);
 		c.server.update();
 	}
 
@@ -73,31 +86,64 @@
 		// Phase 5 Zug beenden "Überspringe Kämpfen und Schatzkarten ziehen"
 	}
 
-	$scope.forward = function(number) {
-		alert("forward");
-		// Fallen Karte annehmen und zug is beendet
+	$scope.forward = function() {
+		console.log("forward() test: " + $rootScope.immediateCard.cardtype + " ?=  Trap");
+		if($rootScope.immediateCard.cardtype == 'Trap'){
+			console.log("IS WAS IN TRAP " + $rootScope.immediateCard.cardtype );
+			c.data.alert.style = "alert-warning";
+			c.data.alert.heading = "ahhhhhh Falle :(";
+			c.data.alert.btnText = "Nimm es hin...";
+			c.data.alert.textLine1 = "Achtung! Du bist in eine Falle getappt! Du verlierst " + $rootScope.immediateCard.effect + " für " + $rootScope.immediateCard.lifetime + " Runden.";
+		}
+		else if($rootScope.immediateCard.cardtype == 'Spell'){
+			c.data.alert.style = "alert-info";
+			c.data.alert.heading = "yeah easy money ein Zauber!";
+			c.data.alert.btnText = "Nehm ich";
+			c.data.alert.textLine1 = "Ok Buddy! Du hast einen Zauber gezogen. Dieser gibt dir einen Bonus von " + $rootScope.immediateCard.effect + " für " + $rootScope.immediateCard.lifetime + " Runden.";
+		}
+
+		c.data.mainInfo.phase = 3;
+		console.log("forward(): " + c.data.mainInfo.phase);
+		c.data.monster.monster = false;		
+		c.server.update();	
 	}
 
 	$scope.attack = function(number) {
 		$rootScope.$broadcast('EXERCISE_ATTACK');
+		c.data.monster.monster = true;		
 	}
 
 	$scope.evaluationExercise = function(number) {
-		if(c.data.victory){
-			console.log("SHIT WTB");
-			c.data.mainInfo.phase = 4;
-			c.data.reward_level = $rootScope.monsterCard.reward_level;
-			c.data.reward_treasure = $rootScope.monsterCard.reward_treasure;
+		c.data.mainInfo.phase = 4;
+
+		if(c.data.monster.monster){
+			console.log("evaluation() in monster: " + c.data.monster.monster);
+			if(c.data.monster.win){
+				console.log("evaluation() in win vs monster: " + c.data.monster.win);
+				c.data.reward_level = $rootScope.monsterCard.reward_level;
+				c.data.reward_treasure = $rootScope.monsterCard.reward_treasure;
+				c.server.update().then(function(){
+					console.log("Gewonnen .style == 'alert-success'");
+					$rootScope.$broadcast('CARDS_CHANGE'); // Aktualisiere Karten Liste
+				});  
+			}
+			else{
+				console.log("evaluation() in lose vs monster: " + c.data.monster.win);
+				c.server.update().then(function(){
+					console.log("Verloren .style == 'alert-danger'");
+					$rootScope.$broadcast('CARDS_CHANGE'); // Aktualisiere Karten Liste
+				});
+			}
+		}
+		else {
+			c.data.immediateCardName = $rootScope.immediateCard.name;
+			console.log("evaluation(): Falle oder zauber ::" + c.data.immediateCardName);
 			c.server.update().then(function(){
-				$rootScope.$broadcast('CARDS_CHANGE');
-			});  
+				console.log("FALLE .style == 'alert-warning'");
+				$rootScope.$broadcast('CARDS_CHANGE'); // Aktualisiere Karten Liste
+			});
 		}
-		else{
-
-		}
-		//		c.server.update().then(function(){
-
-		//		});
+		console.log("evaluation(): " + c.data.mainInfo.phase);
 	}
 
 	$scope.next = function(number) {
@@ -112,6 +158,7 @@
 	}
 
 	$scope.showPhase = function(phase) {
+		//		console.log("showphase(): " + c.data.mainInfo.phase);
 		if(c.data.mainInfo.phase == phase && c.data.turn){
 			return true;
 		}
@@ -282,6 +329,7 @@ input[type=checkbox], input[type=radio] {
     border-radius: 0px;
     text-transform: capitalize;
 }
+
 .questionsRow span {
     float: right;
     display: inline-block;
@@ -478,36 +526,59 @@ input[type=checkbox], input[type=radio] {
 	}
 	// PHASE FOUR
 	else if(data.turn && data.mainInfo.phase == 4){
-		if(input.victory){
-			grPlayer.u_level += parseInt(input.reward_level);
-			grPlayer.update();
+		if(input && input.monster.monster){
+			if(input.monster.win){
+				grPlayer.u_level += parseInt(input.reward_level);
+				grPlayer.update();
 
-			var grDeck3 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-			grDeck3.addQuery('game', grGame.sys_id);
-			grDeck3.addQuery('u_deck', 'true');
-			grDeck3.addQuery('card.u_deck_type', '10');
-			grDeck3.orderBy('u_card_number');
-			grDeck3.chooseWindow(0, parseInt(input.reward_treasure));
-			grDeck3.query();
+				var grDeck3 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+				grDeck3.addQuery('game', grGame.sys_id);
+				grDeck3.addQuery('u_deck', 'true');
+				grDeck3.addQuery('card.u_deck_type', '10');
+				grDeck3.orderBy('u_card_number');
+				grDeck3.chooseWindow(0, parseInt(input.reward_treasure));
+				grDeck3.query();
 
-			var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+				var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 
-			while(grDeck3.next()){
-				grHand.initialize();
-				grHand.u_game = grGame.sys_id;
-				grHand.card = grDeck3.card.sys_id;
-				grHand.player = grPlayer.sys_id;
-				grHand.insert();
-				grDeck3.u_deck = false;
-				grDeck3.update();			
+				while(grDeck3.next()){
+					grHand.initialize();
+					grHand.u_game = grGame.sys_id;
+					grHand.card = grDeck3.card.sys_id;
+					grHand.player = grPlayer.sys_id;
+					grHand.insert();
+					grDeck3.u_deck = false;
+					grDeck3.update();			
+				}
+				data.mainInfo.display = data.mainInfo.playeronturn + " has won his fight. He is " + input.reward_level + " level up and has " + input.reward_treasure + " new hand cards!";
+				data.mainInfo.displayToMe = "Congratulate Boss! You are " + input.reward_level + " level up and have " + input.reward_treasure + " new hand cards!"; 
 			}
-			data.mainInfo.display = data.mainInfo.playeronturn + " has won his fight. He is " + input.reward_level + " level up and has " + input.reward_treasure + " new hand cards!";
-			data.mainInfo.displayToMe = "Congratulate Boss! You are " + input.reward_level + " level up and have " + input.reward_treasure + " new hand cards!"; 
+			else{
+				gs.addInfoMessage("PHASE FOUR: verloren gegen ein monster");
+
+			}
 		}
-		else if(data.turn && data.mainInfo.phase == 4){
-			gs.addInfoMessage("PHASE FOUR: you has lose");
+		else if(input && input.immediateCardName != ""){
+			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
+			var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+			grDeck4.addQuery('game', grGame.sys_id);
+			grDeck4.addQuery('card.u_name', input.immediateCardName);
+			grDeck4.query();
+
+			var grEffectOnMe = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+
+			if(grDeck4.next()){
+				gs.addInfoMessage("grDeck4.next():");
+				grEffectOnMe.initialize();
+				grEffectOnMe.u_game = grGame.sys_id;
+				grEffectOnMe.card = grDeck4.card.sys_id;
+				grEffectOnMe.player = grPlayer.sys_id;
+				grEffectOnMe.u_playing_field = '40';
+				grEffectOnMe.insert();
+			}
 		}
-		data.mytext= "Finish your turn my little buddy!";
+
+		data.mytext= "Finish your turn my buddy!";
 		grGame.u_main_text = data.mainInfo.display;
 		grGame.update();
 	}
@@ -523,7 +594,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>486</sys_mod_count>
+        <sys_mod_count>509</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -531,20 +602,25 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-14 22:39:17</sys_updated_on>
+        <sys_updated_on>2018-01-15 14:52:41</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
+    
     <div class="questions">
       <h3>{{c.data.mytext}}</h3>
       <p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
     </div>
+    
+    
     <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
       <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Doorcards Left</span>
     </div>
+    
     <div class="questionsRow" ng-if="showPhase(1)" ng-click="">
       <a class="button" ng-if="showIfMonster()" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster()" ng-click="runAway()">Run Away</a><a class="button" ng-if="!showIfMonster()" ng-click="forward()">Forward</a> 
     </div> 
+    
     <div ng-if="showExercise(2, 'Quiz')">   
       <div>
         <sp-widget widget="c.data.quiz"></sp-widget>
@@ -553,6 +629,7 @@ input[type=checkbox], input[type=radio] {
         <a class="button" ng-click="attack()">Attack!</a>
       </div>   
     </div>
+    
     <div ng-if="showPhase(3)">
       <div class="alert + {{c.data.alert.style}}" role="alert">
         <h4 class="alert-heading">{{c.data.alert.heading}}</h4>
@@ -563,6 +640,7 @@ input[type=checkbox], input[type=radio] {
         <a class="button" ng-click="evaluationExercise()">{{c.data.alert.btnText}}</a>
       </div>
     </div>
+    
     <div class="questionsRow" ng-if="showPhase(4)" ng-click="">
       <a class="button" ng-click="next()">Next Player</a>
     </div>
