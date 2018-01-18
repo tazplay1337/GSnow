@@ -134,6 +134,25 @@
             <sys_updated_on>2017-12-29 12:40:48</sys_updated_on>
             <value>50</value>
         </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_position</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Headwear</label>
+            <language>en</language>
+            <name>x_166119_gsnow_m2m_players_cards</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-18 12:37:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c4a91ae84f7f43009827c4b18110c7a4</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-18 12:41:17</sys_updated_on>
+            <value>60</value>
+        </sys_choice>
         <sys_choice_set action="INSERT_OR_UPDATE">
             <element>u_position</element>
             <name>x_166119_gsnow_m2m_players_cards</name>

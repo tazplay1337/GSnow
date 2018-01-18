@@ -33,7 +33,7 @@
         <foreign_database/>
         <internal_type display_value="String">string</internal_type>
         <mandatory>false</mandatory>
-        <max_length>100</max_length>
+        <max_length>200</max_length>
         <name>x_166119_gsnow_exercise_quiz</name>
         <next_element/>
         <primary>false</primary>
@@ -54,7 +54,7 @@
         <sys_created_on>2017-12-11 10:09:58</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>505b469c4f0303009827c4b18110c7e7</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Answer A</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -62,7 +62,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_dictionary_x_166119_gsnow_exercise_quiz_u_answer_a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-11 11:15:20</sys_updated_on>
+        <sys_updated_on>2018-01-18 14:28:09</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

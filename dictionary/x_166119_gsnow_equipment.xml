@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element extends="x_166119_gsnow_non_monster" label="Equipment Card" max_length="40" name="x_166119_gsnow_equipment" type="collection">
-        <element choice="3" default="10" label="Position" max_length="40" name="u_position" type="choice">
+        <element choice="3" default="0" label="Position" max_length="40" name="u_position" type="choice">
             <choice>
                 <element label="Addition" value="10"/>
                 <element label="Armor" value="20"/>
                 <element label="Cape" value="40"/>
                 <element label="Foorwear" value="30"/>
+                <element label="Headwear" value="60"/>
+                <element label="None" value="0"/>
                 <element label="Weapon" value="50"/>
             </choice>
         </element>

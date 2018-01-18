@@ -21,6 +21,7 @@
                 <element label="Cape" value="40"/>
                 <element label="Deposed" value="0"/>
                 <element label="Footwear" value="30"/>
+                <element label="Headwear" value="60"/>
                 <element label="None" value="1"/>
                 <element label="Weapon" value="50"/>
             </choice>

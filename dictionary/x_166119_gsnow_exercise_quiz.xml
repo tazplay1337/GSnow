@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element extends="x_166119_gsnow_exercise" label="Exercise Quiz" max_length="40" name="x_166119_gsnow_exercise_quiz" type="collection">
-        <element label="Answer A" max_length="100" name="u_answer_a" type="string"/>
-        <element label="Answer B" max_length="100" name="u_answer_b" type="string"/>
-        <element label="Answer C" max_length="100" name="u_answer_c" type="string"/>
-        <element label="Answer D" max_length="100" name="u_answer_d" type="string"/>
-        <element label="Answer E" max_length="100" name="u_answer_e" type="string"/>
+        <element label="Answer A" max_length="200" name="u_answer_a" type="string"/>
+        <element label="Answer B" max_length="200" name="u_answer_b" type="string"/>
+        <element label="Answer C" max_length="200" name="u_answer_c" type="string"/>
+        <element label="Answer D" max_length="200" name="u_answer_d" type="string"/>
+        <element label="Answer E" max_length="200" name="u_answer_e" type="string"/>
         <element label="Question" max_length="1000" name="u_question" type="string"/>
+        <element label="TrueFalse" max_length="40" name="u_truefalse" type="boolean"/>
         <element label="Value A" max_length="40" name="u_value_a" type="boolean"/>
         <element label="Value B" max_length="40" name="u_value_b" type="boolean"/>
         <element label="Value C" max_length="40" name="u_value_c" type="boolean"/>
