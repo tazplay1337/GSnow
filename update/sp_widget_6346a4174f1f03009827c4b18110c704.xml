@@ -3,7 +3,13 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function(spUtil, $scope, $timeout) {
 	var c = this;
-	console.log("Test1234");
+
+	$scope.refresh = function() {
+		c.data.update = true;
+		c.server.update().then(function(){
+			c.data.update = false;
+		});  
+	}
 
 	spUtil.recordWatch($scope, "x_166119_gsnow_player", "u_game.number=" + c.data.gameID, function(name, data) {
 		c.server.update().then(function(){
@@ -117,7 +123,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	data.gameID = $sp.getParameter("gameID");
 	data.name1 = "";
 	data.name2 = "";
-	
+
 	var gr = new GlideRecord('x_166119_gsnow_player');
 	gr.addQuery('u_game.number', data.gameID);
 	gr.query();
@@ -126,7 +132,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	var names = ["Name", "State", "Level", "Attack", "Weapon", "Armor", "Shoewear", "Cape", "Headwear", "Other", "Effect"];
 	var values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var cnt = 0;
-	
+
 	while(gr.next()){
 		cnt += 1;
 		if(cnt < 2){
@@ -152,6 +158,9 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 		};
 		data.settings.push(setting);
 	}
+	if(input && input.update){
+		gs.addInfoMessage("Display Player Status refreshed");
+	}
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -159,7 +168,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-01 20:45:31</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
-        <sys_mod_count>184</sys_mod_count>
+        <sys_mod_count>189</sys_mod_count>
         <sys_name>GS Show Player Stats</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -167,11 +176,14 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-07 21:01:08</sys_updated_on>
+        <sys_updated_on>2018-01-17 10:51:45</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" ng-repeat="settings in c.data.settings">
       <a class="nav-link active" id={{::settings.tab}} data-toggle="tab" href={{::settings.href}} role="tab" aria-controls="home" aria-selected="true">{{::settings.user}}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"   role="tab" aria-controls="messages" aria-selected="false" ng-click="refresh()"><i class="fa fa-refresh" aria-hidden="true"></i></a>
     </li>
   </ul>
   <div class="tab-content">
@@ -198,7 +210,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                   </div>
                 </li>
               </ul>
-               <ul class="list-group list-group-header">
+              <ul class="list-group list-group-header">
                 <li class="list-group-item list-group-body">
                   <div class="row">
                     <div class="col-xs-2 text-center">Weapon</div>
@@ -232,55 +244,55 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 
 
 <!--
- <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Level
-        </div>
-        <div class="description">
-          {{::settings.level}}
-        </div>
-      </div>
-      <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Attack
-        </div>
-        <div class="description">
-          {{::settings.attack}}
-        </div>
-      </div>
-      <br>
-      <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Weapon
-        </div>
-        <div class="description">
-          {{::settings.weapon}}
-        </div>
-      </div>
-      <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Armor
-        </div>
-        <div class="description">
-          {{::settings.armor}}
-        </div>
-      </div>
-      <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Shoewear
-        </div>
-        <div class="description">
-          {{::settings.armor}}
-        </div>
-      </div>
-      <div class="btn btn-default" ng-disabled="true">
-        <div class="boxTitle">
-          Cape
-        </div>
-        <div class="description">
-          {{::settings.cape}}
-        </div>
-      </div>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Level
+</div>
+<div class="description">
+{{::settings.level}}
+</div>
+</div>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Attack
+</div>
+<div class="description">
+{{::settings.attack}}
+</div>
+</div>
+<br>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Weapon
+</div>
+<div class="description">
+{{::settings.weapon}}
+</div>
+</div>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Armor
+</div>
+<div class="description">
+{{::settings.armor}}
+</div>
+</div>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Shoewear
+</div>
+<div class="description">
+{{::settings.armor}}
+</div>
+</div>
+<div class="btn btn-default" ng-disabled="true">
+<div class="boxTitle">
+Cape
+</div>
+<div class="description">
+{{::settings.cape}}
+</div>
+</div>
 
 -->]]></template>
     </sp_widget>

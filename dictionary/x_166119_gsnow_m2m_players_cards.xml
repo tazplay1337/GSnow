@@ -14,12 +14,14 @@
                 <element label="Personal Equipment" value="30"/>
             </choice>
         </element>
-        <element choice="1" label="Position" max_length="40" name="u_position" type="choice">
+        <element choice="3" default="1" label="Position" max_length="40" name="u_position" type="choice">
             <choice>
                 <element label="Addition" value="10"/>
                 <element label="Armor" value="20"/>
                 <element label="Cape" value="40"/>
+                <element label="Deposed" value="0"/>
                 <element label="Footwear" value="30"/>
+                <element label="None" value="1"/>
                 <element label="Weapon" value="50"/>
             </choice>
         </element>

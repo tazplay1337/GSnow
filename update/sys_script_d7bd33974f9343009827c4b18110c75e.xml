@@ -86,8 +86,9 @@
 		grEffects.query();
 
 		var attack = 0;
-		if(grEffects.next()) {
-			attack = grEffects.card.u_effect;
+		while(grEffects.next()) {
+			counter += 1;
+			attack += grEffects.card.u_effect;
 		}
 		grPlayer.u_effects = attack + current.card.u_effect;
 	}	
@@ -101,7 +102,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d7bd33974f9343009827c4b18110c75e</sys_id>
-        <sys_mod_count>49</sys_mod_count>
+        <sys_mod_count>52</sys_mod_count>
         <sys_name>Update My Cards</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -110,7 +111,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_d7bd33974f9343009827c4b18110c75e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-07 17:34:00</sys_updated_on>
+        <sys_updated_on>2018-01-16 22:34:54</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

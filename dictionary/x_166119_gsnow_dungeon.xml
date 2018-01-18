@@ -2,7 +2,7 @@
 <database>
     <element label="Dungeon" max_length="40" name="x_166119_gsnow_dungeon" type="collection">
         <element label="Description" max_length="1000" name="u_description" type="string"/>
-        <element label="Image" max_length="40" name="u_image" type="user_image"/>
+        <element label="Image" max_length="50" name="u_image" type="string"/>
         <element label="Short Description" max_length="500" name="u_short_description" type="string"/>
         <element display="true" label="Topic" mandatory="true" max_length="40" name="u_topic" type="string"/>
     </element>

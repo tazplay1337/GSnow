@@ -3,16 +3,45 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function($rootScope, $scope, spUtil) {
 	var c = this;
+	c.data.useButtonEnabled = true;
 
 	$scope.useCard = function(hand) {
 		c.data.usedCard = hand.sysid;		
 		c.server.update();
 	}
-	
+
+	$scope.refresh = function() {
+		c.data.update = true;
+		c.server.update().then(function(){
+			c.data.update = false;
+		});  
+	}
+
 	$rootScope.$on('CARDS_CHANGE', function(event,data) {
-		console.log("YES BABY!");
 		c.server.update();
 	});
+
+	spUtil.recordWatch($scope, "x_166119_gsnow_m2m_players_cards", "u_game.number=" + c.data.gameID, function(name, data) {
+		c.server.update();
+	});
+
+	$rootScope.$on('USE_BUTTON1', function(event,data) {
+		if(data){
+			c.data.useButtonEnabled = true;
+		}
+		else{
+			c.data.useButtonEnabled = false;
+		}
+	});
+
+	$scope.checkPhase = function(){
+		if(c.data.useButtonEnabled){
+			return false;	
+		}
+		else{
+			return true;
+		}
+	}
 }	]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel {
@@ -83,32 +112,35 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <script><![CDATA[(function() {
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
-	
+
 	data.hands = [];
 	data.equipments = [];
 	data.effects = [];
 	data.usedCard = "";
-	
+
 	if(input && input.usedCard){
 		data.usedCard = input.usedCard;
 		var grUsedCard = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 		grUsedCard.get('sys_id', data.usedCard);
-		
+
 		if(grUsedCard.card.u_card_type.getDisplayValue() == 'Equipment'){
 			grUsedCard.u_playing_field = '30';
 			grUsedCard.update();
 		}
-		else{
+		else if(grUsedCard.card.u_card_type.getDisplayValue() == 'Item'){
 			grUsedCard.u_playing_field = '40';
 			grUsedCard.update();
 		}
 	}
-	
+
+
 	var grCards = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 	grCards.addQuery('u_game.number', data.gameID);
 	grCards.addQuery('player.u_user', gs.getUserID());
+	grCards.addQuery('u_playing_field', '!=', '0');
+	grCards.addQuery('u_position', '!=', '0');
 	grCards.query();
-	
+
 	while(grCards.next()){		
 		if(grCards.u_playing_field == '20'){
 			var postmp = "";
@@ -116,32 +148,36 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 				postmp = grCards.card.u_position.getDisplayValue();
 			}
 			var hand = {
-			name: grCards.card.u_name.getDisplayValue(),
-			sysid: grCards.sys_id.getDisplayValue(),
-			pos: postmp,
-			type: grCards.card.u_card_type.getDisplayValue(),
-			effect: grCards.card.u_effect.getDisplayValue(),
-			use: false
-		};
-		data.hands.push(hand);
+				name: grCards.card.u_name.getDisplayValue(),
+				sysid: grCards.sys_id.getDisplayValue(),
+				pos: postmp,
+				type: grCards.card.u_card_type.getDisplayValue(),
+				effect: grCards.card.u_effect.getDisplayValue(),
+				use: false
+			};
+			data.hands.push(hand);
 		}
 		else if(grCards.u_playing_field == '30'){
 			var equipment = {
-			name: grCards.card.u_name.getDisplayValue(),
-			pos: grCards.card.u_position.getDisplayValue(),
-			effect: grCards.card.u_effect.getDisplayValue()
-		};
-		data.equipments.push(equipment);
+				name: grCards.card.u_name.getDisplayValue(),
+				pos: grCards.card.u_position.getDisplayValue(),
+				effect: grCards.card.u_effect.getDisplayValue()
+			};
+			data.equipments.push(equipment);
 		}
 		else if(grCards.u_playing_field == '40'){
 			var effect = {
-			name: grCards.card.u_name.getDisplayValue(),
-			type: grCards.card.u_card_type.getDisplayValue(),
-			life: grCards.card.u_lifetime.getDisplayValue(),
-			effect: grCards.card.u_effect.getDisplayValue()
-		};
-		data.effects.push(effect);
+				name: grCards.card.u_name.getDisplayValue(),
+				type: grCards.card.u_card_type.getDisplayValue(),
+				life: grCards.card.u_lifetime.getDisplayValue(),
+				effect: grCards.card.u_effect.getDisplayValue()
+			};
+			data.effects.push(effect);
 		}
+	}
+
+	if(input && input.update){
+		gs.addInfoMessage("My Cards refreshed");
 	}
 })();
 ]]></script>
@@ -151,7 +187,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-02 11:54:01</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
-        <sys_mod_count>159</sys_mod_count>
+        <sys_mod_count>201</sys_mod_count>
         <sys_name>GS List Cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -159,7 +195,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-14 20:19:12</sys_updated_on>
+        <sys_updated_on>2018-01-17 20:14:37</sys_updated_on>
         <template><![CDATA[<!-- Nav tabs -->
 <div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -171,6 +207,9 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
     </li>
     <li class="nav-item">
       <a class="nav-link" id="effects-tab" data-toggle="tab" href="#effects" role="tab" aria-controls="messages" aria-selected="false">Effects On Me ({{c.data.effects.length}})</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"   role="tab" aria-controls="messages" aria-selected="false" ng-click="refresh()"><i class="fa fa-refresh" aria-hidden="true"></i></a>
     </li>
   </ul>
 
@@ -203,7 +242,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                     <div class="col-xs-2" style="">{{::hand.pos}}</div>
                     <div class="col-xs-2" style="">{{::hand.effect}}</div>
                     <div class="col-xs-2" style="">
-                      <div class="btn btn-primary btn-scroll" ng-click="useCard(hand)">
+                      <div class="btn btn-primary btn-scroll" ng-click="useCard(hand)" ng-disabled="checkPhase()">
                         <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
                       </div>
                     </div>

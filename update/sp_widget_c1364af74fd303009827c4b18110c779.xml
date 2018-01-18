@@ -3,6 +3,7 @@
     <sp_widget action="INSERT_OR_UPDATE">
         <client_script><![CDATA[function($rootScope, $scope, spUtil) {
 	var c = this;
+	c.data.initial = false;
 	c.data.victory = "";
 	c.data.monster = {
 		"monster" : false,
@@ -37,7 +38,7 @@
 	$rootScope.$on('EXERCISE_FINISHED', function(event,data) {
 		c.data.monster.monster = true;
 		c.data.monster.win = data;
-		c.data.mainInfo.phase = 3;
+		c.data.mainInfo.phase = 30;
 		console.log("EXERCISE_FINISHED(): " + c.data.mainInfo.phase);
 
 		if(c.data.monster.win){
@@ -55,25 +56,26 @@
 	});
 
 	$scope.drawCard = function() {
+		useButtonEnabled(false);
 		c.data.recordWatch = false;
-		c.data.mainInfo.phase = 1;
+		c.data.mainInfo.phase = 10;
 		console.log("drawCard: " + $rootScope.immediateCard.cardtype);
 		console.log("draw(): " + c.data.mainInfo.phase);
 		c.server.update().then(function(){
 			if($scope.data.monsterCard.name != ""){
-				$rootScope.monsterCard = $scope.data.monsterCard;
-				
+				$rootScope.monsterCard = $scope.data.monsterCard;			
 			}
 			else if($scope.data.immediateCard.name != ""){
 				$rootScope.immediateCard = $scope.data.immediateCard;
 				console.log("drawCard: " + $rootScope.immediateCard.cardtype);
+				immediateCard();
 			}
 			$rootScope.$broadcast('DRAW_CARD');
 		});
 	}
 
 	$scope.fight = function(number) {
-		c.data.mainInfo.phase = 2;
+		c.data.mainInfo.phase = 20;
 		c.data.monsterCard.exercise = $scope.data.monsterCard.exercise;
 		c.data.monsterCard.exercisetype = $scope.data.monsterCard.exercisetype;
 		c.data.monsterCard.name = $scope.data.monsterCard.name;
@@ -86,7 +88,7 @@
 		// Phase 5 Zug beenden "Überspringe Kämpfen und Schatzkarten ziehen"
 	}
 
-	$scope.forward = function() {
+	function immediateCard(){
 		console.log("forward() test: " + $rootScope.immediateCard.cardtype + " ?=  Trap");
 		if($rootScope.immediateCard.cardtype == 'Trap'){
 			console.log("IS WAS IN TRAP " + $rootScope.immediateCard.cardtype );
@@ -102,7 +104,7 @@
 			c.data.alert.textLine1 = "Ok Buddy! Du hast einen Zauber gezogen. Dieser gibt dir einen Bonus von " + $rootScope.immediateCard.effect + " für " + $rootScope.immediateCard.lifetime + " Runden.";
 		}
 
-		c.data.mainInfo.phase = 3;
+		c.data.mainInfo.phase = 30;
 		console.log("forward(): " + c.data.mainInfo.phase);
 		c.data.monster.monster = false;		
 		c.server.update();	
@@ -114,7 +116,7 @@
 	}
 
 	$scope.evaluationExercise = function(number) {
-		c.data.mainInfo.phase = 4;
+		c.data.mainInfo.phase = 40;
 
 		if(c.data.monster.monster){
 			console.log("evaluation() in monster: " + c.data.monster.monster);
@@ -144,10 +146,11 @@
 			});
 		}
 		console.log("evaluation(): " + c.data.mainInfo.phase);
+		$rootScope.$broadcast('END_SHOW');	
 	}
 
 	$scope.next = function(number) {
-		$rootScope.$broadcast('END_SHOW');
+		useButtonEnabled(true);
 		c.data.next = true;
 		c.data.mainInfo.phase = 0;
 		c.server.update().then(function(){
@@ -167,8 +170,11 @@
 		}
 	}
 
-	$scope.showIfMonster = function() {
-		if(c.data.monsterCard.name != ""){
+	$scope.showIfMonster = function(button) {
+		if(button == 'fight' && c.data.monsterCard.name != "" && c.data.monsterCard.level <= parseInt(c.data.mainInfo.attack)){
+			return true;
+		}
+		else if(button == 'run' && c.data.monsterCard.name != ""){
 			return true;
 		}
 		else{
@@ -176,8 +182,8 @@
 		}
 	}
 
-	$scope.showExercise = function(phase, exercise) {
-		if(c.data.mainInfo.phase == phase && c.data.turn && exercise == c.data.monsterCard.exercisetype){
+	$scope.showExercise = function(exercise) {
+		if(c.data.turn && exercise == c.data.monsterCard.exercisetype){
 			return true;
 		}
 		else{
@@ -193,7 +199,20 @@
 			return false;
 		}
 	}
-}	]]></client_script>
+	
+	function useButtonEnabled(state){
+		$rootScope.$broadcast('USE_BUTTON1', state);
+	}
+	
+	
+}	
+
+
+
+
+
+
+]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel-heading{
   width: 100%;
@@ -355,10 +374,12 @@ input[type=checkbox], input[type=radio] {
         <public>false</public>
         <roles/>
         <script><![CDATA[(function(){
-	data.turn = false;
+// #####################################################################################
+// ##################### INITIAL VARIABLES  ############################################
 	data.mytext = "Wait Until Its Your Turn";
 	data.mainInfo = {
 		"playeronturn": "",
+		"attack": 0, 
 		"phase": 0,
 		"doorcards": 0,
 		"treasure_cards": 0,
@@ -385,14 +406,15 @@ input[type=checkbox], input[type=radio] {
 		"exercise": "",
 		"exercisetype": ""
 	}
-
-	// Get current Game
+// #####################################################################################
+// ##################### GAME SETTINGS  ################################################
 	data.gameID = $sp.getParameter("gameID");
 	var grGame = new GlideRecord('x_166119_gsnow_game');
 	grGame.get('number', data.gameID);
 	data.mainInfo.doorcards = grGame.u_number_door_cards.getDisplayValue();
 
-	// Get my settings for this round
+// #####################################################################################
+// ##################### MY SETTINGS  ##################################################
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.addQuery('u_game.number', data.gameID);
 	grPlayer.addQuery('u_user', gs.getUserID());
@@ -418,8 +440,10 @@ input[type=checkbox], input[type=radio] {
 	if(grPlayer.next() && grGame.u_turn == grPlayer.u_number){
 		data.turn = true;
 		data.mainInfo.playeronturn = grPlayer.u_user.getDisplayValue();
+		data.mainInfo.attack = grPlayer.u_attack.getDisplayValue();
 	}
-	// Set Phase
+// #####################################################################################
+// ##################### SET PHASE  ####################################################
 	if(input && data.turn && !input.recordWatch){
 		gs.addInfoMessage("TEST RECORD  " + input.recordWatch);
 		data.mainInfo.phase = input.mainInfo.phase;
@@ -442,16 +466,18 @@ input[type=checkbox], input[type=radio] {
 		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
 	}
 
-	// Set Default
+	// Set Default Display
 	data.mainInfo.display = "Player " + grGame.u_turn.getDisplayValue() + " is on the move and is now drawing a doorcard.";
 
-	// Phase ZERO
+// #####################################################################################
+// ##################### PHASE 0: SHOW DRAW CARD #######################################
 	if(data.turn && data.mainInfo.phase == 0){
 		data.mainInfo.display = "Click to draw a doorcard if you are ready!";
 		data.mytext = "Draw a Doorcard!"
 	} 
-	// Phase ONE
-	else if(data.turn && data.mainInfo.phase == 1){
+// #####################################################################################
+// ##################### PHASE 10: GET NEXT DOOR CARD IN DECK ##########################
+	else if(data.turn && data.mainInfo.phase == 10){
 		//		gs.addInfoMessage("3: Phase 1 ");
 
 		var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
@@ -468,23 +494,15 @@ input[type=checkbox], input[type=radio] {
 		if(grDeck2.next()){
 			grDeck2.u_deck = false;
 			grDeck2.update();
+			
+			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
 
 			if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
+// ##################### DRAW A MONSTER ##############################################
 				data.mytext= "FIGHT";
-				//				gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
-				var imageID ='';
-				var grImage = new GlideRecord('sys_attachment');
-				grImage.addQuery('file_name','u_image');
-				grImage.addQuery('table_sys_id',grDeck2.card.sys_id.getDisplayValue());
-				grImage.query();
-
-				while(grImage.next()){
-					imageID = grImage.sys_id.getDisplayValue();
-				}
-
 				data.monsterCard = {
 					"name": grDeck2.card.u_name.getDisplayValue(),
-					"image": imageID,
+					"image": grDeck2.card.u_image.getDisplayValue(),
 					"level": grDeck2.card.u_level.getDisplayValue(),
 					"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
 					"reward_treasure": grDeck2.card.u_reward_treasure.getDisplayValue(),
@@ -497,11 +515,12 @@ input[type=checkbox], input[type=radio] {
 				data.mainInfo.display = data.mainInfo.playeronturn + " has drawn a monster card: " + data.monsterCard.name;
 				data.mainInfo.displayToMe = "You have to fight this monster!";
 			}
+// ##################### DRAW TRAP OR SPELL ###########################################
 			else{
 				data.immediateCard = {
 					"name": grDeck2.card.u_name.getDisplayValue(),
 					"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
-					"image": "https://www.wikihow.com/images/thumb/c/cf/Cast-a-Spell-Step-11-Version-2.jpg/aid1057820-v4-728px-Cast-a-Spell-Step-11-Version-2.jpg",
+					"image": grDeck2.card.u_image.getDisplayValue(),
 					"short_description": grDeck2.card.u_short_description.getDisplayValue(),
 					"effect": grDeck2.card.u_effect.getDisplayValue(),
 					"lifetime": grDeck2.card.u_lifetime.getDisplayValue()
@@ -510,23 +529,29 @@ input[type=checkbox], input[type=radio] {
 				data.mainInfo.displayToMe = "This " + grDeck2.card.u_card_type.getDisplayValue() + " effects you!"; 
 			}
 		}
+// ##################### END PHASE 10 ###########################################
 		grGame.u_main_text = data.mainInfo.display;
 		grGame.update();
 	}
-	// PHASE TWO
-	else if(data.turn && data.mainInfo.phase == 2){
+// #####################################################################################
+// ##################### PHASE 20: GET EXERCISE FOR MONSTER ############################
+	else if(data.turn && data.mainInfo.phase == 20){
 		data.mytext= "WIN OR DIE! May the force be with you";
 		data.mainInfo.display = data.mainInfo.playeronturn + " is fighting vs " + input.monsterCard.name;
 		grGame.u_main_text = data.mainInfo.display;
 		grGame.update();
 		data.monsterCard.exercise = input.monsterCard.exercise;
 		data.monsterCard.exercisetype = input.monsterCard.exercisetype;
+		// !!!!!! QUIZ !!!!!!!!
 		var options = [ {name: data.monsterCard.exercise}];
 		data.quiz = $sp.getWidget("gs_main_exercise_quiz", options[0]);
 	}
-	// PHASE FOUR
-	else if(data.turn && data.mainInfo.phase == 4){
+// #####################################################################################
+// ##################### PHASE 40: EVALUATION #########################################
+	else if(data.turn && data.mainInfo.phase == 40){
 		if(input && input.monster.monster){
+
+// ##################### MONSTER #######################################################	
 			if(input.monster.win){
 				grPlayer.u_level += parseInt(input.reward_level);
 				grPlayer.update();
@@ -548,16 +573,21 @@ input[type=checkbox], input[type=radio] {
 					grHand.player = grPlayer.sys_id;
 					grHand.insert();
 					grDeck3.u_deck = false;
-					grDeck3.update();			
+					grDeck3.update();
+					grGame.u_number_treasure_cards	 -= 1;
+					grGame.update();					
 				}
 				data.mainInfo.display = data.mainInfo.playeronturn + " has won his fight. He is " + input.reward_level + " level up and has " + input.reward_treasure + " new hand cards!";
 				data.mainInfo.displayToMe = "Congratulate Boss! You are " + input.reward_level + " level up and have " + input.reward_treasure + " new hand cards!"; 
 			}
+// ##################### LOSE VS MONSTER ###############################################
 			else{
 				gs.addInfoMessage("PHASE FOUR: verloren gegen ein monster");
 
 			}
 		}
+// #####################################################################################
+// ##################### SPELL OR TRAP: PUT IN AFFECTS ON ME ###########################
 		else if(input && input.immediateCardName != ""){
 			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
 			var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
@@ -575,14 +605,17 @@ input[type=checkbox], input[type=radio] {
 				grEffectOnMe.player = grPlayer.sys_id;
 				grEffectOnMe.u_playing_field = '40';
 				grEffectOnMe.insert();
+				
+				grPlayer.u_effects += grDeck4.card.u_effect;
 			}
 		}
-
+// ##################### END PHASE 40  ################################################
 		data.mytext= "Finish your turn my buddy!";
 		grGame.u_main_text = data.mainInfo.display;
 		grGame.update();
 	}
-	// PHASE WAIT
+// #####################################################################################
+// ##################### SETTINGS FOR WAITING PLAYER ###################################
 	else if(!data.turn && data.mainInfo.phase > 0){
 		//		gs.addInfoMessage("4: Else  " + data.turn );
 		data.mainInfo.display = grGame.u_main_text.getDisplayValue();
@@ -594,7 +627,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>509</sys_mod_count>
+        <sys_mod_count>555</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -602,7 +635,7 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-15 14:52:41</sys_updated_on>
+        <sys_updated_on>2018-01-17 20:27:14</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
     
@@ -612,25 +645,24 @@ input[type=checkbox], input[type=radio] {
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
     </div>
     
-    
     <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
       <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Doorcards Left</span>
     </div>
     
-    <div class="questionsRow" ng-if="showPhase(1)" ng-click="">
-      <a class="button" ng-if="showIfMonster()" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster()" ng-click="runAway()">Run Away</a><a class="button" ng-if="!showIfMonster()" ng-click="forward()">Forward</a> 
+    <div class="questionsRow" ng-if="showPhase(10)" ng-click="">
+      <a class="button" ng-if="showIfMonster('fight')" ng-click="fight()">Fight</a> <a class="button" ng-if="showIfMonster('run')" ng-click="runAway()">Run Away</a> 
     </div> 
     
-    <div ng-if="showExercise(2, 'Quiz')">   
-      <div>
+    <div ng-if="showPhase(20)">
+      <div ng-if="showExercise('Quiz')">
         <sp-widget widget="c.data.quiz"></sp-widget>
       </div> 
       <div class="questionsRow" ng-click="">
         <a class="button" ng-click="attack()">Attack!</a>
-      </div>   
+      </div> 
     </div>
-    
-    <div ng-if="showPhase(3)">
+        
+    <div ng-if="showPhase(30)">
       <div class="alert + {{c.data.alert.style}}" role="alert">
         <h4 class="alert-heading">{{c.data.alert.heading}}</h4>
         <p>{{c.data.alert.textLine1}}</p>
@@ -641,7 +673,7 @@ input[type=checkbox], input[type=radio] {
       </div>
     </div>
     
-    <div class="questionsRow" ng-if="showPhase(4)" ng-click="">
+    <div class="questionsRow" ng-if="showPhase(40)" ng-click="">
       <a class="button" ng-click="next()">Next Player</a>
     </div>
   </div>
