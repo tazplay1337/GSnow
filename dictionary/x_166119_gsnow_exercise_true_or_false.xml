@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_166119_gsnow_exercise" label="Exercise True or False" max_length="40" name="x_166119_gsnow_exercise_true_or_false" type="collection">
+        <element label="Answer" max_length="40" name="u_answer" type="boolean"/>
+        <element label="Question" max_length="1000" name="u_question" type="string"/>
+    </element>
+</database>

@@ -7,6 +7,7 @@
         <element label="Main text" max_length="1000" name="u_main_text" type="string"/>
         <element label="Name" mandatory="true" max_length="40" name="u_name" type="string"/>
         <element label="Number Door Cards" max_length="40" name="u_number_door_cards" type="integer"/>
+        <element default="0" label="Number Exercise Run Away" max_length="40" name="u_number_exercise_run_away" type="integer"/>
         <element label="Number Treasure Cards" max_length="40" name="u_number_treasure_cards" type="integer"/>
         <element default="0" label="Phase" max_length="40" name="u_phase" type="integer"/>
         <element default="0" label="Ready Player" max_length="40" name="u_ready_player" type="integer"/>

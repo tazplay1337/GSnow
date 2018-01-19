@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($rootScope, $scope) {
+	/* widget controller */
+	var c = this;
+
+	$rootScope.$broadcast('EXERCISE_INFO', c.data.question);
+
+	$rootScope.$on('EXERCISE_ATTACK', function(event,data) {
+		if(data == 'runAway'){
+			var exercise = validateAnswers();
+			$rootScope.$broadcast('EXE_RUNAWAY_FINISHED', exercise);
+		}
+	});
+
+	function validateAnswers(){
+		var value = true;
+		var userValue = document.getElementById("answer");
+		var tmpValue = getBool(c.data.answer);
+
+		// Test ob die Werte unterschiedlich sind
+		if(userValue.checked && !tmpValue || !userValue.checked && tmpValue){
+			value = false;
+		}	
+		return value;
+	}
+
+	function getBool(value){
+		if(value == 'true'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gs_main_exercise_true_false</id>
+        <internal>false</internal>
+        <link/>
+        <name>GS Main Exercise True False</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var maxCards = options.number;
+	data.question = "";
+	data.answer = false;
+	
+	// Pick Random Exercise
+	var random = Math.floor(Math.random() * 9000).toFixed(0);
+	random = random % maxCards;
+	
+	var grExercise = new GlideRecord('x_166119_gsnow_exercise_true_or_false');
+	grExercise.chooseWindow(random, (random+1));
+	grExercise.query();
+
+	if(grExercise.next()){
+		data.question = grExercise.u_question.getDisplayValue();
+		data.answer = grExercise.u_answer.getDisplayValue();
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-19 12:11:14</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>213d533c4f3303009827c4b18110c7b3</sys_id>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>GS Main Exercise True False</sys_name>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sp_widget_213d533c4f3303009827c4b18110c7b3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-19 20:19:21</sys_updated_on>
+        <template><![CDATA[<div>
+  <ul class="answerList">
+    <li>
+      <label> 
+        <input type="checkbox" id="answer"> {{question.question}} Wahr oder Falsch ?
+      </label>	
+    </li>
+  </ul>
+</div>]]></template>
+    </sp_widget>
+</record_update>

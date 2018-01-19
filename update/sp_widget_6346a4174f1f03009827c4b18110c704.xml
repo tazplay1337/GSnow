@@ -121,16 +121,12 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <script><![CDATA[(function() {
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
-	data.name1 = "";
-	data.name2 = "";
+	data.settings = [];
 
 	var gr = new GlideRecord('x_166119_gsnow_player');
 	gr.addQuery('u_game.number', data.gameID);
 	gr.query();
-
-	data.settings = [];
-//	var names = ["Name", "State", "Level", "Attack", "Weapon", "Armor", "Shoewear", "Cape", "Headwear", "Other", "Effect"];
-//	var values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	
 	var cnt = 0;
 
 	while(gr.next()){
@@ -155,7 +151,8 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 			shoewear: gr.u_shoewear.getDisplayValue(),
 			cape: gr.u_cape.getDisplayValue(),
 			effect: gr.u_effects.getDisplayValue(),
-			addition: gr.u_addition.getDisplayValue()
+			addition: gr.u_addition.getDisplayValue(),
+			punish: gr.u_punishment_attack.getDisplayValue()
 		};
 		data.settings.push(setting);
 	}
@@ -169,7 +166,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-01 20:45:31</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
-        <sys_mod_count>194</sys_mod_count>
+        <sys_mod_count>197</sys_mod_count>
         <sys_name>GS Show Player Stats</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -177,7 +174,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-18 19:39:36</sys_updated_on>
+        <sys_updated_on>2018-01-19 15:52:01</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" ng-repeat="settings in c.data.settings">
@@ -198,8 +195,8 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                   <div class="row">
                     <div class="col-xs-2 text-center">Level</div>
                     <div class="col-xs-2 text-center">Angriff</div>
+                    <div class="col-xs-2 text-center">Abzüge</div>
                     <div class="col-xs-2 text-center">Effekte</div>
-                    <div class="col-xs-2 text-center">Status</div>
                   </div>
                 </li>
               </ul>
@@ -208,8 +205,8 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                   <div class="row">
                     <div class="col-xs-2 text-center" style=" "> <a>{{::settings.level}}</a></div>
                     <div class="col-xs-2 text-center" style="">{{::settings.attack}}</div>
+                    <div class="col-xs-2 text-center">{{::settings.punish}}</div>
                     <div class="col-xs-2 text-center">{{::settings.effect}}</div>
-                    <div class="col-xs-2 text-center" style=""></div>
                   </div>
                 </li>
               </ul>

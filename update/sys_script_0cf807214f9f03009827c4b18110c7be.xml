@@ -31,20 +31,20 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	
+
 	// Get all cards for the game
 	var grCard = new GlideRecord('x_166119_gsnow_card');
 	var orGr = grCard.addQuery('u_dungeon', 'NULL');
 	orGr.addOrCondition('u_dungeon', current.u_dungeon);
 	grCard.query();
-	
+
 	//  Create Deck
 	var grDeck = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-	
+
 	// Counter
 	var numberDoorCards = 0;
 	var numberTreasureCards = 0;
-	
+
 	// Initialize deck
 	while(grCard.next()){
 		if(grCard.u_deck_type == '10'){
@@ -59,17 +59,17 @@
 		grDeck.u_card_number = Math.floor((Math.random() * 9000) + 1).toFixed(0);
 		grDeck.insert();
 	}
-	
+
 	// Jeder Spieler der am Spiel teilnimmt bekommt 3 Handkarten.	
 	// Schritt 1: Hole alle Spieler die am Spiel teilnehmen
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.addQuery('u_game', current.sys_id);
 	grPlayer.query();
-	
+
 	// Die Karten werden zum Spiel dazugehörigen Deck geholt und schließend als gezogen markiert
 	var start = 5; 
 	var end = current.u_total_number_player * 3 + start;
-	
+
 	var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
 	grDeck2.addQuery('game', current.sys_id);
 	grDeck2.addQuery('u_deck', 'true');
@@ -81,7 +81,7 @@
 	// Initialisiere M2M Player Card --> hier werden 3 zufällige Karten hinzugefügt
 	// mit der Position Hand
 	var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
-	
+
 	// Jeder Spieler der am Spiel teilnimmt bekommt 3 Handkarten
 	while(grPlayer.next()){
 		for(var i=0; i < 3; i++){
@@ -91,17 +91,26 @@
 			grHand.card = grDeck2.card.sys_id;
 			grHand.player = grPlayer.sys_id;
 			grHand.insert();
-			
+
 			grDeck2.u_deck = false;
 			grDeck2.update();			
 		}	
 	}
-	
-	var HAND_CARDS = 3 * current.u_total_number_player;
-	
+
+	// Count Number True/False Exercise
+	var grExercise = new GlideRecord('x_166119_gsnow_exercise_true_or_false');
+	grExercise.query();
+
+	var numberExercises = 0;
+	while(grExercise.next()){
+		numberExercises += 1;
+	}
+
+	var HAND_CARDS = 3 * current.u_total_number_player;	
 	current.u_state = '40';
 	current.u_number_treasure_cards = numberTreasureCards - HAND_CARDS;
 	current.u_number_door_cards = numberDoorCards;
+	current.u_number_exercise_run_away = numberExercises;
 	current.u_start_time = new GlideDateTime().getDisplayValue();
 	current.update();
 
@@ -113,7 +122,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>0cf807214f9f03009827c4b18110c7be</sys_id>
-        <sys_mod_count>38</sys_mod_count>
+        <sys_mod_count>39</sys_mod_count>
         <sys_name>Initialize  Game</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -122,7 +131,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_0cf807214f9f03009827c4b18110c7be</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-09 21:15:47</sys_updated_on>
+        <sys_updated_on>2018-01-19 13:10:53</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

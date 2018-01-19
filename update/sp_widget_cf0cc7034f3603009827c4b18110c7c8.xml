@@ -22,7 +22,9 @@
 		"cardtype": "",
 		"reward_treasure": "",
 		"reward_level": "",
-		"short_description": ""
+		"short_description": "",
+		"punish_sys_id": "",
+		"punish_description": ""
 	}
 	
 	$rootScope.$on('DRAW_CARD', function(event,data) {
@@ -33,6 +35,7 @@
 			$scope.data.reward_level = $rootScope.monsterCard.reward_level;
 			$scope.data.reward_treasure = $rootScope.monsterCard.reward_treasure;
 			$scope.data.short_description = $rootScope.monsterCard.short_description;
+			$scope.data.punish_description = $rootScope.monsterCard.punish_description;
 			$scope.data.image = $rootScope.monsterCard.image;
 		}
 		else if($rootScope.immediateCard.name != ""){
@@ -237,7 +240,7 @@
         <sys_created_on>2017-12-07 17:39:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>cf0cc7034f3603009827c4b18110c7c8</sys_id>
-        <sys_mod_count>205</sys_mod_count>
+        <sys_mod_count>209</sys_mod_count>
         <sys_name>ShowMonster</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -245,7 +248,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_cf0cc7034f3603009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-18 21:06:46</sys_updated_on>
+        <sys_updated_on>2018-01-19 20:42:10</sys_updated_on>
         <template><![CDATA[<main id="background" ng-if="data.showMonster == 'true' || data.immediateCard == 'true'">
   <div ng-if="data.showMonster == 'true'">
     <div id="namelevel">
@@ -274,7 +277,7 @@
     </div>
     <div id="punishment">
       <p>
-        Hier steht die Beschreibung der Strafe!
+        <b>Schlimme Dinge</b> {{data.punish_description}} 
       </p>
     </div>
   </div>
@@ -289,7 +292,7 @@
     </div>
     <div id="reward">
       <div id="levelup" class="h6">
-       	Effect  {{data.effect}}
+        Effect  {{data.effect}}
       </div>
       <div id="treasure" class="h6">
         Lifetime  {{data.lifetime}}
@@ -297,7 +300,7 @@
     </div>
     <div id="short_description">
       <p>
-        {{data.short_description}} Du bist in eine Falle getappt verliere {{data.effect}} im Angriff für {{data.lifetime}} Runden.
+        {{data.short_description}}
       </p>
     </div>
   </div>

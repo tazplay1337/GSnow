@@ -11,6 +11,7 @@
         <element default="0" label="Headwear" max_length="40" name="u_headwear" type="integer"/>
         <element default="1" label="Level" max_length="40" name="u_level" type="integer"/>
         <element label="Number" max_length="40" name="u_number" type="integer"/>
+        <element default="0" label="Punishment_Attack" max_length="40" name="u_punishment_attack" type="integer"/>
         <element default="0" label="Shoewear" max_length="40" name="u_shoewear" type="integer"/>
         <element choice="1" label="State" max_length="40" name="u_state" type="choice">
             <choice>

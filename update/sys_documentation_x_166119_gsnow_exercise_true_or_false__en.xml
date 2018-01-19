@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="u_type" label="Type" language="en" table="x_166119_gsnow_exercise">
+    <sys_documentation element="" label="Exercise True or False" language="en" table="x_166119_gsnow_exercise_true_or_false">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>u_type</element>
+            <element/>
             <help/>
             <hint/>
-            <label>Type</label>
+            <label>Exercise True or False</label>
             <language>en</language>
-            <name>x_166119_gsnow_exercise</name>
-            <plural>Types</plural>
+            <name>x_166119_gsnow_exercise_true_or_false</name>
+            <plural>Exercise True or Falses</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-19 15:05:48</sys_created_on>
+            <sys_created_on>2018-01-19 11:44:13</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>e62540014fb303009827c4b18110c77a</sys_id>
+            <sys_id>7d0717784f3303009827c4b18110c736</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Type</sys_name>
+            <sys_name>Exercise True or False</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-            <sys_update_name>sys_documentation_x_166119_gsnow_exercise_u_type_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_166119_gsnow_exercise_true_or_false__en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-19 15:05:48</sys_updated_on>
+            <sys_updated_on>2018-01-19 11:44:13</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

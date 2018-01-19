@@ -16,7 +16,7 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_166119_gsnow_player">u_armorVALCHANGES^ORu_capeVALCHANGES^ORu_shoewearVALCHANGES^ORu_weaponVALCHANGES^ORu_headwearVALCHANGES^ORu_levelVALCHANGES^ORu_effectsVALCHANGES^ORu_additionVALCHANGES^ORu_attackVALCHANGES^EQ<item endquery="false" field="u_armor" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+        <filter_condition table="x_166119_gsnow_player">u_armorVALCHANGES^ORu_capeVALCHANGES^ORu_shoewearVALCHANGES^ORu_weaponVALCHANGES^ORu_headwearVALCHANGES^ORu_levelVALCHANGES^ORu_effectsVALCHANGES^ORu_additionVALCHANGES^ORu_attackVALCHANGES^ORu_punishment_attackVALCHANGES^EQ<item endquery="false" field="u_armor" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
             <item endquery="false" field="u_cape" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="u_shoewear" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="u_weapon" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
@@ -25,6 +25,7 @@
             <item endquery="false" field="u_effects" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="u_addition" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="false" field="u_attack" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
+            <item endquery="false" field="u_punishment_attack" goto="false" newquery="false" operator="VALCHANGES" or="true" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
@@ -73,6 +74,7 @@
 	attack += current.u_headwear;
 	attack += current.u_armor;
 	attack += current.u_weapon;
+	attack -= current.u_punishment_attack;
 	attack += current.u_level;
 
 	current.u_attack = attack;
@@ -86,7 +88,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>195c73974f9343009827c4b18110c7ff</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>Calculate Attack</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -95,7 +97,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_195c73974f9343009827c4b18110c7ff</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-16 23:06:36</sys_updated_on>
+        <sys_updated_on>2018-01-19 15:45:36</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>
