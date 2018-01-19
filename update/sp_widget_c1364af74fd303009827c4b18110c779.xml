@@ -180,7 +180,7 @@
 			c.data.mytext = "Auswertung des Kampfes";
 			c.data.mainInfo.displayToMe = "";
 			c.data.alert.heading = "Sehr gut!";
-			c.data.alert.btnText = "Weiter";
+			c.data.alert.btnText = "Belohnung abstauben";
 			c.data.alert.textLine1 = "Du hast das Monster besiegt. Du steigst " + $rootScope.monsterCard.reward_level + " auf. Zustätzlich ziehe " + $rootScope.monsterCard.reward_treasure + " Schatzkarten!";
 		}
 		else{
@@ -189,7 +189,8 @@
 			c.data.alert.style = "alert-danger";
 			c.data.alert.heading = "Ohh backe du hast verloren!";
 			c.data.alert.btnText = "Weglaufen";
-			c.data.alert.textLine1 = "WAUuuuW das Monster hat klar verloren. Jetzt wirst du bestraft!";
+			c.data.alert.textLine1 = "Es kommt im Leben nicht darauf an wie viel Du austeilst, sondern darauf, wie viel Du einstecken kannst!";
+			c.data.alert.textLine1 = "Naja ich hoffe du bist schnell. LAAAAUF!!";
 		}
 	});
 
@@ -216,14 +217,15 @@
 			c.data.alert.heading = "Entkommen";
 			c.data.alert.btnText = "";
 			c.data.alert.textLine1 = "puuuuh nochmal Glück gehabt. Nichts passiert.";
+			$rootScope.$broadcast('END_SHOW');
 		}
 		else{
 			c.data.mainInfo.phase = 38;
 			c.data.alert.style = "alert-danger";
-			c.data.mytext = "Fluchtversuch";
+			c.data.mytext = "Fluchtversuch misslungen lol";
 			c.data.mainInfo.displayToMe = "";
 			c.data.alert.heading = "Ohje du wurdest geschnappt";
-			c.data.alert.btnText = "Bestrafung";
+			c.data.alert.btnText = "Bestrafung annehmen";
 			c.data.alert.textLine1 = "Es gibt Tage, da verspeist man den Bären, und Tage, da wird man eben vom Bären verspeist.";
 		}
 
@@ -261,7 +263,7 @@
 			c.data.turn = false;
 			c.data.mainInfo.phase = 0;
 			c.data.next = false;
-		});  
+		});
 	}
 
 	// #######################################################################
@@ -483,7 +485,7 @@ input[type=checkbox], input[type=radio] {
 		"treasure_cards": 0,
 		"text": "",
 		"display": "",
-		"displayToMe": "YEAH Du bist an der Reihe!"
+		"displayToMe": "Yeah endlich an der Reihe!"
 	}
 	data.immediateCard = {
 		"name": "",
@@ -522,7 +524,7 @@ input[type=checkbox], input[type=radio] {
 
 	// Check if next turn
 	if(input && input.next){
-		gs.addInfoMessage("Next Turn: " + input.next);
+//		gs.addInfoMessage("Next Turn: " + input.next);
 		var turn = grGame.u_turn;
 		turn += 1;
 		turn = turn % (grGame.u_total_number_player + 1); // 1 is Offset
@@ -548,21 +550,21 @@ input[type=checkbox], input[type=radio] {
 		data.mainInfo.phase = input.mainInfo.phase;
 		grGame.u_phase = data.mainInfo.phase;
 		grGame.update();
-		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
+//		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
 	}
 	else if(!input && data.turn){
 		grGame.u_phase = 0;
 		grGame.update();
 		data.mainInfo.phase = 0;
-		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
+//		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
 	}
 	else if(input && !data.turn){
 		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
+//		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
 	}
 	else{
 		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
+//		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
 	}
 
 	// Set Default Display
@@ -594,11 +596,11 @@ input[type=checkbox], input[type=radio] {
 			grDeck2.u_deck = false;
 			grDeck2.update();
 
-			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
+//			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
 
 			if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
 				// ##################### DRAW A MONSTER ##############################################
-				data.mytext= "Achtung Ein Monster";
+				data.mytext= "Ein Monster, EIN MONSTER";
 				data.monsterCard = {
 					"name": grDeck2.card.u_name.getDisplayValue(),
 					"image": grDeck2.card.u_image.getDisplayValue(),
@@ -614,7 +616,7 @@ input[type=checkbox], input[type=radio] {
 				}
 				//				gs.addInfoMessage("SERVER: " + data.monsterCard.exercise);
 				data.mainInfo.display = data.mainInfo.playeronturn + " hat eine Monsterkarte gezogen: " + data.monsterCard.name;
-				data.mainInfo.displayToMe = "Du hast ein Monster gezogen, kämpfe!";
+				data.mainInfo.displayToMe = "Bist du ein WOLF oder ein Schaaf, kämpfe!";
 			}
 			// ##################### DRAW TRAP OR SPELL ###########################################
 			else{
@@ -687,7 +689,7 @@ input[type=checkbox], input[type=radio] {
 			else{
 				if(input.monster.runaway){
 					// ##################### GET TRUE OR FASE WIDGET ###################################
-					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
+//					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
 					data.mainInfo.phase = 35;
 					options = [ {number: grGame.u_number_exercise_run_away.getDisplayValue()}];
 					data.widget = $sp.getWidget("gs_main_exercise_true_false", options[0]);
@@ -700,10 +702,11 @@ input[type=checkbox], input[type=radio] {
 
 					if(grPunish.u_typ.getDisplayValue() == 'Level'){
 						grPlayer.u_level -= grPunish.u_amount;
+						if(grPlayer.u_level < 1) grPlayer.u_level = 1;
 						grPlayer.update();
 					}
 					else if(grPunish.u_typ.getDisplayValue() == 'Attack'){
-						grPlayer.u_punishment_attack += grPunish.u_amount;
+						grPlayer.u_punishment_attack += grPunish.u_amount;		
 						grPlayer.update();
 					}
 				}
@@ -714,7 +717,7 @@ input[type=checkbox], input[type=radio] {
 		// #####################################################################################
 		// ##################### SPELL OR TRAP: PUT IN AFFECTS ON ME ###########################
 		else if(input && input.immediateCardName != ""){
-			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
+//			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
 			var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
 			grDeck4.addQuery('game', grGame.sys_id);
 			grDeck4.addQuery('card.u_name', input.immediateCardName);
@@ -723,7 +726,7 @@ input[type=checkbox], input[type=radio] {
 			var grEffectOnMe = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 
 			if(grDeck4.next()){
-				gs.addInfoMessage("grDeck4.next():");
+//				gs.addInfoMessage("grDeck4.next():");
 				grEffectOnMe.initialize();
 				grEffectOnMe.u_game = grGame.sys_id;
 				grEffectOnMe.card = grDeck4.card.sys_id;
@@ -755,7 +758,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>634</sys_mod_count>
+        <sys_mod_count>645</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -763,7 +766,7 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-19 20:55:28</sys_updated_on>
+        <sys_updated_on>2018-01-19 22:09:30</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
 
