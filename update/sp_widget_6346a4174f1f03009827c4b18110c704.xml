@@ -128,6 +128,10 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	gr.query();
 	
 	var cnt = 0;
+	
+	// Trigger Business Rule "Calculate Attack"
+	gr.u_attack += 1;
+	gr.update();
 
 	while(gr.next()){
 		cnt += 1;
@@ -166,7 +170,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-01 20:45:31</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
-        <sys_mod_count>198</sys_mod_count>
+        <sys_mod_count>199</sys_mod_count>
         <sys_name>GS Show Player Stats</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -174,7 +178,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-19 21:06:26</sys_updated_on>
+        <sys_updated_on>2018-01-20 16:32:18</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" ng-repeat="settings in c.data.settings">

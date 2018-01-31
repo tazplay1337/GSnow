@@ -105,7 +105,7 @@
 		c.data.mainInfo.phase = 30;
 		console.log("forward(): " + c.data.mainInfo.phase);
 		c.data.monster.monster = false;		
-		c.server.update();	
+//		c.server.update();	
 	}
 
 	// ######################################################################
@@ -476,7 +476,7 @@ input[type=checkbox], input[type=radio] {
 	// ##################### INITIAL VARIABLES  ############################################
 	var options = "";
 	data.widget = "";
-	data.mytext = "Du bist nicht am Zug. Gedulde dich Kumpel.";
+	data.mytext = "Nicht dein Spielzug, gedulde dich Kumpel";
 	data.mainInfo = {
 		"playeronturn": "",
 		"attack": 0, 
@@ -485,7 +485,7 @@ input[type=checkbox], input[type=radio] {
 		"treasure_cards": 0,
 		"text": "",
 		"display": "",
-		"displayToMe": "Yeah endlich an der Reihe!"
+		"displayToMe": "Yeah endlich an der Reihe. OK ZIEHEN.. WIR ES DURCH!"
 	}
 	data.immediateCard = {
 		"name": "",
@@ -508,6 +508,10 @@ input[type=checkbox], input[type=radio] {
 		"punish_sys_id": "",
 		"punish_description": ""
 	}
+	
+//	data.widget = $sp.getWidget("gs_main_exercise_read_select");
+	
+	
 	// #####################################################################################
 	// ##################### GAME SETTINGS  ################################################
 	data.gameID = $sp.getParameter("gameID");
@@ -524,7 +528,7 @@ input[type=checkbox], input[type=radio] {
 
 	// Check if next turn
 	if(input && input.next){
-//		gs.addInfoMessage("Next Turn: " + input.next);
+		//		gs.addInfoMessage("Next Turn: " + input.next);
 		var turn = grGame.u_turn;
 		turn += 1;
 		turn = turn % (grGame.u_total_number_player + 1); // 1 is Offset
@@ -550,30 +554,30 @@ input[type=checkbox], input[type=radio] {
 		data.mainInfo.phase = input.mainInfo.phase;
 		grGame.u_phase = data.mainInfo.phase;
 		grGame.update();
-//		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
+		//		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
 	}
 	else if(!input && data.turn){
 		grGame.u_phase = 0;
 		grGame.update();
 		data.mainInfo.phase = 0;
-//		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
+		//		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
 	}
 	else if(input && !data.turn){
 		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-//		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
+		//		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
 	}
 	else{
 		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-//		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
+		//		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
 	}
 
 	// Set Default Display
-	data.mainInfo.display = "Spieler " + grGame.u_turn.getDisplayValue() + " ist an der Reihe und ist dabei eine Türkarte zu ziehen.";
+	data.mainInfo.display = "Spieler " + grGame.u_turn.getDisplayValue() + " ist an der Reihe und ist dabei eine Türkarte zu ziehen";
 
 	// #####################################################################################
 	// ##################### PHASE 0: SHOW DRAW CARD #######################################
 	if(data.turn && data.mainInfo.phase == 0){
-		data.mainInfo.display = "Ziehe eine Türkarte sobald du fertig bist!";
+		//		data.mainInfo.display = "OK ZIEHEN.. WIR ES DURCH";
 		data.mytext = "Ziehe eine Türkarte!"
 	} 
 	// #####################################################################################
@@ -595,9 +599,7 @@ input[type=checkbox], input[type=radio] {
 		if(grDeck2.next()){
 			grDeck2.u_deck = false;
 			grDeck2.update();
-
-//			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
-
+			//			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
 			if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
 				// ##################### DRAW A MONSTER ##############################################
 				data.mytext= "Ein Monster, EIN MONSTER";
@@ -628,7 +630,7 @@ input[type=checkbox], input[type=radio] {
 					"effect": grDeck2.card.u_effect.getDisplayValue(),
 					"lifetime": grDeck2.card.u_lifetime.getDisplayValue()
 				}
-				data.mainInfo.display = data.mainInfo.playeronturn + " hat eine Effektkarte gezogen " + data.immediateCard.name;
+				data.mainInfo.display = data.mainInfo.playeronturn + " hat " + data.immediateCard.name + " gezogen!";
 				data.mainInfo.displayToMe = grDeck2.card.u_card_type.getDisplayValue() + " wirkt jetzt auf dich!"; 
 			}
 		}
@@ -689,26 +691,31 @@ input[type=checkbox], input[type=radio] {
 			else{
 				if(input.monster.runaway){
 					// ##################### GET TRUE OR FASE WIDGET ###################################
-//					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
+					//					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
 					data.mainInfo.phase = 35;
 					options = [ {number: grGame.u_number_exercise_run_away.getDisplayValue()}];
 					data.widget = $sp.getWidget("gs_main_exercise_true_false", options[0]);
+					data.mainInfo.display = "Eins steht fest. Der smarteste Hirsch im Stall ist " + data.mainInfo.playeronturn + " definitv nicht. Jetzt schauen wie flink der Hirsch ist"
 				}
 				else {
 					// ##################### PUNISHMENT ###############################################
-					data.mainInfo.displayToMe = "ok das war ne miese Runde lol";
+					data.mainInfo.displayToMe = "ok das war ne miese Runde lol";					
 					var grPunish = new GlideRecord('x_166119_gsnow_punishment');
+					var punish = "";
 					grPunish.get('sys_id', input.monster.punish_id);
 
 					if(grPunish.u_typ.getDisplayValue() == 'Level'){
 						grPlayer.u_level -= grPunish.u_amount;
 						if(grPlayer.u_level < 1) grPlayer.u_level = 1;
 						grPlayer.update();
+						punish = grPunish.u_amount + " Stufe abgezogen.";
 					}
 					else if(grPunish.u_typ.getDisplayValue() == 'Attack'){
 						grPlayer.u_punishment_attack += grPunish.u_amount;		
 						grPlayer.update();
-					}
+						punish = grPunish.u_amount + " Punkte im Angriff abgezogen.";
+					}				
+					data.mainInfo.display = "Ok, " + data.mainInfo.playeronturn + " ist sehr smart und schnell ... NICHT. Das Monster gewonnen und " + punish;
 				}
 				data.mainInfo.phase = 50;
 				//GAMEPHASE
@@ -717,7 +724,7 @@ input[type=checkbox], input[type=radio] {
 		// #####################################################################################
 		// ##################### SPELL OR TRAP: PUT IN AFFECTS ON ME ###########################
 		else if(input && input.immediateCardName != ""){
-//			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
+			//			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
 			var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
 			grDeck4.addQuery('game', grGame.sys_id);
 			grDeck4.addQuery('card.u_name', input.immediateCardName);
@@ -726,7 +733,7 @@ input[type=checkbox], input[type=radio] {
 			var grEffectOnMe = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 
 			if(grDeck4.next()){
-//				gs.addInfoMessage("grDeck4.next():");
+				//				gs.addInfoMessage("grDeck4.next():");
 				grEffectOnMe.initialize();
 				grEffectOnMe.u_game = grGame.sys_id;
 				grEffectOnMe.card = grDeck4.card.sys_id;
@@ -737,8 +744,16 @@ input[type=checkbox], input[type=radio] {
 				grPlayer.u_effects += grDeck4.card.u_effect;
 				grPlayer.update();
 			}
-				data.mainInfo.phase = 50;
-				//GAMEPHASE
+			if(grDeck4.card.u_card_type.getDisplayValue() == 'Trap'){
+				data.mainInfo.display = "Die Falle schwächt " + data.mainInfo.playeronturn + "s Angriff um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden";
+				data.mainInfo.displayToMe = "Naja es hätte schlimmer kommen können, zumindest is heute nicht Montag"; 
+			}
+			else {
+				data.mainInfo.display = "Miese " + data.mainInfo.playeronturn + "s Angriff wird um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden verstärkt. Wetten du ziehst gleich du ne Falle";
+				data.mainInfo.displayToMe = "Ok chillige Runde. Lieber einen stabilen Zauber in der Hand statt eine Falle auf dem Dach"; 
+			}
+			data.mainInfo.phase = 50;
+			//GAMEPHASE
 		}
 		// ##################### END PHASE 40  ################################################
 		data.mytext= "Beende deinen Zug!";
@@ -758,7 +773,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>645</sys_mod_count>
+        <sys_mod_count>670</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -766,7 +781,7 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-19 22:09:30</sys_updated_on>
+        <sys_updated_on>2018-01-23 10:44:53</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
 
@@ -775,6 +790,7 @@ input[type=checkbox], input[type=radio] {
       <p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
     </div>
+
 
     <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
       <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Türkarten</span>
@@ -837,6 +853,7 @@ input[type=checkbox], input[type=radio] {
         <a class="button" ng-click="next()">Nächster Spieler</a>
       </div>
     </div>
+
   </div>
 </div>]]></template>
     </sp_widget>

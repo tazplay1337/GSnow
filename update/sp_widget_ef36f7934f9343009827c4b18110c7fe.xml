@@ -133,7 +133,6 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 		}
 	}
 
-
 	var grCards = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 	grCards.addQuery('u_game.number', data.gameID);
 	grCards.addQuery('player.u_user', gs.getUserID());
@@ -177,7 +176,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	}
 
 	if(input && input.update){
-		gs.addInfoMessage("My Cards refreshed");
+		gs.addInfoMessage("Meine Kartenanzeige aufgefrischt");
 	}
 })();
 ]]></script>
@@ -187,7 +186,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-02 11:54:01</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
-        <sys_mod_count>207</sys_mod_count>
+        <sys_mod_count>210</sys_mod_count>
         <sys_name>GS List Cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -195,7 +194,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-18 19:44:53</sys_updated_on>
+        <sys_updated_on>2018-01-20 17:54:09</sys_updated_on>
         <template><![CDATA[<!-- Nav tabs -->
 <div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -292,9 +291,9 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                 <li class="list-group-item list-group-body">
                   <div class="row">
                     <div class="col-xs-3 text-left">Name</div>
-                    <div class="col-xs-3">Card Type</div>
-                    <div class="col-xs-2">Life</div>
-                    <div class="col-xs-2">Effect</div>
+                    <div class="col-xs-3">Kartentyp</div>
+                    <div class="col-xs-2">Dauer</div>
+                    <div class="col-xs-2">Effekt</div>
                   </div>
                 </li>
               </ul>

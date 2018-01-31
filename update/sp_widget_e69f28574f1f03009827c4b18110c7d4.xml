@@ -12,38 +12,8 @@
 		});  
 	}
 
-	/*	
-	$rootScope.$on('DRAW_CARD', function(event,data) {		
-		$scope.data.maintxt = "Player " + data.playeronturn + " is on the move and is now " + data.text;
-		$scope.data.phase = data.phase;
-		
-//		c.server.update().then(function(){
-//			$rootScope.main.display = $scope.data.maintxt;
-//			$rootScope.main.phase = $scope.data.phase;
-//			console.log("GS ScoopOn: " + $rootScope.main.display);
-//			console.log("GS ScoopOn: SERVER UPDATE AFTER");
-//		});
-	});
-
-	$rootScope.$on('INFO_UPDATE', function(event,data) {
-		data.newinfos = true;
-		$scope.data.maintxt = data.playeronturn + " is on the move and is now " + data.text;
-		console.log("Game Settings INFO UPDATE: " + $scope.data.maintxt);
-		$scope.data.phase = data.phase;
-		
-		c.server.update().then(function(){
-			data.newinfos = false;
-			console.log("Game Settings THEN: " + data.newinfos);
-		}); 
-	}); */
-	
 	spUtil.recordWatch($scope, "x_166119_gsnow_game", "number=" + c.data.gameID, function(name, data) {
 		c.server.update().then(function(){
-			/*
-			for (var i = 0; i < c.data.numbersettings; i++) {
-				c.data.settings[0].name = $scope.data.settings[i].name;
-				c.data.settings[0].value = $scope.data.settings[i].value;
-			}*/
 		});  
 	});
 }]]></client_script>
@@ -123,27 +93,14 @@
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
 	data.gameName = "";
-//	data.newinfos = false;
-//	data.maintxt = "";
 	data.phase = 0;
 	
 	var gr = new GlideRecord('x_166119_gsnow_game');
 	gr.get('number', data.gameID);
 	data.gameName = gr.u_name.getDisplayValue();
 	
-	/*
-	if(input && input.newinfos){
-		data.maintxt = input.maintxt;
-		data.phase = input.phase;
-		gr.u_phase = input.phase;
-		gr.u_main_text = input.maintxt;
-		gr.update();
-		gs.addInfoMessage("GAME UPDATE " + input.phase);
-	} */
-	
-	
 	data.settings = [];
-	var names = ["Dungeon", "Victory Level", "Start Time", "Round", "Player Turn", "Phase"];
+	var names = ["Dungeon", "Stufe zum Sieg", "Startzeit", "Runde", "Spieler am Zug", "Phase"];
 	var values = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 	data.numbersettings = names.length;
 	
@@ -163,7 +120,7 @@
 	}
 	
 	if(input && input.update){
-		gs.addInfoMessage("Game Settings refreshed");
+		gs.addInfoMessage("Spielanzeige aufgefrischt");
 	}
 })();]]></script>
         <servicenow>false</servicenow>
@@ -172,7 +129,7 @@
         <sys_created_on>2018-01-01 21:26:08</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e69f28574f1f03009827c4b18110c7d4</sys_id>
-        <sys_mod_count>104</sys_mod_count>
+        <sys_mod_count>108</sys_mod_count>
         <sys_name>GS Show Game Settings</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -180,7 +137,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e69f28574f1f03009827c4b18110c7d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-17 10:51:47</sys_updated_on>
+        <sys_updated_on>2018-01-20 15:40:23</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <div class="panel-heading">
     <div class="boxTitleHeader">
@@ -205,8 +162,6 @@
         </div>
       </div>
     </div>
-    
-    
   </div>
 </div>
 ]]></template>
