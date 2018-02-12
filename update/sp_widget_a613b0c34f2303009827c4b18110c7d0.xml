@@ -5,7 +5,7 @@
 	/* widget controller */
 	var c = this;
 
-	$rootScope.$broadcast('EXERCISE_INFO', "Answer this question: " + c.data.question);
+	$rootScope.$broadcast('EXERCISE_INFO', "Beantworte: " + c.data.question);
 
 	$rootScope.$on('EXERCISE_ATTACK', function(event,data) {
 		if(data == 'Quiz'){
@@ -115,7 +115,7 @@
         <sys_created_on>2018-01-13 13:18:39</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>a613b0c34f2303009827c4b18110c7d0</sys_id>
-        <sys_mod_count>143</sys_mod_count>
+        <sys_mod_count>144</sys_mod_count>
         <sys_name>GS Main Exercise Quiz</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -123,7 +123,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_a613b0c34f2303009827c4b18110c7d0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-19 17:36:11</sys_updated_on>
+        <sys_updated_on>2018-02-10 17:24:50</sys_updated_on>
         <template><![CDATA[<div>
   <ul class="answerList">
     <li ng-repeat="question in c.data.questions">

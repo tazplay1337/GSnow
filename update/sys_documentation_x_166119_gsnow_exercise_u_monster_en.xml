@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_documentation element="u_value_c" label="Lösung C" language="en" table="x_166119_gsnow_exercise_quiz">
+    <sys_documentation element="u_monster" label="Monster" language="en" table="x_166119_gsnow_exercise">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>u_value_c</element>
+            <element>u_monster</element>
             <help/>
             <hint/>
-            <label>Lösung C</label>
+            <label>Monster</label>
             <language>en</language>
-            <name>x_166119_gsnow_exercise_quiz</name>
-            <plural>Lösung Cs</plural>
+            <name>x_166119_gsnow_exercise</name>
+            <plural>Monsters</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-14 12:04:54</sys_created_on>
+            <sys_created_on>2018-02-07 20:55:04</sys_created_on>
             <sys_customer_update>false</sys_customer_update>
-            <sys_id>ccdb69534f6b03009827c4b18110c70a</sys_id>
-            <sys_mod_count>1</sys_mod_count>
-            <sys_name>Lösung C</sys_name>
+            <sys_id>c45b83034f8013009827c4b18110c7a2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Monster</sys_name>
             <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
             <sys_policy/>
             <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-            <sys_update_name>sys_documentation_x_166119_gsnow_exercise_quiz_u_value_c_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_166119_gsnow_exercise_u_monster_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-02-07 20:51:09</sys_updated_on>
+            <sys_updated_on>2018-02-07 20:55:04</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

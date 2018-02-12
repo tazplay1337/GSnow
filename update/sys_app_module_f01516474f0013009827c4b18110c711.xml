@@ -10,37 +10,37 @@
         <hint/>
         <homepage/>
         <image/>
-        <link_type>LIST</link_type>
+        <link_type>SEPARATOR</link_type>
         <map_page/>
-        <mobile_title>Exercise Quizes</mobile_title>
+        <mobile_title>Spiele</mobile_title>
         <mobile_view_name>Mobile</mobile_view_name>
-        <name>x_166119_gsnow_exercise_quiz</name>
-        <order>900</order>
+        <name/>
+        <order>300</order>
         <override_menu_roles>false</override_menu_roles>
         <query/>
         <report/>
-        <roles>x_166119_gsnow.exercise_quiz_user</roles>
+        <roles/>
         <survey/>
         <survey_overwrite>true</survey_overwrite>
         <sys_class_name>sys_app_module</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-12-11 10:08:15</sys_created_on>
+        <sys_created_on>2018-02-07 16:59:36</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>c41b0e1c4f0303009827c4b18110c724</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>Quiz Aufgaben Erstellen</sys_name>
+        <sys_id>f01516474f0013009827c4b18110c711</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Spiel Elemente Verwalten</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-        <sys_update_name>sys_app_module_c41b0e1c4f0303009827c4b18110c724</sys_update_name>
+        <sys_update_name>sys_app_module_f01516474f0013009827c4b18110c711</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-07 17:14:39</sys_updated_on>
+        <sys_updated_on>2018-02-10 15:21:14</sys_updated_on>
         <timeline_page/>
-        <title>Quiz Aufgaben Erstellen</title>
+        <title>Spiel Elemente Verwalten</title>
         <uncancelable>false</uncancelable>
         <view_name/>
         <window_name/>

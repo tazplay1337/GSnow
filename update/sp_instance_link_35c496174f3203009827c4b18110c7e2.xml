@@ -14,7 +14,7 @@
         <roles/>
         <sc_cat_item display_value="Ask a Question">12147da2d7532100a9ad1e173e24d4de</sc_cat_item>
         <sc_category/>
-        <short_description>Community-sourced answers to your questions</short_description>
+        <short_description>Antworten aus der Community auf Ihre Fragen.</short_description>
         <size>md</size>
         <sp_column display_value="4">3dc496174f3203009827c4b18110c7e0</sp_column>
         <sp_page display_value="sqa_tagged_questions">c8b2e216d701120023c84f80de6103e9</sp_page>
@@ -24,7 +24,7 @@
         <sys_created_on>2017-12-08 08:16:47</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>35c496174f3203009827c4b18110c7e2</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>Community</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -32,7 +32,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_instance_link_35c496174f3203009827c4b18110c7e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-08 08:16:47</sys_updated_on>
+        <sys_updated_on>2018-02-02 11:33:23</sys_updated_on>
         <title>Community</title>
         <type>url</type>
         <url>?id=sqa_tagged_questions</url>

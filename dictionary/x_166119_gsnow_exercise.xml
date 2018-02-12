@@ -4,6 +4,7 @@
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" display="true" label="Number" max_length="40" name="number" type="string"/>
         <element default="javascript:current.getTableName();" dynamic_default_value="b5cb83a85f220100a9ad2572f2b4773c" label="Class" max_length="80" name="sys_class_name" type="sys_class_name" use_dynamic_default="true"/>
         <element label="Dungeon" max_length="32" name="u_dungeon" reference="x_166119_gsnow_dungeon" type="reference"/>
+        <element label="Monster" max_length="32" name="u_monster" reference="x_166119_gsnow_monster" type="reference"/>
         <element choice="1" default="10" label="Type" max_length="40" name="u_type" type="choice">
             <choice>
                 <element label="CompleteForm" value="50"/>
@@ -15,6 +16,9 @@
         </element>
         <index name="index">
             <element name="u_dungeon"/>
+        </index>
+        <index name="index2">
+            <element name="u_monster"/>
         </index>
     </element>
 </database>

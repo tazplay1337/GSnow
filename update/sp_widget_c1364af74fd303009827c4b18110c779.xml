@@ -773,7 +773,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>670</sys_mod_count>
+        <sys_mod_count>671</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -781,7 +781,7 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-23 10:44:53</sys_updated_on>
+        <sys_updated_on>2018-02-04 15:02:39</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
 
@@ -793,7 +793,7 @@ input[type=checkbox], input[type=radio] {
 
 
     <div class="questionsRow" ng-if="showPhase(0)" ng-click="">
-      <a class="button" ng-click="drawCard()">Draw</a><span>{{c.data.mainInfo.doorcards}} Türkarten</span>
+      <a class="button" ng-click="drawCard()">Ziehen</a><span>{{c.data.mainInfo.doorcards}} Türkarten</span>
     </div>
 
     <div class="questionsRow" ng-if="showPhase(10)" ng-click="">

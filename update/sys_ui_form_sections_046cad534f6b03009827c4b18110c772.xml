@@ -11,7 +11,7 @@
             <sys_mod_count>0</sys_mod_count>
             <sys_overrides/>
             <sys_ui_form display_value="x_166119_gsnow_exercise_quiz" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">046cad534f6b03009827c4b18110c772</sys_ui_form>
-            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">be7b52d44f4303009827c4b18110c7a1</sys_ui_section>
+            <sys_ui_section caption="Quiz Aufgabe" display_value="Quiz Aufgabe" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">be7b52d44f4303009827c4b18110c7a1</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2018-01-14 12:07:21</sys_updated_on>
         </sys_ui_form_section>
@@ -25,7 +25,7 @@
             <sys_mod_count>0</sys_mod_count>
             <sys_overrides/>
             <sys_ui_form display_value="x_166119_gsnow_exercise_quiz" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">046cad534f6b03009827c4b18110c772</sys_ui_form>
-            <sys_ui_section caption="New Section" display_value="New Section" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">c06cad534f6b03009827c4b18110c771</sys_ui_section>
+            <sys_ui_section caption="Fragen" display_value="Fragen" name="x_166119_gsnow_exercise_quiz" sys_domain="global" view="Default view">c06cad534f6b03009827c4b18110c771</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2018-01-14 12:07:21</sys_updated_on>
         </sys_ui_form_section>

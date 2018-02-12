@@ -214,7 +214,7 @@ span.error-message {
         <sys_created_on>2017-12-18 10:24:29</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>fde156ea4f0303009827c4b18110c7a2</sys_id>
-        <sys_mod_count>268</sys_mod_count>
+        <sys_mod_count>270</sys_mod_count>
         <sys_name>GSFormCreateGame</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -222,12 +222,12 @@ span.error-message {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_fde156ea4f0303009827c4b18110c7a2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-27 22:51:18</sys_updated_on>
+        <sys_updated_on>2018-02-02 11:38:47</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <form>
     <div class="jumbotron jumbotron-fluid">
-      <legend><h1>Create Game</h1></legend>
-      <p class="lead">To successfully create a game, you must choose a name for the game. Furthermore, choose the theme of the monster. Last number of players and score to win.</p>
+      <legend><h1>Spiel Erstellen</h1></legend>
+      <p class="lead">Um ein Spiel erfolgreich zu erstellen, müssen Sie einen Namen für das Spiel auswählen. Wählen Sie außerdem das Lernthema. Anschließend die Anzahl an der Spielern und Stufe zum Sieg. Sobald alles eingestellt ist, klicken sie auf den Erstellen Button.</p>
     </div>
     <div class="panel-body">
       <div>
@@ -247,7 +247,7 @@ span.error-message {
         </div>
       </div>
       <div>
-        <h3>Total Player</h3>
+        <h3>Anzahl der Spieler</h3>
         <div class="choise">
           <div ng-repeat="players in c.data.players">
             <div class="btn btn-default" ng-class="{'btn-info': players.selected}" ng-click="selectPlayer(players)">
@@ -259,7 +259,7 @@ span.error-message {
         </div>
       </div>
       <div>
-        <h3>Points to Win</h3>
+        <h3>Stufe zum Sieg</h3>
         <div class="choise">
           <div ng-repeat="points in c.data.points">
             <div class="btn btn-default"ng-class="{'btn-info': points.selected}" ng-click="selectPoint(points)">
@@ -271,7 +271,7 @@ span.error-message {
         </div>
       </div>
       <div class="create">
-        <button type="submit" class="btn btn-primary btn-lg" ng-click="createGame()">Create</button>
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="createGame()">Erstellen</button>
       </div>
     </div>
   </form>

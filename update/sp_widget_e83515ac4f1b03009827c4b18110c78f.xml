@@ -103,15 +103,18 @@
 	var grGame = new GlideRecord('x_166119_gsnow_game');
 	grGame.get('number', data.gameID);
 
-	// Get all Players infos
+	// Get all Players info
+	var number = 1;
 	var grPlayer = new GlideRecord('x_166119_gsnow_player');
 	grPlayer.addQuery('u_game', grGame.sys_id);
 	grPlayer.query();
+	
 	
 	data.players = [];
 	while(grPlayer.next()){
 		var player = {
 			name: grPlayer.u_user.getDisplayValue(),
+			number: number,
 			ready: false,
 			selected: false	
 		};
@@ -123,6 +126,7 @@
 			}
 		}
 		data.players.push(player);
+		number += 1; 
 	}
 	
 	
@@ -165,7 +169,7 @@
         <sys_created_on>2017-12-24 11:07:06</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>e83515ac4f1b03009827c4b18110c78f</sys_id>
-        <sys_mod_count>399</sys_mod_count>
+        <sys_mod_count>400</sys_mod_count>
         <sys_name>GS Waiting Players</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -173,7 +177,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_e83515ac4f1b03009827c4b18110c78f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-06 21:05:55</sys_updated_on>
+        <sys_updated_on>2018-02-08 14:34:53</sys_updated_on>
         <template><![CDATA[<div class="container">
   <div class="row">
     <div class="col-xs-8">
@@ -182,7 +186,7 @@
           <div class="panel-title">
             <div class="row">
               <div class="col-xs-6">
-                <h2>Waiting for Players</h2>
+                <h2>Warten auf Spieler</h2>
               </div>
             </div>
           </div>
@@ -193,11 +197,11 @@
               <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
               </div>
               <div class="col-xs-4">
-                <h4 class="product-name"><strong>{{::players.name}}</strong></h4><h4><small>Description </small></h4>
+                <h4 class="product-name"><strong>{{::players.name}}</strong></h4><h4><small>Spieler {{::players.number}}</small></h4>
               </div>
               <div class="col-xs-6" ng-show={{::players.selected}}&&c.data.showready> 
                 <div class="col-xs-6 text-right">
-                  <h6><strong>Click if Ready</strong></h6>
+                  <h6><strong>Bin Bereit</strong></h6>
                 </div>
                 <div class="col-xs-4">
                   <input type="button" class="form-control input-sm" ng-class="{'btn-info': player.ready}" ng-disabled="ready()" ng-click="playerReady(players)">
@@ -209,11 +213,11 @@
           <div class="panel-footer">
             <div class="row text-center">
               <div class="col-xs-9">
-                <h4 class="text-right">Ready <strong>({{c.data.readyPlayer}} / {{c.data.maxPlayer}})</strong></h4>
+                <h4 class="text-right">Bereit <strong>({{c.data.readyPlayer}} / {{c.data.maxPlayer}})</strong></h4>
               </div>
               <div class="col-xs-3">
                 <button type="button" class="btn btn-success btn-block" ng-show="{{c.data.admin}}" ng-disabled="allReady()" ng-click="startGame()">
-                  Start Game
+                  Spiel Starten
                 </button>
               </div>
             </div>

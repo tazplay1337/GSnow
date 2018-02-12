@@ -15,7 +15,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Answer D</column_label>
+        <column_label>Antwort D</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -54,15 +54,15 @@
         <sys_created_on>2017-12-11 11:17:30</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>56da5a944f4303009827c4b18110c708</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>Answer D</sys_name>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Antwort D</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_dictionary_x_166119_gsnow_exercise_quiz_u_answer_d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-18 14:28:12</sys_updated_on>
+        <sys_updated_on>2018-02-07 20:51:08</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

@@ -178,7 +178,7 @@ span.error-message {
         <sys_created_on>2017-12-26 13:27:38</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>3a8848914f5303009827c4b18110c7c8</sys_id>
-        <sys_mod_count>41</sys_mod_count>
+        <sys_mod_count>47</sys_mod_count>
         <sys_name>GS Form Join Game</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -186,16 +186,16 @@ span.error-message {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_3a8848914f5303009827c4b18110c7c8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-30 18:38:28</sys_updated_on>
+        <sys_updated_on>2018-02-02 11:50:44</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <form>
     <div class="jumbotron jumbotron-fluid">
-      <legend><h1>Join Game</h1></legend>
-      <p class="lead">To successfully join a game, you have to select a open game and click on join.</p>
+      <legend><h1>Spiel Beitreten</h1></legend>
+      <p class="lead">Um einem Spiel erfolgreich beizutreten, müssen Sie ein offenes Spiel auswählen und auf "Beitreten" klicken.</p>
     </div>
     <div class="panel-body">
       <div>
-        <h3>Open Games</h3>
+        <h3>Offene Spiele</h3>
         <div class="choise">
           <div ng-repeat="games in c.data.games">
             <div class="btn btn-default" ng-class="{'btn-info': games.selected}" ng-click="selectGames(games)">
@@ -206,10 +206,10 @@ span.error-message {
           </div>
         </div>
       </div>
-      <h3>Settings Selected Game</h3>
+      <h3>Spieleinstellungen</h3>
       <div class="settings">   
         <div class="setting">
-          <h5>Created By</h5>
+          <h5>Erstellt von</h5>
           <div class="btn btn-default">
             <div class="boxTitle">
               {{data.createdBy}}
@@ -225,7 +225,7 @@ span.error-message {
           </div>
         </div>
         <div class="setting">
-          <h5>Victory Level</h5>
+          <h5>Stufe zum Sieg</h5>
           <div class="btn btn-default">
             <div class="boxTitle">
               {{data.victoryLevel}}
@@ -235,7 +235,7 @@ span.error-message {
       </div>
       <div class="settings">   
         <div class="setting">
-          <h5>Max Players</h5>
+          <h5>Spieleranzahl</h5>
           <div class="btn btn-default">
             <div class="boxTitle">
               {{data.maxPlayers}}
@@ -243,7 +243,7 @@ span.error-message {
           </div>
         </div>
         <div class="setting">
-          <h5>Actual Player</h5>
+          <h5>Aktuell Beigetreten</h5>
           <div class="btn btn-default">
             <div class="boxTitle">
               {{data.actualPlayer}}
@@ -252,7 +252,7 @@ span.error-message {
         </div>
       </div>
       <div class="create">
-        <button type="submit" class="btn btn-primary btn-lg" ng-click="joinGame()">Join</button>
+        <button type="submit" class="btn btn-primary btn-lg" ng-click="joinGame()">Beitreten</button>
       </div>
     </div>
   </form>
