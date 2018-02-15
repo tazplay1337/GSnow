@@ -31,7 +31,7 @@
         <is_rest>false</is_rest>
         <message/>
         <name>Calculate Attack</name>
-        <order>100</order>
+        <order>500</order>
         <priority>100</priority>
         <rest_method/>
         <rest_method_text/>
@@ -45,7 +45,7 @@
 	var grEffects = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 	grEffects.addQuery('player', current.sys_id);
 	grEffects.addQuery('u_game', current.u_game);
-	grEffects.addQuery('u_playing_field', '40');
+	grEffects.addQuery('u_playing_field', '40'); //Affected Me Field
 	grEffects.query();
 	var effects = 0;
 	while(grEffects.next()) {
@@ -57,7 +57,7 @@
 	var grAddition = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 	grAddition.addQuery('player', current.sys_id);
 	grAddition.addQuery('u_game', current.u_game);
-	grAddition.addQuery('u_playing_field', '30');
+	grAddition.addQuery('u_playing_field', '30'); //Personal Equipment
 	grAddition.addQuery('u_position', '10');
 	grAddition.query();
 	var addition = 0;
@@ -77,8 +77,12 @@
 	attack -= current.u_punishment_attack;
 	attack += current.u_level;
 
-	current.u_attack = attack;
-	if(current.u_attack < 1) current.u_attack = 1;
+	if(attack < 1) {
+		current.u_attack = 1;
+	}
+	else{
+		current.u_attack = attack;
+	}
 	current.update();
 
 })(current, previous);]]></script>
@@ -89,7 +93,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>195c73974f9343009827c4b18110c7ff</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>Calculate Attack</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
@@ -98,7 +102,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sys_script_195c73974f9343009827c4b18110c7ff</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-19 21:09:33</sys_updated_on>
+        <sys_updated_on>2018-02-14 17:19:21</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

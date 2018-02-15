@@ -12,10 +12,12 @@
         <element default="0" label="Phase" max_length="40" name="u_phase" type="integer"/>
         <element default="0" label="Ready Player" max_length="40" name="u_ready_player" type="integer"/>
         <element default="0" label="Round" max_length="40" name="u_round" type="integer"/>
+        <element label="Sieger" max_length="32" name="u_sieger" reference="sys_user" type="reference"/>
         <element label="Start Time" max_length="40" name="u_start_time" type="glide_date_time"/>
         <element choice="3" default="10" label="State" max_length="40" name="u_state" type="choice">
             <choice>
                 <element label="Close" value="20"/>
+                <element label="Game Over" value="60"/>
                 <element label="Initial" value="30"/>
                 <element label="Open" value="10"/>
                 <element label="Play" value="50"/>
@@ -27,6 +29,9 @@
         <element default="1" label="Turn" max_length="40" name="u_turn" type="integer"/>
         <element label="Victory Level" mandatory="true" max_length="40" name="u_victory_level" type="integer"/>
         <index name="index">
+            <element name="u_sieger"/>
+        </index>
+        <index name="index2">
             <element name="u_dungeon"/>
         </index>
     </element>

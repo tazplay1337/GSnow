@@ -5,195 +5,209 @@
             <element>u_user</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>efbe50e74fd343009827c4b18110c7b8</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>5d7969cd4f5013009827c4b18110c74a</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_number</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>157969cd4f5013009827c4b18110c74b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_avatar</element>
-            <position>1</position>
+            <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>67be50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>957969cd4f5013009827c4b18110c74b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_level</element>
-            <position>2</position>
+            <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>e7be50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>197969cd4f5013009827c4b18110c74b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_attack</element>
-            <position>3</position>
+            <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>6bbe50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>997969cd4f5013009827c4b18110c74b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
-            <position>4</position>
+            <position>5</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>ebbe50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>1d7969cd4f5013009827c4b18110c74b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_game</element>
-            <position>5</position>
+            <position>6</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>6fbe50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>9d7969cd4f5013009827c4b18110c74b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_weapon</element>
-            <position>6</position>
+            <position>7</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>efbe50e74fd343009827c4b18110c7b9</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>117969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_armor</element>
-            <position>7</position>
+            <position>8</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>63be50e74fd343009827c4b18110c7ba</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>917969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_headwear</element>
-            <position>8</position>
+            <position>9</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>e3be50e74fd343009827c4b18110c7ba</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>157969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_shoewear</element>
-            <position>9</position>
+            <position>10</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>67be50e74fd343009827c4b18110c7ba</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>957969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_cape</element>
-            <position>10</position>
+            <position>11</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-02 14:50:57</sys_created_on>
-            <sys_id>e7be50e74fd343009827c4b18110c7ba</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>197969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-02 14:50:57</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_effects</element>
-            <position>11</position>
+            <position>12</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-07 12:39:12</sys_created_on>
-            <sys_id>5a803d4d4f2743009827c4b18110c75e</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>997969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-07 12:39:12</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_addition</element>
-            <position>12</position>
+            <position>13</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-07 17:24:08</sys_created_on>
-            <sys_id>c4c17e854f6743009827c4b18110c7b6</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>1d7969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-07 17:24:08</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>u_punishment_attack</element>
-            <position>13</position>
+            <position>14</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-19 15:44:06</sys_created_on>
-            <sys_id>bbedc0014fb303009827c4b18110c775</sys_id>
+            <sys_created_on>2018-02-13 18:55:21</sys_created_on>
+            <sys_id>9d7969cd4f5013009827c4b18110c74c</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_player" sys_domain="global" view="Default view">632aee0e4f7203009827c4b18110c770</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-19 15:44:06</sys_updated_on>
+            <sys_updated_on>2018-02-13 18:55:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

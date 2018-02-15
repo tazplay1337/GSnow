@@ -105,7 +105,7 @@
 		c.data.mainInfo.phase = 30;
 		console.log("forward(): " + c.data.mainInfo.phase);
 		c.data.monster.monster = false;		
-//		c.server.update();	
+		//		c.server.update();	
 	}
 
 	// ######################################################################
@@ -254,7 +254,7 @@
 	}
 
 	// ######################################################################
-	// ##################### PHASE 40 #######################################
+	// ##################### PHASE 50 #######################################
 	$scope.next = function(number) {
 		useButtonEnabled(true);
 		c.data.next = true;
@@ -266,12 +266,31 @@
 		});
 	}
 
+	// ######################################################################
+	// ##################### PHASE 60 #######################################
+	$scope.showWIN = function() {
+		//		console.log("showphase(): " + c.data.mainInfo.phase);
+		if(c.data.mainInfo.phase == phase && c.data.turn){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	$scope.returnHome = function(number) {
+		location.href = "/gs";
+	}
+
 	// #######################################################################
 	// ##################### HELPER FUNCTIONS ################################
 	// ##################### PHASE ALL #######################################	
 	$scope.showPhase = function(phase) {
 		//		console.log("showphase(): " + c.data.mainInfo.phase);
 		if(c.data.mainInfo.phase == phase && c.data.turn){
+			return true;
+		}
+		else if(c.data.mainInfo.phase == phase && c.data.mainInfo.phase == 60){
 			return true;
 		}
 		else{
@@ -344,117 +363,127 @@
 }
 
 .main {
-    margin-bottom: 20px;
-  	height: 500px;
+  margin-bottom: 20px;
+  height: 500px;
 }
 .questionsBox {
-    background: #fff;
-    display: block;
-    border: solid 1px #e3e3e3;
-    padding: 10px 20px 0px;
-    box-shadow: inset 0 0 30px rgba(000,000,000,0.1), inset 0 0 4px rgba(255,255,255,1);
-    border-radius: 3px;
-    margin: 0 10px;
-  	height: 100%;
-  	max-height: 100%
+  background: #fff;
+  display: block;
+  border: solid 1px #e3e3e3;
+  padding: 10px 20px 0px;
+  box-shadow: inset 0 0 30px rgba(000,000,000,0.1), inset 0 0 4px rgba(255,255,255,1);
+  border-radius: 3px;
+  margin: 0 10px;
+  height: 100%;
+  max-height: 100%
 }
 .questions {
-    background: #007fbe;
-    color: #FFF;
-    font-size: 22px;
-    padding: 8px 30px;
-  	text-align:center;
-    margin: 0 -30px 10px;
-    position: relative;
-  	 p { font-size: 10pt;}
+  background: #007fbe;
+  color: #FFF;
+  font-size: 22px;
+  padding: 8px 30px;
+  text-align:center;
+  margin: 0 -30px 10px;
+  position: relative;
+  p { font-size: 10pt;}
 }
 .questions:after {
-    display: block;
-    position: absolute;
-    top: 100%;
-    width: 9px;
-    height: 7px;
-    content: '.';
-    left: 0;
-    text-align: left;
-    font-size: 0;
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 9px;
+  height: 7px;
+  content: '.';
+  left: 0;
+  text-align: left;
+  font-size: 0;
 }
 .questions:after {
-    left: auto;
-    right: 0;
-    background-position: -10px 0;
+  left: auto;
+  right: 0;
+  background-position: -10px 0;
 }
 .questions:before, .questions:after {
-    background: black;
-    display: block;
-    position: absolute;
-    top: 100%;
-    width: 9px;
-    height: 7px;
-    content: '.';
-    left: 0;
-    text-align: left;
-    font-size: 0;
+  background: black;
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 9px;
+  height: 7px;
+  content: '.';
+  left: 0;
+  text-align: left;
+  font-size: 0;
 }
 .answerList {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 
 ol, ul {
-    list-style: none;
+  list-style: none;
 }
 .answerList li:first-child {
-    border-top-width: 0;
+  border-top-width: 0;
 }
 
 .answerList li {
-    padding: 3px 0;
+  padding: 3px 0;
 }
 .answerList label {
-    display: block;
-    padding: 6px;
-    border-radius: 6px;
-    border: solid 1px #dde7e8;
-    font-weight: 400;
-    font-size: 13px;
-    cursor: pointer;
-    font-family: Arial, sans-serif;
+  display: block;
+  padding: 6px;
+  border-radius: 6px;
+  border: solid 1px #dde7e8;
+  font-weight: 400;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 input[type=checkbox], input[type=radio] {
-    margin: 4px 0 0;
-    margin-top: 1px;
-    line-height: normal;
+  margin: 4px 0 0;
+  margin-top: 1px;
+  line-height: normal;
 }
 .questionsRow {
-    background: #dee3e6;
-    margin: 0 -20px;
-    padding: 10px 20px;
-    border-radius: 0 0 3px 3px;
+  background: #dee3e6;
+  margin: 0 -20px;
+  padding: 10px 20px;
+  border-radius: 0 0 3px 3px;
 }
 .button, .greyButton{
-    background-color: #f2f2f2;
-    color: #888888;
-    display: inline-block;
-    border: solid 3px #cccccc;
-    text-shadow: 0 1px 0 #ffffff;
-    line-height: 27px;
-    min-width: 160px;
-    text-align: center;
-    padding: 5px 20px;
-    text-decoration: none;
-    border-radius: 0px;
-    text-transform: capitalize;
+  background-color: #f2f2f2;
+  color: #888888;
+  display: inline-block;
+  border: solid 3px #cccccc;
+  text-shadow: 0 1px 0 #ffffff;
+  line-height: 27px;
+  min-width: 160px;
+  text-align: center;
+  padding: 5px 20px;
+  text-decoration: none;
+  border-radius: 0px;
+  text-transform: capitalize;
 }
 
 .questionsRow span {
-    float: right;
-    display: inline-block;
-    line-height: 30px;
-    border: solid 1px #aeb9c0;
-    padding: 0 10px;
-    background: #FFF;
-    color: #007fbe;
+  float: right;
+  display: inline-block;
+  line-height: 30px;
+  border: solid 1px #aeb9c0;
+  padding: 0 10px;
+  background: #FFF;
+  color: #007fbe;
+}
+
+.img {
+  max-height: 280px;
+  max-width: 280px;
+  background-size: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 </css>
@@ -485,7 +514,8 @@ input[type=checkbox], input[type=radio] {
 		"treasure_cards": 0,
 		"text": "",
 		"display": "",
-		"displayToMe": "Yeah endlich an der Reihe. OK ZIEHEN.. WIR ES DURCH!"
+		"displayToMe": "Yeah endlich an der Reihe. OK ZIEHEN.. WIR ES DURCH!",
+		"gameover": false
 	}
 	data.immediateCard = {
 		"name": "",
@@ -508,10 +538,10 @@ input[type=checkbox], input[type=radio] {
 		"punish_sys_id": "",
 		"punish_description": ""
 	}
-	
-//	data.widget = $sp.getWidget("gs_main_exercise_read_select");
-	
-	
+
+	//	data.widget = $sp.getWidget("gs_main_exercise_read_select");
+
+
 	// #####################################################################################
 	// ##################### GAME SETTINGS  ################################################
 	data.gameID = $sp.getParameter("gameID");
@@ -526,246 +556,275 @@ input[type=checkbox], input[type=radio] {
 	grPlayer.addQuery('u_user', gs.getUserID());
 	grPlayer.query();
 
-	// Check if next turn
-	if(input && input.next){
-		//		gs.addInfoMessage("Next Turn: " + input.next);
-		var turn = grGame.u_turn;
-		turn += 1;
-		turn = turn % (grGame.u_total_number_player + 1); // 1 is Offset
-		if(turn < 1){
-			turn = 1;
+	if(grGame.u_state != '60'){
+		// Check if next turn
+		if(input && input.next){
+			//		gs.addInfoMessage("Next Turn: " + input.next);
+			var turn = grGame.u_turn;
+			turn += 1;
+			turn = turn % (grGame.u_total_number_player + 1); // 1 is Offset
+			if(turn < 1){
+				turn = 1;
+			}
+			grGame.u_turn = turn;
+			grGame.u_phase = 0;
+			grGame.update();
+			data.turn = false;
+			data.mainInfo.playeronturn = "";
+			data.mainInfo.phase = 0;
 		}
-		grGame.u_turn = turn;
-		grGame.u_phase = 0;
-		grGame.update();
-		data.turn = false;
-		data.mainInfo.playeronturn = "";
-		data.mainInfo.phase = 0;
-	}
 
-	if(grPlayer.next() && grGame.u_turn == grPlayer.u_number){
-		data.turn = true;
-		data.mainInfo.playeronturn = grPlayer.u_user.getDisplayValue();
-		data.mainInfo.attack = grPlayer.u_attack.getDisplayValue();
-	}
-	// #####################################################################################
-	// ##################### SET PHASE  ####################################################
-	if(input && data.turn && !input.recordWatch){
-		data.mainInfo.phase = input.mainInfo.phase;
-		grGame.u_phase = data.mainInfo.phase;
-		grGame.update();
-		//		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
-	}
-	else if(!input && data.turn){
-		grGame.u_phase = 0;
-		grGame.update();
-		data.mainInfo.phase = 0;
-		//		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
-	}
-	else if(input && !data.turn){
-		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-		//		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
-	}
-	else{
-		data.mainInfo.phase = grGame.u_phase.getDisplayValue();
-		//		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
-	}
-
-	// Set Default Display
-	data.mainInfo.display = "Spieler " + grGame.u_turn.getDisplayValue() + " ist an der Reihe und ist dabei eine Türkarte zu ziehen";
-
-	// #####################################################################################
-	// ##################### PHASE 0: SHOW DRAW CARD #######################################
-	if(data.turn && data.mainInfo.phase == 0){
-		//		data.mainInfo.display = "OK ZIEHEN.. WIR ES DURCH";
-		data.mytext = "Ziehe eine Türkarte!"
-	} 
-	// #####################################################################################
-	// ##################### PHASE 10: GET NEXT DOOR CARD IN DECK ##########################
-	else if(data.turn && data.mainInfo.phase == 10){
-		//		gs.addInfoMessage("3: Phase 1 ");
-
-		var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-		grDeck2.addQuery('game', grGame.sys_id);
-		grDeck2.addQuery('u_deck', 'true');
-		grDeck2.addQuery('card.u_deck_type', '20');
-		grDeck2.orderBy('u_card_number');
-		grDeck2.chooseWindow(0, 1);
-		grDeck2.query();
-
-		grGame.u_number_door_cards -= 1;
-		grGame.update();
-
-		if(grDeck2.next()){
-			grDeck2.u_deck = false;
-			grDeck2.update();
-			//			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
-			if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
-				// ##################### DRAW A MONSTER ##############################################
-				data.mytext= "Ein Monster, EIN MONSTER";
-				data.monsterCard = {
-					"name": grDeck2.card.u_name.getDisplayValue(),
-					"image": grDeck2.card.u_image.getDisplayValue(),
-					"level": grDeck2.card.u_level.getDisplayValue(),
-					"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
-					"reward_treasure": grDeck2.card.u_reward_treasure.getDisplayValue(),
-					"reward_level": grDeck2.card.u_reward_level.getDisplayValue(),
-					"short_description": grDeck2.card.u_short_description.getDisplayValue(),
-					"exercise": grDeck2.card.u_exercise.getDisplayValue(),
-					"exercisetype": grDeck2.card.u_exercise.u_type.getDisplayValue(),
-					"punish_sys_id": grDeck2.card.u_punishment.sys_id.getDisplayValue(),
-					"punish_description": grDeck2.card.u_punishment.u_description.getDisplayValue()				
-				}
-				//				gs.addInfoMessage("SERVER: " + data.monsterCard.exercise);
-				data.mainInfo.display = data.mainInfo.playeronturn + " hat eine Monsterkarte gezogen: " + data.monsterCard.name;
-				data.mainInfo.displayToMe = "Bist du ein WOLF oder ein Schaaf, kämpfe!";
-			}
-			// ##################### DRAW TRAP OR SPELL ###########################################
-			else{
-				data.immediateCard = {
-					"name": grDeck2.card.u_name.getDisplayValue(),
-					"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
-					"image": grDeck2.card.u_image.getDisplayValue(),
-					"short_description": grDeck2.card.u_short_description.getDisplayValue(),
-					"effect": grDeck2.card.u_effect.getDisplayValue(),
-					"lifetime": grDeck2.card.u_lifetime.getDisplayValue()
-				}
-				data.mainInfo.display = data.mainInfo.playeronturn + " hat " + data.immediateCard.name + " gezogen!";
-				data.mainInfo.displayToMe = grDeck2.card.u_card_type.getDisplayValue() + " wirkt jetzt auf dich!"; 
-			}
-		}
-		// ##################### END PHASE 10 ###########################################
-		grGame.u_main_text = data.mainInfo.display;
-		grGame.update();
-	}
-	// #####################################################################################
-	// ##################### PHASE 20: GET EXERCISE FOR MONSTER ############################
-	else if(data.turn && data.mainInfo.phase == 20){
-		data.mytext= "Gewinn oder Stirbt! Möge die Macht mit dir sein"; 
-		data.mainInfo.display = data.mainInfo.playeronturn + " kämpft gegen " + input.monsterCard.name;
-		grGame.u_main_text = data.mainInfo.display;
-		grGame.update();
-		data.monsterCard.exercise = input.monsterCard.exercise;
-		data.monsterCard.exercisetype = input.monsterCard.exercisetype;
-		// !!!!!! QUIZ !!!!!!!!
-		options = [ {number: data.monsterCard.exercise}];
-		data.widget = $sp.getWidget("gs_main_exercise_quiz", options[0]);
-	}
-	// #####################################################################################
-	// ##################### PHASE 40: EVALUATION #########################################
-	else if(data.turn && data.mainInfo.phase == 40){
-		if(input && input.monster.monster){
-
-			// ##################### MONSTER #######################################################	
-			if(input.monster.win){
-				grPlayer.u_level += parseInt(input.reward_level);
-				grPlayer.update();
-
-				var grDeck3 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-				grDeck3.addQuery('game', grGame.sys_id);
-				grDeck3.addQuery('u_deck', 'true');
-				grDeck3.addQuery('card.u_deck_type', '10');
-				grDeck3.orderBy('u_card_number');
-				grDeck3.chooseWindow(0, parseInt(input.reward_treasure));
-				grDeck3.query();
-
-				var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
-
-				while(grDeck3.next()){
-					grHand.initialize();
-					grHand.u_game = grGame.sys_id;
-					grHand.card = grDeck3.card.sys_id;
-					grHand.player = grPlayer.sys_id;
-					grHand.insert();
-					grDeck3.u_deck = false;
-					grDeck3.update();
-					grGame.u_number_treasure_cards	 -= 1;
-					grGame.update();					
-				}
-				data.mainInfo.phase = 50;
-				//GAMEPHASE
-				data.mainInfo.display = data.mainInfo.playeronturn + " hat seinen Kampf gewonnen. Er ist " + input.reward_level + " aufgestiegen und hat " + input.reward_treasure + " neue Schatzkarten.";
-				data.mainInfo.displayToMe = "Gratuliere Boss! Du bist " + input.reward_level + " Level aufgestiegen und hast " + input.reward_treasure + " neue Schatzkarten."; 
-			}
-			// ##################### LOSE VS MONSTER ###############################################
-			else{
-				if(input.monster.runaway){
-					// ##################### GET TRUE OR FASE WIDGET ###################################
-					//					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
-					data.mainInfo.phase = 35;
-					options = [ {number: grGame.u_number_exercise_run_away.getDisplayValue()}];
-					data.widget = $sp.getWidget("gs_main_exercise_true_false", options[0]);
-					data.mainInfo.display = "Eins steht fest. Der smarteste Hirsch im Stall ist " + data.mainInfo.playeronturn + " definitv nicht. Jetzt schauen wie flink der Hirsch ist"
-				}
-				else {
-					// ##################### PUNISHMENT ###############################################
-					data.mainInfo.displayToMe = "ok das war ne miese Runde lol";					
-					var grPunish = new GlideRecord('x_166119_gsnow_punishment');
-					var punish = "";
-					grPunish.get('sys_id', input.monster.punish_id);
-
-					if(grPunish.u_typ.getDisplayValue() == 'Level'){
-						grPlayer.u_level -= grPunish.u_amount;
-						if(grPlayer.u_level < 1) grPlayer.u_level = 1;
-						grPlayer.update();
-						punish = grPunish.u_amount + " Stufe abgezogen.";
-					}
-					else if(grPunish.u_typ.getDisplayValue() == 'Attack'){
-						grPlayer.u_punishment_attack += grPunish.u_amount;		
-						grPlayer.update();
-						punish = grPunish.u_amount + " Punkte im Angriff abgezogen.";
-					}				
-					data.mainInfo.display = "Ok, " + data.mainInfo.playeronturn + " ist sehr smart und schnell ... NICHT. Das Monster gewonnen und " + punish;
-				}
-				data.mainInfo.phase = 50;
-				//GAMEPHASE
-			}
+		if(grPlayer.next() && grGame.u_turn == grPlayer.u_number){
+			data.turn = true;
+			data.mainInfo.playeronturn = grPlayer.u_user.getDisplayValue();
+			data.mainInfo.attack = grPlayer.u_attack.getDisplayValue();
 		}
 		// #####################################################################################
-		// ##################### SPELL OR TRAP: PUT IN AFFECTS ON ME ###########################
-		else if(input && input.immediateCardName != ""){
-			//			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
-			var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-			grDeck4.addQuery('game', grGame.sys_id);
-			grDeck4.addQuery('card.u_name', input.immediateCardName);
-			grDeck4.query();
-
-			var grEffectOnMe = new GlideRecord('x_166119_gsnow_m2m_players_cards');
-
-			if(grDeck4.next()){
-				//				gs.addInfoMessage("grDeck4.next():");
-				grEffectOnMe.initialize();
-				grEffectOnMe.u_game = grGame.sys_id;
-				grEffectOnMe.card = grDeck4.card.sys_id;
-				grEffectOnMe.player = grPlayer.sys_id;
-				grEffectOnMe.u_playing_field = '40';
-				grEffectOnMe.insert();
-
-				grPlayer.u_effects += grDeck4.card.u_effect;
-				grPlayer.update();
-			}
-			if(grDeck4.card.u_card_type.getDisplayValue() == 'Trap'){
-				data.mainInfo.display = "Die Falle schwächt " + data.mainInfo.playeronturn + "s Angriff um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden";
-				data.mainInfo.displayToMe = "Naja es hätte schlimmer kommen können, zumindest is heute nicht Montag"; 
-			}
-			else {
-				data.mainInfo.display = "Miese " + data.mainInfo.playeronturn + "s Angriff wird um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden verstärkt. Wetten du ziehst gleich du ne Falle";
-				data.mainInfo.displayToMe = "Ok chillige Runde. Lieber einen stabilen Zauber in der Hand statt eine Falle auf dem Dach"; 
-			}
-			data.mainInfo.phase = 50;
-			//GAMEPHASE
+		// ##################### SET PHASE  ####################################################
+		if(input && data.turn && !input.recordWatch){
+			data.mainInfo.phase = input.mainInfo.phase;
+			grGame.u_phase = data.mainInfo.phase;
+			grGame.update();
+			//		gs.addInfoMessage("1: Get Phase 1: " + data.mainInfo.phase);
 		}
-		// ##################### END PHASE 40  ################################################
-		data.mytext= "Beende deinen Zug!";
-		grGame.u_main_text = data.mainInfo.display;
-		grGame.update();
+		else if(!input && data.turn){
+			grGame.u_phase = 0;
+			grGame.update();
+			data.mainInfo.phase = 0;
+			//		gs.addInfoMessage("1: Get Phase 2: " + data.mainInfo.phase);
+		}
+		else if(input && !data.turn){
+			data.mainInfo.phase = grGame.u_phase.getDisplayValue();
+			//		gs.addInfoMessage("1: Get Phase 3: " + data.mainInfo.phase);
+		}
+		else{
+			data.mainInfo.phase = grGame.u_phase.getDisplayValue();
+			//		gs.addInfoMessage("1: Get Phase 4: " + data.mainInfo.phase);
+		}
+
+		// Set Default Display
+		data.mainInfo.display = "Spieler " + grGame.u_turn.getDisplayValue() + " ist an der Reihe und ist dabei eine Türkarte zu ziehen";
+
+		// #####################################################################################
+		// ##################### PHASE 0: SHOW DRAW CARD #######################################
+		if(data.turn && data.mainInfo.phase == 0){
+			//		data.mainInfo.display = "OK ZIEHEN.. WIR ES DURCH";
+			data.mytext = "Ziehe eine Türkarte!"
+		} 
+		// #####################################################################################
+		// ##################### PHASE 10: GET NEXT DOOR CARD IN DECK ##########################
+		else if(data.turn && data.mainInfo.phase == 10){
+			//		gs.addInfoMessage("3: Phase 1 ");
+
+			var grDeck2 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+			grDeck2.addQuery('game', grGame.sys_id);
+			grDeck2.addQuery('u_deck', 'true');
+			grDeck2.addQuery('card.u_deck_type', '20');
+			grDeck2.orderBy('u_card_number');
+			grDeck2.chooseWindow(0, 1);
+			grDeck2.query();
+
+			grGame.u_number_door_cards -= 1;
+			grGame.update();
+
+			if(grDeck2.next()){
+				grDeck2.u_deck = false;
+				grDeck2.update();
+				//			gs.addInfoMessage("Debug 2: " + grDeck2.card.u_name.getDisplayValue());
+				if(grDeck2.card.u_card_type.getDisplayValue() == 'Monster' ){
+					// ##################### DRAW A MONSTER ##############################################
+					data.mytext= "Ein Monster, EIN MONSTER";
+					data.monsterCard = {
+						"name": grDeck2.card.u_name.getDisplayValue(),
+						"image": grDeck2.card.u_image.getDisplayValue(),
+						"level": grDeck2.card.u_level.getDisplayValue(),
+						"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
+						"reward_treasure": grDeck2.card.u_reward_treasure.getDisplayValue(),
+						"reward_level": grDeck2.card.u_reward_level.getDisplayValue(),
+						"short_description": grDeck2.card.u_short_description.getDisplayValue(),
+						"exercise": grDeck2.card.u_exercise.getDisplayValue(),
+						"exercisetype": grDeck2.card.u_exercise.u_type.getDisplayValue(),
+						"punish_sys_id": grDeck2.card.u_punishment.sys_id.getDisplayValue(),
+						"punish_description": grDeck2.card.u_punishment.u_description.getDisplayValue()				
+					}
+					//				gs.addInfoMessage("SERVER: " + data.monsterCard.exercise);
+					data.mainInfo.display = data.mainInfo.playeronturn + " hat eine Monsterkarte gezogen: " + data.monsterCard.name;
+					data.mainInfo.displayToMe = "Bist du ein WOLF oder ein Schaaf, kämpfe!";
+				}
+				// ##################### DRAW TRAP OR SPELL ###########################################
+				else{
+					data.immediateCard = {
+						"name": grDeck2.card.u_name.getDisplayValue(),
+						"cardtype": grDeck2.card.u_card_type.getDisplayValue(),
+						"image": grDeck2.card.u_image.getDisplayValue(),
+						"short_description": grDeck2.card.u_short_description.getDisplayValue(),
+						"effect": grDeck2.card.u_effect.getDisplayValue(),
+						"lifetime": grDeck2.card.u_lifetime.getDisplayValue()
+					}
+					data.mainInfo.display = data.mainInfo.playeronturn + " hat " + data.immediateCard.name + " gezogen!";
+					data.mainInfo.displayToMe = grDeck2.card.u_card_type.getDisplayValue() + " wirkt jetzt auf dich!"; 
+				}
+			}
+			// ##################### END PHASE 10 ###########################################
+			grGame.u_main_text = data.mainInfo.display;
+			grGame.update();
+		}
+		// #####################################################################################
+		// ##################### PHASE 20: GET EXERCISE FOR MONSTER ############################
+		else if(data.turn && data.mainInfo.phase == 20){
+			data.mytext= "Gewinn oder Stirbt! Möge die Macht mit dir sein"; 
+			data.mainInfo.display = data.mainInfo.playeronturn + " kämpft gegen " + input.monsterCard.name;
+			grGame.u_main_text = data.mainInfo.display;
+			grGame.update();
+			data.monsterCard.exercise = input.monsterCard.exercise;
+			data.monsterCard.exercisetype = input.monsterCard.exercisetype;
+			// !!!!!! QUIZ !!!!!!!!
+			options = [ {number: data.monsterCard.exercise}];
+			data.widget = $sp.getWidget("gs_main_exercise_quiz", options[0]);
+		}
+		// #####################################################################################
+		// ##################### PHASE 40: EVALUATION #########################################
+		else if(data.turn && data.mainInfo.phase == 40){
+			if(input && input.monster.monster){
+
+				// ##################### MONSTER #######################################################	
+				if(input.monster.win){
+					grPlayer.u_level += parseInt(input.reward_level);
+					grPlayer.update();
+
+					var grDeck3 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+					grDeck3.addQuery('game', grGame.sys_id);
+					grDeck3.addQuery('u_deck', 'true');
+					grDeck3.addQuery('card.u_deck_type', '10');
+					grDeck3.orderBy('u_card_number');
+					grDeck3.chooseWindow(0, parseInt(input.reward_treasure));
+					grDeck3.query();
+
+					var grHand = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+
+					while(grDeck3.next()){
+						grHand.initialize();
+						grHand.u_game = grGame.sys_id;
+						grHand.card = grDeck3.card.sys_id;
+						grHand.player = grPlayer.sys_id;
+						grHand.insert();
+						grDeck3.u_deck = false;
+						grDeck3.update();
+						grGame.u_number_treasure_cards	 -= 1;
+						grGame.update();					
+					}
+
+					if(grGame.u_victory_level <= grPlayer.u_level){
+						// ##################### LOSE VS MONSTER ###############################################
+						data.mainInfo.phase = 60;
+						grGame.u_phase = data.mainInfo.phase;
+						grGame.u_state = '60';
+						grGame.u_sieger = gs.getUserID();		
+						grGame.update();
+						
+						data.mytext= "GAME OVER";
+						data.mainInfo.display = data.mainInfo.playeronturn + " ist der neue Champion, meine Freunde! GG";
+						data.mainInfo.displayToMe = "Gratuliere Boss! Du bist ein waschechter Champion!"; 
+					}
+					else{
+						data.mainInfo.phase = 50;
+						//GAMEPHASE
+						data.mainInfo.display = data.mainInfo.playeronturn + " hat seinen Kampf gewonnen. Er ist " + input.reward_level + " aufgestiegen und hat " + input.reward_treasure + " neue Schatzkarten.";
+						data.mainInfo.displayToMe = "Gratuliere Boss! Du bist " + input.reward_level + " Level aufgestiegen und hast " + input.reward_treasure + " neue Schatzkarten."; 
+					}
+
+				}
+				// ##################### LOSE VS MONSTER ###############################################
+				else{
+					if(input.monster.runaway){
+						// ##################### GET TRUE OR FASE WIDGET ###################################
+						//					gs.addInfoMessage("11111111 VERLOREN: " + input.monster.runaway);
+						data.mainInfo.phase = 35;
+						options = [ {number: grGame.u_number_exercise_run_away.getDisplayValue()}];
+						data.widget = $sp.getWidget("gs_main_exercise_true_false", options[0]);
+						data.mainInfo.display = "Eins steht fest. Der smarteste Hirsch im Stall ist " + data.mainInfo.playeronturn + " definitv nicht. Jetzt schauen wie flink der Hirsch ist"
+					}
+					else {
+						// ##################### PUNISHMENT ###############################################
+						data.mainInfo.displayToMe = "ok das war ne miese Runde lol";					
+						var grPunish = new GlideRecord('x_166119_gsnow_punishment');
+						var punish = "";
+						grPunish.get('sys_id', input.monster.punish_id);
+
+						if(grPunish.u_typ.getDisplayValue() == 'Level'){
+							grPlayer.u_level -= grPunish.u_amount;
+							if(grPlayer.u_level < 1) grPlayer.u_level = 1;
+							grPlayer.update();
+							punish = grPunish.u_amount + " Stufe abgezogen.";
+						}
+						else if(grPunish.u_typ.getDisplayValue() == 'Attack'){
+							grPlayer.u_punishment_attack += grPunish.u_amount;		
+							grPlayer.update();
+							punish = grPunish.u_amount + " Punkte im Angriff abgezogen.";
+						}				
+						data.mainInfo.display = "Ok, " + data.mainInfo.playeronturn + " ist sehr smart und schnell ... NICHT. Das Monster gewonnen und " + punish;
+					}
+					data.mainInfo.phase = 50;
+					//GAMEPHASE
+				}
+			}
+			// #####################################################################################
+			// ##################### SPELL OR TRAP: PUT IN AFFECTS ON ME ###########################
+			else if(input && input.immediateCardName != ""){
+				//			gs.addInfoMessage("PHASE FOUR: falle oder zauber:" + input.immediateCardName);
+				var grDeck4 = new GlideRecord('x_166119_gsnow_m2m_cards_games');
+				grDeck4.addQuery('game', grGame.sys_id);
+				grDeck4.addQuery('card.u_name', input.immediateCardName);
+				grDeck4.query();
+
+				var grEffectOnMe = new GlideRecord('x_166119_gsnow_m2m_players_cards');
+
+				if(grDeck4.next()){
+					//				gs.addInfoMessage("grDeck4.next():");
+					grEffectOnMe.initialize();
+					grEffectOnMe.u_game = grGame.sys_id;
+					grEffectOnMe.card = grDeck4.card.sys_id;
+					grEffectOnMe.player = grPlayer.sys_id;
+					grEffectOnMe.u_remain_lifetime = grDeck4.card.u_lifetime;
+					grEffectOnMe.u_playing_field = '40';
+					grEffectOnMe.insert();
+
+					grPlayer.u_effects += grDeck4.card.u_effect;
+					grPlayer.update();
+				}
+				if(grDeck4.card.u_card_type.getDisplayValue() == 'Trap'){
+					data.mainInfo.display = "Die Falle schwächt " + data.mainInfo.playeronturn + "s Angriff um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden";
+					data.mainInfo.displayToMe = "Naja es hätte schlimmer kommen können, zumindest is heute nicht Montag"; 
+				}
+				else {
+					data.mainInfo.display = "Miese " + data.mainInfo.playeronturn + "s Angriff wird um " + grDeck4.card.u_effect.getDisplayValue() + " für " + grDeck4.card.u_lifetime.getDisplayValue() + " Runden verstärkt. Wetten du ziehst gleich du ne Falle";
+					data.mainInfo.displayToMe = "Ok chillige Runde. Lieber einen stabilen Zauber in der Hand statt eine Falle auf dem Dach"; 
+				}
+				data.mainInfo.phase = 50;
+				//GAMEPHASE
+			}
+			// ##################### END PHASE 40  ################################################
+
+			if(grPlayer.u_level < grGame.u_victory_level){
+				data.mytext= "Beende deinen Zug!";
+			}
+			grGame.u_main_text = data.mainInfo.display;
+			grGame.update();
+		}
+		// #####################################################################################
+		// ##################### SETTINGS FOR WAITING PLAYER ###################################
+		else if(!data.turn && data.mainInfo.phase > 0){
+			//		gs.addInfoMessage("4: Else  " + data.turn );
+			data.mainInfo.display = grGame.u_main_text.getDisplayValue();
+		}
 	}
-	// #####################################################################################
-	// ##################### SETTINGS FOR WAITING PLAYER ###################################
-	else if(!data.turn && data.mainInfo.phase > 0){
-		//		gs.addInfoMessage("4: Else  " + data.turn );
-		data.mainInfo.display = grGame.u_main_text.getDisplayValue();
+	else{
+		data.mainInfo.phase = 60;
+		data.mytext = "GAME OVER";
+		data.mainInfo.display = grGame.u_sieger.getDisplayValue() + " ist der neue Champion, meine Freunde! GG";
+		data.mainInfo.displayToMe = grGame.u_sieger.getDisplayValue() + " ist der neue Champion, meine Freunde! GG";		
 	}
+
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -773,7 +832,7 @@ input[type=checkbox], input[type=radio] {
         <sys_created_on>2018-01-03 17:01:28</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>c1364af74fd303009827c4b18110c779</sys_id>
-        <sys_mod_count>671</sys_mod_count>
+        <sys_mod_count>691</sys_mod_count>
         <sys_name>GS Main</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -781,7 +840,7 @@ input[type=checkbox], input[type=radio] {
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_c1364af74fd303009827c4b18110c779</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-04 15:02:39</sys_updated_on>
+        <sys_updated_on>2018-02-14 17:40:41</sys_updated_on>
         <template><![CDATA[<div class="main">
   <div class="questionsBox">
 
@@ -789,6 +848,11 @@ input[type=checkbox], input[type=radio] {
       <h3>{{c.data.mytext}}</h3>
       <p ng-if="!myTurn()">{{c.data.mainInfo.display}}</p>
       <p ng-if="myTurn()">{{c.data.mainInfo.displayToMe}}</p>
+      <div ng-if="!myTurn()" class="btn btn-default" ng-click="refresh()">
+        <div class="boxTitle">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
 
 
@@ -842,8 +906,8 @@ input[type=checkbox], input[type=radio] {
         <a class="button" ng-click="failRunAway()">{{c.data.alert.btnText}}</a>
       </div>
     </div>
-    
-     <div ng-if="showPhase(50)">
+
+    <div ng-if="showPhase(50)">
       <div class="alert + {{c.data.alert.style}}" role="alert">
         <h4 class="alert-heading">{{c.data.alert.heading}}</h4>
         <p>{{c.data.alert.textLine1}}</p>
@@ -854,6 +918,14 @@ input[type=checkbox], input[type=radio] {
       </div>
     </div>
 
+    <div ng-if="showPhase(60)">
+      <div>
+        <img class="img" src="champion.jpg" alt="Smiley face">
+      </div>
+      <div class="questionsRow" ng-click="">
+        <a class="button" ng-click="returnHome()">Home</a>
+      </div>
+    </div>
   </div>
 </div>]]></template>
     </sp_widget>

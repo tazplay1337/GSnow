@@ -58,7 +58,6 @@
 	// Pick Random Exercise
 	var random = Math.floor(Math.random() * 9000).toFixed(0);
 	random = random % maxCards;
-	random = 1;
 	
 	var grExercise = new GlideRecord('x_166119_gsnow_exercise_true_or_false');
 	grExercise.chooseWindow(random, (random+1));
@@ -75,7 +74,7 @@
         <sys_created_on>2018-01-19 12:11:14</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>213d533c4f3303009827c4b18110c7b3</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>29</sys_mod_count>
         <sys_name>GS Main Exercise True False</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -83,7 +82,7 @@
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_213d533c4f3303009827c4b18110c7b3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-10 17:29:45</sys_updated_on>
+        <sys_updated_on>2018-02-14 13:32:53</sys_updated_on>
         <template><![CDATA[<div>
   <ul class="answerList">
     <li>

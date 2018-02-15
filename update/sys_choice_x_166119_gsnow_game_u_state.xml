@@ -96,6 +96,25 @@
             <sys_updated_on>2017-12-27 22:05:12</sys_updated_on>
             <value>50</value>
         </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_state</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Game Over</label>
+            <language>en</language>
+            <name>x_166119_gsnow_game</name>
+            <sequence/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-02-14 16:58:21</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>3ae75a954fd013009827c4b18110c76b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-02-14 16:58:21</sys_updated_on>
+            <value>60</value>
+        </sys_choice>
         <sys_choice_set action="INSERT_OR_UPDATE">
             <element>u_state</element>
             <name>x_166119_gsnow_game</name>

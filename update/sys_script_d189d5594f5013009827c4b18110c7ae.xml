@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_166119_gsnow_m2m_players_cards</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_166119_gsnow_m2m_players_cards">u_playing_fieldCHANGESTO60^EQ<item endquery="false" field="u_playing_field" goto="false" newquery="false" operator="CHANGESTO" or="false" value="60"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Deposit Card</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	var grPlayer = new GlideRecord('x_166119_gsnow_player');
+	grPlayer.get('sys_id', current.player);
+
+	if(current.card.u_card_type == '20'){		//Equipment
+
+		if(current.card.u_position == '10'){
+			grPlayer.u_addition -= current.card.u_effect;
+			current.u_position = '0';
+		}
+		else if (current.card.u_position == '20'){
+			grPlayer.u_armor -= current.card.u_effect;
+			current.u_position = '0';
+		}
+		else if (current.card.u_position == '30'){
+			grPlayer.u_shoewear -= current.card.u_effect;
+			current.u_position = '0';
+		}
+		else if (current.card.u_position == '40'){
+			grPlayer.u_cape -= current.card.u_effect;
+			current.u_position = '0';
+		}
+		else if (current.card.u_position == '50'){
+			grPlayer.u_weapon -= current.card.u_effect;
+			current.u_position = '0';
+		}
+		else if (current.card.u_position == '60'){
+			grPlayer.u_headwear -= current.card.u_effect;
+			current.u_position = '0';
+		}
+	}
+	else{
+		grPlayer.u_effects -= current.card.u_effect;
+	}	
+	grPlayer.update();
+
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-14 12:25:55</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d189d5594f5013009827c4b18110c7ae</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Deposit Card</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
+        <sys_update_name>sys_script_d189d5594f5013009827c4b18110c7ae</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-14 13:51:52</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=d189d5594f5013009827c4b18110c7ae"/>
+</record_update>

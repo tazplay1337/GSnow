@@ -123,11 +123,11 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 		var grUsedCard = new GlideRecord('x_166119_gsnow_m2m_players_cards');
 		grUsedCard.get('sys_id', data.usedCard);
 
-		if(grUsedCard.card.u_card_type.getDisplayValue() == 'Equipment'){
+		if(grUsedCard.card.u_card_type == '20'){		//Equipment
 			grUsedCard.u_playing_field = '30';
 			grUsedCard.update();
 		}
-		else if(grUsedCard.card.u_card_type.getDisplayValue() == 'Item'){
+		else if(grUsedCard.card.u_card_type == '30'){		//Item
 			grUsedCard.u_playing_field = '40';
 			grUsedCard.update();
 		}
@@ -141,7 +141,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	grCards.query();
 
 	while(grCards.next()){		
-		if(grCards.u_playing_field == '20'){
+		if(grCards.u_playing_field == "20"){		//Hand
 			var postmp = "";
 			if(grCards.card.u_position){
 				postmp = grCards.card.u_position.getDisplayValue();
@@ -156,7 +156,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 			};
 			data.hands.push(hand);
 		}
-		else if(grCards.u_playing_field == '30'){
+		else if(grCards.u_playing_field == '30'){		//Personal Equipment
 			var equipment = {
 				name: grCards.card.u_name.getDisplayValue(),
 				pos: grCards.card.u_position.getDisplayValue(),
@@ -164,11 +164,11 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 			};
 			data.equipments.push(equipment);
 		}
-		else if(grCards.u_playing_field == '40'){
+		else if(grCards.u_playing_field == '40'){		//Affected Me Field
 			var effect = {
 				name: grCards.card.u_name.getDisplayValue(),
 				type: grCards.card.u_card_type.getDisplayValue(),
-				life: grCards.card.u_lifetime.getDisplayValue(),
+				life: (grCards.u_remain_lifetime + 1).toString(),
 				effect: grCards.card.u_effect.getDisplayValue()
 			};
 			data.effects.push(effect);
@@ -186,7 +186,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-02 11:54:01</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
-        <sys_mod_count>210</sys_mod_count>
+        <sys_mod_count>221</sys_mod_count>
         <sys_name>GS List Cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -194,7 +194,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-20 17:54:09</sys_updated_on>
+        <sys_updated_on>2018-02-14 12:11:41</sys_updated_on>
         <template><![CDATA[<!-- Nav tabs -->
 <div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
