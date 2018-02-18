@@ -126,26 +126,29 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	var gr = new GlideRecord('x_166119_gsnow_player');
 	gr.addQuery('u_game.number', data.gameID);
 	gr.query();
-	
-	var cnt = 0;
-	
+
+
+
 	// Trigger Business Rule "Calculate Attack"
 	gr.u_attack += 1;
 	gr.update();
 
+	var cnt = 0;
+	var class_tab = ""; 
 	while(gr.next()){
 		cnt += 1;
-		if(cnt < 2){
-			data.asd = gr.sys_id;
+		if(cnt == 1){
+			class_tab = "nav-link active";
 		}
 		else{
-			data.name2 = gr.sys_id;
+			class_tab = "nav-link";
 		}
 		var setting = {
 			user: gr.u_user.getDisplayValue(),
 			id: "player" + cnt,
 			href: "#player" + cnt,
 			tab: "player-tab" + cnt,
+			class_tab: class_tab,
 			state: gr.u_state.getDisplayValue(),
 			level: gr.u_level.getDisplayValue(),
 			attack: gr.u_attack.getDisplayValue(),
@@ -170,7 +173,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-01 20:45:31</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>6346a4174f1f03009827c4b18110c704</sys_id>
-        <sys_mod_count>203</sys_mod_count>
+        <sys_mod_count>212</sys_mod_count>
         <sys_name>GS Show Player Stats</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -178,11 +181,11 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_6346a4174f1f03009827c4b18110c704</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-10 15:54:01</sys_updated_on>
+        <sys_updated_on>2018-02-18 21:30:45</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" ng-repeat="settings in c.data.settings">
-      <a class="nav-link active" id={{::settings.tab}} data-toggle="tab" href={{::settings.href}} role="tab" aria-controls="home" aria-selected="true">{{::settings.user}}</a>
+      <a class={{::settings.class_tab}} id={{::settings.tab}} data-toggle="tab" href="{{::settings.href}}" role="tab" aria-controls="home" aria-selected="true">{{::settings.user}}</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"   role="tab" aria-controls="messages" aria-selected="false" ng-click="refresh()"><i class="fa fa-refresh" aria-hidden="true"></i></a>

@@ -4,10 +4,26 @@
         <client_script><![CDATA[function($rootScope, $scope, spUtil) {
 	var c = this;
 	c.data.useButtonEnabled = true;
+	c.data.selected = [];
 
-	$scope.useCard = function(hand) {
-		c.data.usedCard = hand.sysid;		
-		c.server.update();
+	var counter = 0;
+	c.data.hands.forEach(function(card) {
+		if(card.type == "Item"){
+			card.index = counter;
+			c.data.selected.push(card.selected_player);
+		}
+		counter += 1;
+	});
+
+	$scope.useCard = function(hand, selected_player) {		
+		if(hand.type == "Item" && selected_player == "Wähle Spieler"){
+			alert("Bitte Wähle einen Spieler aus, auf den du diesen Effekt wirken möchtest!");
+		}
+		else{
+			c.data.usedCard = hand.sysid;		
+			c.data.usedPlayer = selected_player;
+			c.server.update();
+		}
 	}
 
 	$scope.refresh = function() {
@@ -42,6 +58,24 @@
 			return true;
 		}
 	}
+
+	$scope.select = function(index, selected_player, player) {
+		c.data.selected[index] = player;
+		selected_player = player;
+	}
+
+	$scope.remove = function(index) {
+		c.data.selected[index] = "Wähle Spieler";
+	}
+
+	$scope.showButton = function(button_typ_advanced) {
+		if(button_typ_advanced){
+			return true;
+		}
+		else{
+			return false;
+		}
+	} 
 }	]]></client_script>
         <controller_as>c</controller_as>
         <css>.panel {
@@ -79,6 +113,18 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
     border-radius: 0;
 }
 
+//ng-if="showButton(hand.button_typ_advanced)"
+
+/*
+.btn{
+
+}
+
+.btn-primary {
+}
+
+
+/*
 .btn {
   display: flex;
   flex-direction: column;
@@ -90,12 +136,12 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
   margin: 2px
 }
 
-.btn-primary {
-}
+
 
 .btn-scroll {
   width: 35px;
-}</css>
+}
+*/</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -112,11 +158,31 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <script><![CDATA[(function() {
 	// Get gameID from URL
 	data.gameID = $sp.getParameter("gameID");
-
+	data.players = [];
 	data.hands = [];
 	data.equipments = [];
 	data.effects = [];
 	data.usedCard = "";
+	data.usedPlayer = "";
+
+
+	var name_long = "";
+	var name_short = "";
+	var player_sysid = "";
+	
+	var grPlayer = new GlideRecord('x_166119_gsnow_player');
+	grPlayer.addQuery('u_game.number', data.gameID);
+	grPlayer.query();
+
+	while(grPlayer.next()){
+		name_long = grPlayer.u_user.getDisplayValue();
+		name_short = getNameShort(name_long);
+		data.players.push(name_short);
+
+		if(input && input.usedPlayer == name_short){
+			player_sysid = grPlayer.sys_id.getDisplayValue();			
+		}
+	}
 
 	if(input && input.usedCard){
 		data.usedCard = input.usedCard;
@@ -127,8 +193,10 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 			grUsedCard.u_playing_field = '30';
 			grUsedCard.update();
 		}
-		else if(grUsedCard.card.u_card_type == '30'){		//Item
+		else if(grUsedCard.card.u_card_type == '30' && input.usedPlayer){		//Item
 			grUsedCard.u_playing_field = '40';
+			grUsedCard.player = player_sysid;
+			grUsedCard.u_remain_lifetime = grUsedCard.card.u_lifetime;
 			grUsedCard.update();
 		}
 	}
@@ -140,23 +208,38 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 	grCards.addQuery('u_position', '!=', '0');
 	grCards.query();
 
-	while(grCards.next()){		
-		if(grCards.u_playing_field == "20"){		//Hand
-			var postmp = "";
-			if(grCards.card.u_position){
-				postmp = grCards.card.u_position.getDisplayValue();
+	while(grCards.next()){
+		// #################################################################################
+		// ############### Hand Cards ######################################################
+		// #################################################################################
+		if(grCards.u_playing_field == "20"){
+			var selected_player = "Wähle Spieler";
+			var button_typ_advanced = true;
+			var pos = "";
+
+			if(grCards.card.u_card_type == "20"){
+				pos = grCards.card.u_position.getDisplayValue();
+				button_typ_advanced = false;
+				selected_player = getNameShort(gs.getUserDisplayName());
 			}
+
 			var hand = {
 				name: grCards.card.u_name.getDisplayValue(),
 				sysid: grCards.sys_id.getDisplayValue(),
-				pos: postmp,
+				pos: pos,
 				type: grCards.card.u_card_type.getDisplayValue(),
 				effect: grCards.card.u_effect.getDisplayValue(),
-				use: false
+				selected_player: selected_player,
+				index: 0,
+				button_typ_advanced: button_typ_advanced
 			};
 			data.hands.push(hand);
-		}
-		else if(grCards.u_playing_field == '30'){		//Personal Equipment
+		}	
+
+		// #################################################################################
+		// ############### Personal Equipment ##############################################
+		// #################################################################################
+		else if(grCards.u_playing_field == '30'){
 			var equipment = {
 				name: grCards.card.u_name.getDisplayValue(),
 				pos: grCards.card.u_position.getDisplayValue(),
@@ -164,6 +247,9 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 			};
 			data.equipments.push(equipment);
 		}
+		// #################################################################################
+		// ############### Affected Me Field ###############################################
+		// #################################################################################
 		else if(grCards.u_playing_field == '40'){		//Affected Me Field
 			var effect = {
 				name: grCards.card.u_name.getDisplayValue(),
@@ -179,6 +265,12 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
 		gs.addInfoMessage("Meine Kartenanzeige aufgefrischt");
 	}
 })();
+
+function getNameShort(name_long){
+	name_long = name_long.split(" ");
+	var name_short = name_long[0] + " " + name_long[1][0] + ".";
+	return name_short;
+}
 ]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
@@ -186,7 +278,7 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_created_on>2018-01-02 11:54:01</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_id>ef36f7934f9343009827c4b18110c7fe</sys_id>
-        <sys_mod_count>221</sys_mod_count>
+        <sys_mod_count>386</sys_mod_count>
         <sys_name>GS List Cards</sys_name>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
@@ -194,11 +286,11 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
         <sys_update_name>sp_widget_ef36f7934f9343009827c4b18110c7fe</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-02-14 12:11:41</sys_updated_on>
+        <sys_updated_on>2018-02-18 23:27:52</sys_updated_on>
         <template><![CDATA[<!-- Nav tabs -->
 <div class="panel panel-primary">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link active" id="hand-tab" data-toggle="tab" href="#hand" role="tab" aria-controls="home" aria-selected="true">Handkarten ({{c.data.hands.length}})</a>
     </li>
     <li class="nav-item">
@@ -225,10 +317,10 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                 <li class="list-group-item list-group-body">
                   <div class="row">
                     <div class="col-xs-3 text-left">Name</div>
-                    <div class="col-xs-3">Kartentyp</div>
+                    <div class="col-xs-2">Typ</div>
                     <div class="col-xs-2">Position</div>
-                    <div class="col-xs-2">Effekt</div>
-                    <div class="col-xs-2"></div>
+                    <div class="col-xs-1">+</div>
+                    <div class="col-xs-4">Einsetzen Auf</div>
                   </div>
                 </li>
               </ul>
@@ -237,18 +329,29 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
                 <li class="list-group-item" ng-repeat="hand in c.data.hands">
                   <div class="row">
                     <div class="col-xs-3 text-left" style=" "> <a>{{::hand.name}} </a></div>
-                    <div class="col-xs-3" style="">{{::hand.type}}</div>
+                    <div class="col-xs-2" style="">{{::hand.type}}</div>
                     <div class="col-xs-2" style="">{{::hand.pos}}</div>
-                    <div class="col-xs-2" style="">{{::hand.effect}}</div>
-                    <div class="col-xs-2" style="">
-                      <div class="btn btn-primary btn-scroll" ng-click="useCard(hand)" ng-disabled="checkPhase()">
-                        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <div class="col-xs-1" style="">{{::hand.effect}}</div>
+                    <div class="col-xs-4" style="">
+                      <!--   {{c.data.selected[hand.index]}}                   <div class="btn btn-primary btn-scroll" ng-click="useCard(hand)" ng-disabled="checkPhase()"> {{c.data.selected[hand.index}}-->
+                      <div class="btn-group" ng-if="showButton(hand.button_typ_advanced)">
+                        <a class="btn btn-primary" ng-disabled="checkPhase()" ng-click="useCard(hand, c.data.selected[hand.index])" style="color: white; min-width: 110px;" href=javascript:void(0)><i class=""></i>{{c.data.selected[hand.index]}}</a>
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" ng-disabled="checkPhase()" href="javascript:void(0)" style="color: white">
+                          <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                        </a>    
+                        <ul class="dropdown-menu">
+                          <li><a href="javascript:void(0)"  ng-click="remove(hand.index)" style="color: #8b8989"><i class="fa fa-trash-o fa-fw"></i>Entfernen</a></li>
+                          <li class="divider"></li>
+                          <li ng-repeat="player in c.data.players | orderBy" ><a href="javascript:void(0)"  ng-click="select(hand.index, hand.selected_player, player)"><i class="fa fa-user fa-fw"></i>{{player}}</a></li>
+                        </ul>
+                      </div>
+                      <div class="btn-group" ng-if="!showButton(hand.button_typ_advanced)">
+                        <button type="button" ng-click="useCard(hand)" class="btn btn-primary" ng-disabled="checkPhase()" style="min-width: 135px; height: 32px;">{{::hand.selected_player}}</button>
                       </div>
                     </div>
                   </div>
                 </li>
               </ul>
-
             </div>
           </div>
         </div>
@@ -313,6 +416,14 @@ font-family:"Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans un
       </div>
     </div>
   </div>
-</div>]]></template>
+</div>
+
+
+<!--
+<div class="btn btn-primary btn-scroll" ng-click="useCard(hand)" ng-disabled="checkPhase()">
+<span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+</div>
+-->
+]]></template>
     </sp_widget>
 </record_update>
