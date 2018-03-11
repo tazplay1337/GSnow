@@ -5,13 +5,13 @@
             <element>u_question</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-19 11:52:36</sys_created_on>
-            <sys_id>7cf81fb84f3303009827c4b18110c7a0</sys_id>
+            <sys_created_on>2018-03-09 15:00:35</sys_created_on>
+            <sys_id>c8e990744ff013009827c4b18110c765</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_exercise_true_or_false" sys_domain="global" view="Default view">2cf857784f3303009827c4b18110c786</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-19 11:52:36</sys_updated_on>
+            <sys_updated_on>2018-03-09 15:00:35</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -19,13 +19,27 @@
             <element>u_answer</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-01-19 11:52:36</sys_created_on>
-            <sys_id>74f81fb84f3303009827c4b18110c7a1</sys_id>
+            <sys_created_on>2018-03-09 15:00:35</sys_created_on>
+            <sys_id>80e990744ff013009827c4b18110c766</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_exercise_true_or_false" sys_domain="global" view="Default view">2cf857784f3303009827c4b18110c786</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-01-19 11:52:36</sys_updated_on>
+            <sys_updated_on>2018-03-09 15:00:35</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_dungeon</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-03-09 15:00:35</sys_created_on>
+            <sys_id>04e990744ff013009827c4b18110c766</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_166119_gsnow_exercise_true_or_false" sys_domain="global" view="Default view">2cf857784f3303009827c4b18110c786</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-03-09 15:00:35</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
