@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update sys_domain="global" table="sys_script">
     <sys_script action="INSERT_OR_UPDATE">
-        <abort_action>false</abort_action>
+        <abort_action>true</abort_action>
         <access>package_private</access>
         <action_delete>false</action_delete>
-        <action_insert>false</action_insert>
+        <action_insert>true</action_insert>
         <action_query>false</action_query>
         <action_update>true</action_update>
-        <active>false</active>
+        <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
@@ -16,12 +16,12 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_166119_gsnow_player">u_attackVALCHANGES^EQ<item endquery="false" field="u_attack" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+        <filter_condition table="x_166119_gsnow_player">u_userISEMPTY^EQ<item endquery="false" field="u_user" goto="false" newquery="false" operator="ISEMPTY" or="false" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Delete All Game Cards</name>
+        <name>Abort Insert Empty for Empty Player</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -32,37 +32,28 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
 
-	gs.addInfoMessage("TEST");
-	
-	var gr = new GlideRecord('x_166119_gsnow_m2m_cards_games');
-	gr.deleteMultiple(); //Delete all the queried records
-	
-	var gr1 = new GlideRecord('x_166119_gsnow_m2m_players_cards');
-	gr1.deleteMultiple(); //Delete all the queried records
-	
-	var gr2 = new GlideRecord('x_166119_gsnow_player');
-	gr2.deleteMultiple(); //Delete all the queried records
-	
+	// Add your code here
+
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-01-01 17:41:46</sys_created_on>
+        <sys_created_on>2018-03-11 21:10:35</sys_created_on>
         <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>e70c3f0f4f9b03009827c4b18110c7bf</sys_id>
-        <sys_mod_count>13</sys_mod_count>
-        <sys_name>Delete All Game Cards</sys_name>
+        <sys_id>6c11c8a94fb013009827c4b18110c7d9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Abort Insert Empty for Empty Player</sys_name>
         <sys_overrides/>
         <sys_package display_value="GSnow" source="x_166119_gsnow">1f4727414f3203009827c4b18110c713</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="GSnow">1f4727414f3203009827c4b18110c713</sys_scope>
-        <sys_update_name>sys_script_e70c3f0f4f9b03009827c4b18110c7bf</sys_update_name>
+        <sys_update_name>sys_script_6c11c8a94fb013009827c4b18110c7d9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-11 21:38:08</sys_updated_on>
+        <sys_updated_on>2018-03-11 21:10:35</sys_updated_on>
         <template/>
-        <when>after</when>
+        <when>before</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=e70c3f0f4f9b03009827c4b18110c7bf"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=6c11c8a94fb013009827c4b18110c7d9"/>
 </record_update>
